@@ -1,0 +1,106 @@
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:paddingBottom="@dimen/activity_vertical_margin"
+    android:paddingLeft="@dimen/activity_horizontal_margin"
+    android:paddingRight="@dimen/activity_horizontal_margin"
+    android:paddingTop="@dimen/activity_vertical_margin"
+    tools:context="com.example.study_coordinator.WelcomeActivity" >
+
+    <TextView
+        android:id="@+id/tw1"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/welcome"
+        android:layout_marginBottom="30dp" 
+        android:textSize="18sp"/>
+    
+    <TextView
+        android:id="@+id/tw2"
+        android:layout_below="@id/tw1"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/login"
+        android:layout_marginBottom="25dp" 
+        android:textSize="16sp"
+        />
+    
+    <TextView
+        android:id="@+id/tw4"
+        android:layout_below="@id/tw2"                
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/username"
+        android:textSize="14sp"
+        android:layout_marginBottom="10dp"
+         
+        />
+    
+    <EditText 
+        android:id="@+id/et1"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"        
+        android:layout_below="@id/tw2"
+        android:layout_toRightOf="@id/tw4"
+        android:inputType="text"
+        android:textSize="14sp"     
+        android:layout_marginBottom="15dp"        
+        />
+    <TextView
+        android:id="@+id/tw5"
+        android:layout_below="@id/tw4"                
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/password"
+        android:textSize="14sp"
+         
+        />
+    
+    <EditText
+        android:id="@+id/et2"
+        android:layout_toRightOf="@id/tw5"
+        android:layout_below="@id/tw4"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"        
+        android:textSize="14sp"
+        android:ems="10"
+        android:inputType="textPassword" 
+        android:layout_marginBottom="15dp">
+
+        
+    </EditText>
+    
+    <Button 
+        android:id="@+id/btn1"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/login"
+        android:layout_centerHorizontal="true"
+        android:layout_below="@id/et2"
+        android:layout_marginBottom="15dp"
+        />
+    	
+    <TextView
+        android:id="@+id/tw3"
+        android:layout_below="@id/btn1"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/notRegistered"
+        android:textSize="16sp"
+        android:layout_marginBottom="15dp"
+        />
+    
+    <Button 
+        android:id="@+id/btn2"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/register"
+        android:layout_centerHorizontal="true"
+        android:layout_below="@id/tw3"
+        android:layout_marginBottom="15dp"
+        />
+
+    
+    
+</RelativeLayout>
