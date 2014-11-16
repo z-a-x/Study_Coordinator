@@ -1,9 +1,16 @@
 package com.example.study_coordinator;
 
+import com.example.study_coordinator.R.id;
+
+import android.app.ActionBar;
 import android.app.Activity;
+import android.graphics.Typeface;
 import android.os.Bundle;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.view.View;
+import android.widget.Button;
+import android.widget.TextView;
 
 public class WelcomeActivity extends Activity {
 
@@ -11,6 +18,21 @@ public class WelcomeActivity extends Activity {
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.activity_welcome);
+		
+
+		ActionBar actionBar = getActionBar();
+		actionBar.hide();
+		
+		Typeface custom_font = Typeface.createFromAsset(getAssets(), "fonts/Roboto/Roboto-Thin.ttf");
+		Button btn = (Button)findViewById(R.id.btnRegister);
+		btn.setTypeface(custom_font);
+		custom_font = Typeface.createFromAsset(getAssets(), "fonts/Roboto/Roboto-Medium.ttf");		
+	    Button btn2 = (Button)findViewById(R.id.btnSignIn);
+		btn2.setTypeface(custom_font);
+		
+		custom_font = Typeface.createFromAsset(getAssets(), "fonts/Roboto/Roboto-LightItalic.ttf");		
+		TextView tw1 = (TextView)findViewById(id.textViewTitle);
+		tw1.setTypeface(custom_font);
 	}
 
 	@Override
