@@ -81,6 +81,7 @@
         android:paddingLeft="10dp"
         android:textColor="@android:color/white"
         android:textColorHint="#FFFFFF"
-        android:textSize="20sp" />
+        android:textSize="20sp"
+         android:background="@drawable/userpass"/> />
 
 </RelativeLayout>

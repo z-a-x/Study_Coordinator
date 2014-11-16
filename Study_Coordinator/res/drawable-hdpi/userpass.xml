@@ -4,13 +4,9 @@
     >
     <item 
         android:state_pressed="true"
-        android:drawable="@android:drawable/edittext_pressed" 
-        /> <!-- pressed -->    
+        android:drawable="@color/opacity80"/>  <!-- pressed -->    
     <item 
         android:state_focused="true"
-        android:drawable="@drawable/edittext_focused_blue" 
-        /> <!-- focused -->    
-    <item 
-        android:drawable="@android:drawable/edittext_normal" 
-        /> <!-- default -->
+        android:drawable="@color/opacity60"/>  <!-- focused -->    
+    <item android:drawable="@color/opacity40"/><!-- default -->
 </selector>
