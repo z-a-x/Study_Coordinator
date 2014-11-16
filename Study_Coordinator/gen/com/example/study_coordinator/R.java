@@ -23,19 +23,21 @@ public final class R {
     }
     public static final class drawable {
         public static final int background=0x7f020000;
-        public static final int ic_launcher=0x7f020001;
+        public static final int email=0x7f020001;
+        public static final int ic_launcher=0x7f020002;
+        public static final int lock=0x7f020003;
+        public static final int singin=0x7f020004;
+        public static final int userpass=0x7f020005;
     }
     public static final class id {
-        public static final int action_settings=0x7f080009;
-        public static final int btn1=0x7f080006;
-        public static final int btn2=0x7f080008;
-        public static final int et1=0x7f080003;
-        public static final int et2=0x7f080005;
-        public static final int tw1=0x7f080000;
-        public static final int tw2=0x7f080001;
-        public static final int tw3=0x7f080007;
-        public static final int tw4=0x7f080002;
-        public static final int tw5=0x7f080004;
+        public static final int RelativeLayout1=0x7f080000;
+        public static final int View1=0x7f080004;
+        public static final int action_settings=0x7f080007;
+        public static final int btnRegister=0x7f080005;
+        public static final int btnSignIn=0x7f080002;
+        public static final int editTextEmail=0x7f080006;
+        public static final int editTextPass=0x7f080003;
+        public static final int textViewTitle=0x7f080001;
     }
     public static final class layout {
         public static final int activity_welcome=0x7f030000;
@@ -46,11 +48,11 @@ public final class R {
     public static final class string {
         public static final int action_settings=0x7f050003;
         public static final int app_name=0x7f050000;
+        public static final int email=0x7f050006;
         public static final int login=0x7f050004;
         public static final int notRegistered=0x7f050002;
         public static final int password=0x7f050007;
         public static final int register=0x7f050005;
-        public static final int username=0x7f050006;
         public static final int welcome=0x7f050001;
     }
     public static final class style {
