@@ -1,4 +1,4 @@
-package com.example.study_coordinator;
+package com.example.study_coordinator; 
 
 import com.example.study_coordinator.R.id;
 
