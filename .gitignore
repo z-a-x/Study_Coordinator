@@ -45,4 +45,6 @@ Temporary Items
 
 # This project specific
 Study_Coordinator/bin
+Study_Coordinator/gen
 
+Study_Coordinator/gen/com/example/study_coordinator/BuildConfig.java
