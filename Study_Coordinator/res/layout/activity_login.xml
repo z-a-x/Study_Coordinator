@@ -7,14 +7,14 @@
     android:layout_gravity="center_vertical"
     android:background="@drawable/background"
     android:orientation="vertical"
-    tools:context="com.example.study_coordinator.WelcomeActivity" >
+    tools:context="com.example.study_coordinator.login" >
 
     <TextView
         android:id="@+id/textViewTitle"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_centerHorizontal="true"
-        android:layout_marginTop="74dp"
+        android:layout_marginTop="75dp"
         android:text="@string/welcome"
         android:textColor="@android:color/white"
         android:textSize="35sp" />
@@ -28,7 +28,8 @@
         android:layout_marginTop="45dp"
         android:background="@drawable/singin"
         android:text="@string/login"
-        android:width="180dp" />
+        android:width="180dp"
+        android:onClick="signIn"/>
 
     <View
         android:id="@+id/View1"

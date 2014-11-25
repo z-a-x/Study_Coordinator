@@ -43,17 +43,17 @@ public final class R {
         public static final int userpass=0x7f02000b;
     }
     public static final class id {
-        public static final int RelativeLayout1=0x7f090003;
-        public static final int View1=0x7f090007;
+        public static final int RelativeLayout1=0x7f090000;
+        public static final int View1=0x7f090004;
         public static final int action_settings=0x7f090019;
-        public static final int btnRegister=0x7f090008;
-        public static final int btnSignIn=0x7f090005;
-        public static final int content_frame=0x7f090001;
+        public static final int btnRegister=0x7f090005;
+        public static final int btnSignIn=0x7f090002;
+        public static final int content_frame=0x7f090008;
         public static final int drawer_icon=0x7f09000b;
         public static final int drawer_itemName=0x7f09000c;
-        public static final int drawer_layout=0x7f090000;
-        public static final int editTextEmail=0x7f090009;
-        public static final int editTextPass=0x7f090006;
+        public static final int drawer_layout=0x7f090007;
+        public static final int editTextEmail=0x7f090006;
+        public static final int editTextPass=0x7f090003;
         public static final int frag_events_icon=0x7f09000d;
         public static final int frag_events_tv=0x7f09000e;
         public static final int frag_groups_icon=0x7f09000f;
@@ -67,12 +67,12 @@ public final class R {
         public static final int frag_settings_icon=0x7f090017;
         public static final int frag_settings_tv=0x7f090018;
         public static final int itemLayout=0x7f09000a;
-        public static final int left_drawer=0x7f090002;
-        public static final int textViewTitle=0x7f090004;
+        public static final int left_drawer=0x7f090009;
+        public static final int textViewTitle=0x7f090001;
     }
     public static final class layout {
-        public static final int activity_main=0x7f030000;
-        public static final int activity_welcome=0x7f030001;
+        public static final int activity_login=0x7f030000;
+        public static final int activity_main=0x7f030001;
         public static final int custom_drawer_item=0x7f030002;
         public static final int fragment_layout_events=0x7f030003;
         public static final int fragment_layout_groups=0x7f030004;
