@@ -19,6 +19,7 @@ public class FragmentGroups extends Fragment {
 	ImageView ivIcon;
     TextView tvItemName;
 	
+	@Override
 	public void onAttach(Activity activity){
 		super.onAttach(activity);
 		this.listener = (FragmentActivity) activity;
