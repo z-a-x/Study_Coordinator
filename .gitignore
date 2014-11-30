@@ -26,7 +26,8 @@ $RECYCLE.BIN/
 .LSOverride
 
 # Icon must end with two \r
-Icon
+Icon
+
 
 # Thumbnails
 ._*
@@ -44,3 +45,9 @@ Temporary Items
 
 # This project specific
 Study_Coordinator/bin
+Study_Coordinator/gen
+
+Study_Coordinator/gen/com/example/study_coordinator/BuildConfig.java
+Study_Coordinator/gen/com/example/study_coordinator/R.java
+Study_Coordinator/gen/com/example/study_coordinator/R.java
+Study_Coordinator/gen/com/example/study_coordinator/R.java
