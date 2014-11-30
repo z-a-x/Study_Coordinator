@@ -35,6 +35,10 @@
             android:name=".Drawer_listview_item_main"
             android:label="@string/title_activity_drawer_listview_item_main" >
         </activity>
+        <activity
+            android:name=".GroupActivity"
+            android:label="@string/title_activity_group" >
+        </activity>
     </application>
 	<uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE"></uses-permission>
  	<uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE"/>
