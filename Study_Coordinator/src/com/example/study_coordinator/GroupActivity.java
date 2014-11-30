@@ -4,6 +4,7 @@ import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
+import android.annotation.SuppressLint;
 import android.app.ActionBar.LayoutParams;
 import android.app.Activity;
 import android.os.Bundle;
@@ -54,11 +55,11 @@ public class GroupActivity extends Activity {
 	
 	private void createUserButtons(JSONObject groupsJsonObj) throws JSONException {
 		// TODO: Tu in v naslednji metodi bo namesto WelcomeActivity.class ustrezen activity.
-		createButtonsFromTable(groupsJsonObj, "user", "user_id", "user_name", WelcomeActivity.class, R.id.usersLayout);
+		createButtonsFromTable(groupsJsonObj, "user", "user_id", "user_name", Login.class, R.id.usersLayout);
 	}
 	
 	private void createEventButtons(JSONObject groupsJsonObj) throws JSONException {
-		createButtonsFromTable(groupsJsonObj, "event", "event_id", "event_name", WelcomeActivity.class, R.id.eventsLayout);
+		createButtonsFromTable(groupsJsonObj, "event", "event_id", "event_name", Login.class, R.id.eventsLayout);
 	}
 	
 	private void createButtonsFromTable(JSONObject groupsJsonObj, String tableName, 
@@ -73,9 +74,8 @@ public class GroupActivity extends Activity {
 	    }    
 	}
 	
-	private void createButton(String id, String name, Class<?> callsActivity, LinearLayout layout) {
-		LayoutParams lparams = new LayoutParams(
-				   LayoutParams.MATCH_PARENT, LayoutParams.WRAP_CONTENT);
+	@SuppressLint("NewApi") private void createButton(String id, String name, Class<?> callsActivity, LinearLayout layout) {
+		LayoutParams lparams = new LayoutParams(LayoutParams.MATCH_PARENT, LayoutParams.WRAP_CONTENT);
 		Button bt = new Button(this);
 		bt.setLayoutParams(lparams);
 		bt.setText(name);

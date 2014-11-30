@@ -31,13 +31,17 @@
                 <action android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
+		<activity
+            android:name=".GroupActivity"
+            android:label="@string/title_activity_group" >
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN" />
+                <action android:name="android.intent.category.LAUNCHER" />
+            </intent-filter>
+        </activity>
         <activity
             android:name=".Drawer_listview_item_main"
             android:label="@string/title_activity_drawer_listview_item_main" >
-        </activity>
-        <activity
-            android:name=".GroupActivity"
-            android:label="@string/title_activity_group" >
         </activity>
     </application>
 	<uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE"></uses-permission>
