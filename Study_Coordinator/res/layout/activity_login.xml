@@ -38,17 +38,6 @@
         android:layout_above="@+id/btnRegister"
         android:background="@android:color/darker_gray" />
 
-    <Button
-        android:id="@+id/btnRegister"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_alignParentBottom="true"
-        android:layout_centerHorizontal="true"
-        android:layout_marginBottom="20dp"
-        android:background="@android:color/transparent"
-        android:text="@string/notRegistered"
-        android:textColor="@android:color/white" />
-
     <EditText
         android:id="@+id/editTextEmail"
         android:layout_width="wrap_content"
@@ -83,6 +72,17 @@
         android:textColor="@android:color/white"
         android:textColorHint="#FFFFFF"
         android:textSize="20sp"
-         android:background="@drawable/userpass"/> />
+         android:background="@drawable/userpass"/>
+
+    <Button
+        android:id="@+id/btnRegister"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentBottom="true"
+        android:layout_centerHorizontal="true"
+        android:background="@android:color/transparent"
+        android:onClick="register"
+        android:text="@string/notRegistered"
+        android:textColor="@android:color/white" />
 
 </RelativeLayout>

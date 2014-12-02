@@ -1,0 +1,112 @@
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/RelativeLayout1"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:layout_gravity="center_vertical"
+    android:background="@drawable/background"
+    android:orientation="vertical"
+    tools:context="com.example.study_coordinator.Register" >
+
+    <TextView
+        android:id="@+id/textView1"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentTop="true"
+        android:layout_centerHorizontal="true"
+        android:layout_marginTop="80dp"
+        android:text="@string/registertext"
+        android:textAppearance="?android:attr/textAppearanceMedium"
+        android:textColor="@android:color/white" />
+
+    <EditText
+        android:id="@+id/editTextEmail"
+        android:layout_width="wrap_content"
+        android:layout_height="40dp"
+        android:layout_below="@+id/textView1"
+        android:layout_centerHorizontal="true"
+        android:layout_marginTop="35dp"
+        android:background="@drawable/userpass"
+        android:drawableLeft="@drawable/email"
+        android:drawablePadding="10dp"
+        android:ems="10"
+        android:height="40dp"
+        android:hint="@string/email"
+        android:inputType="text"
+        android:paddingLeft="10dp"
+        android:textColor="@android:color/white"
+        android:textColorHint="#FFFFFF"
+        android:textSize="20sp" >
+
+        <requestFocus />
+    </EditText>
+
+    <EditText
+        android:id="@+id/EditTextPass2"
+        android:layout_width="wrap_content"
+        android:layout_height="40dp"
+        android:layout_below="@+id/editTextPass"
+        android:layout_marginTop="20dp"
+        android:layout_centerHorizontal="true"
+        android:background="@drawable/userpass"
+        android:drawableLeft="@drawable/lock"
+        android:drawablePadding="10dp"
+        android:ems="10"
+        android:hint="@string/repeatpassword"
+        android:inputType="textPassword"
+        android:paddingLeft="10dp"
+        android:textColor="@android:color/white"
+        android:textColorHint="#FFFFFF"
+        android:textSize="20sp" />
+
+    <Button
+        android:id="@+id/btnRegister"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/EditTextPass2"
+		android:layout_centerHorizontal="true"
+        android:layout_marginTop="45dp"
+        android:background="@drawable/singin"
+        android:onClick="registerUser"
+        android:text="@string/register"
+        android:width="180dp" />
+
+    <Button
+        android:id="@+id/backLogin"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentBottom="true"
+        android:layout_centerHorizontal="true"
+        android:background="@android:color/transparent"
+        android:onClick="backLogin"
+        android:text="@string/backLogin"
+        android:textColor="@android:color/white" />
+
+    <View
+        android:id="@+id/View1"
+        android:layout_width="fill_parent"
+        android:layout_height="1dp"
+        android:layout_above="@+id/backLogin"
+        android:layout_centerHorizontal="true"
+        android:background="@android:color/darker_gray" />
+
+    <EditText
+        android:id="@+id/editTextPass"
+        android:layout_width="wrap_content"
+        android:layout_height="40dp"
+        android:layout_centerHorizontal="true"
+        android:layout_below="@+id/editTextEmail"
+        android:layout_marginLeft="15dp"
+        android:layout_marginTop="26dp"
+        android:background="@drawable/userpass"
+        android:drawableLeft="@drawable/lock"
+        android:drawablePadding="10dp"
+        android:ems="10"
+        android:hint="@string/password"
+        android:inputType="textPassword"
+        android:paddingLeft="10dp"
+        android:textColor="@android:color/white"
+        android:textColorHint="#FFFFFF"
+        android:textSize="20sp" />
+
+</RelativeLayout>

@@ -4,4 +4,6 @@
     <color name="opacity60">#60000000</color>
     <color name="opacity80">#80000000</color>
     <color name="opacity100">#99000000</color>
+    <color name="passwordMatch">#60b2ffb2</color>
+    <color name="passwordFalse">#60ffb2b2</color>
 </resources>

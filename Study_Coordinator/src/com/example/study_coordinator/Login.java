@@ -1,22 +1,12 @@
 package com.example.study_coordinator;
 
-import java.io.Console;
-import java.net.MalformedURLException;
-import java.net.URI;
-import java.net.URISyntaxException;
-import java.net.URL;
 import java.util.ArrayList;
 import java.util.List;
 
 import org.apache.http.NameValuePair;
-import org.apache.http.client.HttpClient;
-import org.apache.http.client.methods.HttpGet;
-import org.apache.http.impl.client.DefaultHttpClient;
 import org.apache.http.message.BasicNameValuePair;
 import org.json.JSONException;
 import org.json.JSONObject;
-
-import com.example.study_coordinator.R.id;
 
 import android.app.ActionBar;
 import android.app.Activity;
@@ -29,11 +19,12 @@ import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
-import android.view.View.OnClickListener;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.TextView;
 import android.widget.Toast;
+
+import com.example.study_coordinator.R.id;
 
 public class Login extends Activity {
 
@@ -93,6 +84,12 @@ public class Login extends Activity {
 		new AttemptLogin().execute();
 	}
 	
+	public void register(View v) {
+		Intent i = new Intent(this, Register.class);
+		startActivity(i);
+		this.overridePendingTransition(R.anim.slide_in_left,
+                R.anim.slide_in_right);
+	}
 	/*
 	
 	
