@@ -7,16 +7,22 @@ import org.json.JSONObject;
 import android.annotation.SuppressLint;
 import android.app.ActionBar.LayoutParams;
 import android.app.Activity;
+import android.app.Fragment;
+import android.app.FragmentTransaction;
 import android.os.Bundle;
+import android.view.LayoutInflater;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
+import android.view.ViewGroup;
+import android.view.View.OnClickListener;
 import android.widget.Button;
+import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 import android.content.Intent;
 
-public class GroupActivity extends Activity {
+public class FragmentGroup extends FragmentTemplate {
 
 	public static final String JSON_TEST_STRING = "{" +
 			"\"group_id\":\"123213\"," +
@@ -31,90 +37,84 @@ public class GroupActivity extends Activity {
 			"]" +
 		"}";
 
+	
 	@Override
-	protected void onCreate(Bundle savedInstanceState) {
-		super.onCreate(savedInstanceState);
-		setContentView(R.layout.activity_group);
-		
-		try {
+	protected void initialize() {
+  		try {
 			JSONObject groupsJsonObj = new JSONObject(JSON_TEST_STRING);
-			setGroupName(groupsJsonObj);
+			setTitle("Grupa "+id);
 			createUserButtons(groupsJsonObj);
 			createEventButtons(groupsJsonObj);
 		} catch (JSONException e) {
-			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
 	}
-	
-	private void setGroupName(JSONObject groupsJsonObj) throws JSONException {
-		String name = groupsJsonObj.getString("group_name");
-		TextView textView = (TextView) this.findViewById(R.id.textViewGroupName);
-		textView.setText(name);
-	}
-	
+
 	private void createUserButtons(JSONObject groupsJsonObj) throws JSONException {
-		// TODO: Tu in v naslednji metodi bo namesto WelcomeActivity.class ustrezen activity.
-		createButtonsFromTable(groupsJsonObj, "user", "user_id", "user_name", Login.class, R.id.usersLayout);
+		createButtonsFromTable(groupsJsonObj, "user", "user_id", "user_name", new FragmentProfilJure(), R.id.usersLayout);
 	}
 	
 	private void createEventButtons(JSONObject groupsJsonObj) throws JSONException {
-		createButtonsFromTable(groupsJsonObj, "event", "event_id", "event_name", Login.class, R.id.eventsLayout);
+		createButtonsFromTable(groupsJsonObj, "event", "event_id", "event_name", new FragmentEventJure(), R.id.eventsLayout);
 	}
 	
 	private void createButtonsFromTable(JSONObject groupsJsonObj, String tableName, 
-			String idColumn, String nameColumn, Class<?> callsActivity, int layoutId) throws JSONException {
-		LinearLayout layout = (LinearLayout) this.findViewById(layoutId);
+			String idColumn, String nameColumn, Fragment targetFragment, int layoutId) throws JSONException {
+		LinearLayout layout = (LinearLayout) getView().findViewById(layoutId);
 	    JSONArray rows = groupsJsonObj.getJSONArray(tableName);
 	    for(int i = 0 ; i < rows.length() ; i++){
 	        JSONObject row = (JSONObject) rows.get(i);
 	        String id = row.getString(idColumn); 
 	        String name = row.getString(nameColumn); 
-			createButton(id, name, callsActivity, layout);   
+			createButton(id, name, targetFragment, layout);   
 	    }    
 	}
 	
-	@SuppressLint("NewApi") private void createButton(String id, String name, Class<?> callsActivity, LinearLayout layout) {
+	@SuppressLint("NewApi") private void createButton(String id, String name, Fragment targetFragment, LinearLayout layout) {
 		LayoutParams lparams = new LayoutParams(LayoutParams.MATCH_PARENT, LayoutParams.WRAP_CONTENT);
-		Button bt = new Button(this);
+		Button bt = new Button(getActivity());
 		bt.setLayoutParams(lparams);
 		bt.setText(name);
-		UserButtonListener btLis = new UserButtonListener(id, this, callsActivity);
+		UserButtonListener btLis = new UserButtonListener(id, targetFragment);
 		bt.setOnClickListener(btLis);
 		layout.addView(bt);
 	}
 	
 	class UserButtonListener implements View.OnClickListener {
 		private String id;
-		GroupActivity groupActivity;
-		Class<?> callsActivity;
-		public UserButtonListener(String id, GroupActivity groupActivity, Class<?> callsActivity) { 
-			this.id = id; 
-			this.groupActivity = groupActivity;
-			this.callsActivity = callsActivity;
+		private Fragment fragment;
+		public UserButtonListener(String id, Fragment fragment) { 
+			this.id = id;
+			this.fragment = fragment;
 		}
 		@Override
 		public void onClick(View v) {
-			Intent intent = new Intent(groupActivity, callsActivity);
-			Bundle bundle = new Bundle(); 
-			bundle.putString("id", id);
-			intent.putExtras(bundle);
-			// TODO: Ko bosta user in event Activiti koncana, se ju bo tukaj klicalo.
-			//startActivity(intent);
+			openFragment(id, fragment);
 		}
 	}
+	
+    private void openFragment(String id, Fragment fragment) {
+	    FragmentTransaction transaction = getFragmentManager().beginTransaction();
+	    Bundle arguments = new Bundle();
+	    arguments.putString("id", id);
+	    fragment.setArguments(arguments);
+	    transaction.replace(R.id.content_frame, fragment);
+	    transaction.addToBackStack(null);
+	    transaction.commit(); 
+    }
 
+	
 	//#######################################
 	//############# B O I L E R #############
 	//#######################################
 	
-	@Override
-	public boolean onCreateOptionsMenu(Menu menu) {
-		// Inflate the menu; this adds items to the action bar if it is present.
-		getMenuInflater().inflate(R.menu.group, menu);
-		return true;
-	}
-	
+    @Override
+    public View onCreateView(LayoutInflater inflater, ViewGroup container,
+                Bundle savedInstanceState) {
+        View view = inflater.inflate(R.layout.fragment_layout_group, container, false);
+        return view;
+    }
+    
 	@Override
 	public boolean onOptionsItemSelected(MenuItem item) {
 		// Handle action bar item clicks here. The action bar will
@@ -126,4 +126,6 @@ public class GroupActivity extends Activity {
 		}
 		return super.onOptionsItemSelected(item);
 	}
+
+
 }
