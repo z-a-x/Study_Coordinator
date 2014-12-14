@@ -7,6 +7,7 @@ import android.graphics.Typeface;
 import android.os.Bundle;
 import android.text.Editable;
 import android.text.TextWatcher;
+import android.view.KeyEvent;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
@@ -84,5 +85,17 @@ public class Register extends Activity {
 			this.finish();
 			this.overridePendingTransition(R.anim.slide_in_left,
 	                R.anim.slide_in_right);
+		}
+		
+		public boolean onKeyDown(int keyCode, KeyEvent event) 
+		{
+		    if (keyCode == KeyEvent.KEYCODE_BACK ) {
+		    	
+		    	this.finish();
+				this.overridePendingTransition(R.anim.slide_in_left,
+		                R.anim.slide_in_right);
+		        return false;
+		    }     
+		    return super.onKeyDown(keyCode, event);    
 		}
 }

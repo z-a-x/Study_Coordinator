@@ -36,7 +36,8 @@ public class Login extends Activity {
 	private static JSONParser jsonParser = new JSONParser();
 	
 	// server url (local computer)
-	private static final String LOGIN_URL = "http://188.230.178.39:80/android_connect/login.php";
+	private static final String LOGIN_URL = "http://193.2.177.195:80/android_connect/login.php";
+	private static final String CHECK_LOGIN_URL = "http://193.2.177.195:80/android_connect/check_if_logged_in.php";
 	
 	//ids
 	private static final String TAG_SUCCESS = "success";
@@ -76,7 +77,7 @@ public class Login extends Activity {
 		//logIn.setOnClickListener((OnClickListener) this);
 		//register.setOnClickListener((OnClickListener) this);
 
-		
+//		new CheckLog().execute();
 
 	}
 	
@@ -87,10 +88,41 @@ public class Login extends Activity {
 	public void register(View v) {
 		Intent i = new Intent(this, Register.class);
 		startActivity(i);
-		this.overridePendingTransition(R.anim.slide_in_left,
-                R.anim.slide_in_right);
+		this.overridePendingTransition(R.anim.slide_right_to_left,
+                R.anim.slide_out_left);
+	}
+	
+	
+	class CheckLog extends AsyncTask<String, String, String> {
+	
+	
+	@Override
+	protected String doInBackground(String... params) {
+		// getting server login authorization by making HTTP request
+        JSONObject json = jsonParser.makeHttpRequest(CHECK_LOGIN_URL, "POST", new ArrayList<NameValuePair>());
+        Log.d("request!", "starting check");
+     // check your log for json response
+        Log.d("Login attempt", json.toString());
+
+        // json success tag
+        try{
+        int success = json.getInt(TAG_SUCCESS);
+	         if (success == 1) {
+	         	Log.d("Login Successful!", json.toString());
+	         	Intent i = new Intent(Login.this, MainActivity.class);
+	         	finish();
+				startActivity(i);
+	         }else{
+	         }
+        }
+        catch (Exception e) {
+			// TODO: handle exception
+		}
+		return null;
+	}
 	}
 	/*
+	
 	
 	
 	@Override
