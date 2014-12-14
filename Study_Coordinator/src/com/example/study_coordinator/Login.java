@@ -27,6 +27,8 @@ import android.widget.Toast;
 import com.example.study_coordinator.R.id;
 
 public class Login extends Activity {
+	
+	private static boolean DO_NOT_CHECK_LOGIN_DATA = true;
 
 	private Button logIn, register;
 	private EditText user, pass;
@@ -164,44 +166,56 @@ public class Login extends Activity {
 
 		@Override
 		protected String doInBackground(String... args) {
+			if (DO_NOT_CHECK_LOGIN_DATA) {
+				doNotCheckLoginData();
+				return null;
+			}
 			// TODO Auto-generated method stub
-			 // Check for success tag
-	       int success;
-	       String username = user.getText().toString();
-	       String password = pass.getText().toString();
-	       try {
-	           // Building Parameters
-	           List<NameValuePair> params = new ArrayList<NameValuePair>();
-	           params.add(new BasicNameValuePair("username", username));
-	           params.add(new BasicNameValuePair("password", password));
+			// Check for success tag
+			int success;
+			String username = user.getText().toString();
+			String password = pass.getText().toString();
+			try {
+				// Building Parameters
+				List<NameValuePair> params = new ArrayList<NameValuePair>();
+				params.add(new BasicNameValuePair("username", username));
+				params.add(new BasicNameValuePair("password", password));
 
-	           Log.d("request!", "starting");
-	           // getting server login authorization by making HTTP request
-	           JSONObject json = jsonParser.makeHttpRequest(LOGIN_URL, "POST", params);
+				Log.d("request!", "starting");
+				// getting server login authorization by making HTTP request
+				JSONObject json = jsonParser.makeHttpRequest(LOGIN_URL, "POST",
+						params);
 
-	           // check your log for json response
-	           Log.d("Login attempt", json.toString());
+				// check your log for json response
+				Log.d("Login attempt", json.toString());
 
-	           // json success tag
-	           success = json.getInt(TAG_SUCCESS);
-	           if (success == 1) {
-	           	Log.d("Login Successful!", json.toString());
-	           	Intent i = new Intent(Login.this, MainActivity.class);
-	           	finish();
-				startActivity(i);
-	           	return json.getString(TAG_MESSAGE);
-	           }else{
-	           	Log.d("Login Failure!", json.getString(TAG_MESSAGE));
-	           	return json.getString(TAG_MESSAGE);
+				// json success tag
+				success = json.getInt(TAG_SUCCESS);
+				if (success == 1) {
+					Log.d("Login Successful!", json.toString());
+					Intent i = new Intent(Login.this, MainActivity.class);
+					finish();
+					startActivity(i);
+					return json.getString(TAG_MESSAGE);
+				} else {
+					Log.d("Login Failure!", json.getString(TAG_MESSAGE));
+					return json.getString(TAG_MESSAGE);
 
-	           }
-	       } catch (JSONException e) {
-	           e.printStackTrace();
-	       }
+				}
+			} catch (JSONException e) {
+				e.printStackTrace();
+			}
 
-	       return null;
+			return null;
 
 		}
+		
+		private void doNotCheckLoginData() {
+           	Intent i = new Intent(Login.this, MainActivity.class);
+           	finish();
+			startActivity(i);
+		}
+		
 		/**
 	    * After completing background task Dismiss the progress dialog
 	    * **/

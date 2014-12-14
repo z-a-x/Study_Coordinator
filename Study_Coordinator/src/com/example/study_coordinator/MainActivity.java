@@ -1,5 +1,6 @@
 package com.example.study_coordinator;
 
+import java.lang.reflect.Field;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -43,6 +44,7 @@ public class MainActivity extends FragmentActivity {
 		dataList.add(new DrawerItem(getResources().getString(R.string.events), R.drawable.ic_action_events));
 		dataList.add(new DrawerItem(getResources().getString(R.string.profil), R.drawable.ic_action_person));
 		dataList.add(new DrawerItem(getResources().getString(R.string.settings), R.drawable.ic_action_setting));
+		dataList.add(new DrawerItem("Groups Jure", R.drawable.ic_action_setting));
 		
 		adapter = new CustomDrawerAdapter(this, R.layout.custom_drawer_item, dataList);
 		drawerList.setAdapter(adapter);
@@ -73,30 +75,26 @@ public class MainActivity extends FragmentActivity {
 		Fragment fragment = null;
 		Bundle args = new Bundle();
 		switch(position){
-			
 			case 0:								
+				fragment = instantiateFragment(FragmentGroups.class, position, args);
+				break;
 				
-				fragment = Fragment.instantiate(this, FragmentGroups.class.getName());
-				args.putString(FragmentGroups.ITEM_NAME, dataList.get(position).getItemName());
-				args.putInt(FragmentGroups.IMAGE_RESOURCE_ID, dataList.get(position).getImageId());
+			case 1:								
+				fragment = instantiateFragment(FragmentEvents.class, position, args);
 				break;
-			case 1:
-				fragment = Fragment.instantiate(this, FragmentEvents.class.getName());
-				args.putString(FragmentEvents.ITEM_NAME, dataList.get(position).getItemName());
-				args.putInt(FragmentEvents.IMAGE_RESOURCE_ID, dataList.get(position).getImageId());	
+				
+			case 2:								
+				fragment = instantiateFragment(FragmentProfil.class, position, args);
 				break;
-			
-			case 2:
-				fragment = Fragment.instantiate(this, FragmentProfil.class.getName());
-				args.putString(FragmentProfil.ITEM_NAME, dataList.get(position).getItemName());
-				args.putInt(FragmentProfil.IMAGE_RESOURCE_ID, dataList.get(position).getImageId());				
-				break;
-			
-			case 3:
-				fragment = Fragment.instantiate(this, FragmentSettings.class.getName());
-				args.putString(FragmentSettings.ITEM_NAME, dataList.get(position).getItemName());
-				args.putInt(FragmentSettings.IMAGE_RESOURCE_ID, dataList.get(position).getImageId());						
+				
+			case 3:								
+				fragment = instantiateFragment(FragmentSettings.class, position, args);
 				break;		
+				
+			case 4:								
+				fragment = instantiateFragment(FragmentGroupsJure.class, position, args);
+				break;	
+				
 			default:
 				break;
 		}		 
@@ -111,6 +109,27 @@ public class MainActivity extends FragmentActivity {
 		setTitle(dataList.get(position).getItemName());
 		drawerLayout.closeDrawer(drawerList);
 	}
+	
+	private Fragment instantiateFragment(Class<?> fragmentClass, int position, Bundle args) {
+		Fragment fragment = Fragment.instantiate(this, fragmentClass.getName());
+		String name =  getFragmentName(fragmentClass);
+		args.putString(name, dataList.get(position).getItemName());
+		args.putInt(FragmentGroups.IMAGE_RESOURCE_ID, dataList.get(position).getImageId());
+		return fragment;
+	}
+	
+	private String getFragmentName(Class<?> fragmentClass) {
+		String name = "";
+		try {
+			Field f = fragmentClass.getDeclaredField("ITEM_NAME");
+			name = (String) f.get(null);
+		} catch (Exception e) {
+			name = "undefined";
+			e.printStackTrace();
+		}
+		return name;
+	}
+	
 	
 	private class DrawerItemClickListener implements ListView.OnItemClickListener {
 	    @Override
