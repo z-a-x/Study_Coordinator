@@ -17,11 +17,11 @@ import android.os.AsyncTask;
 import android.os.Bundle;
 import android.text.Editable;
 import android.text.TextWatcher;
-<<<<<<< HEAD
+
 import android.view.KeyEvent;
-=======
+
 import android.util.Log;
->>>>>>> origin/master
+
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
@@ -122,7 +122,7 @@ public class Register extends Activity {
 	                R.anim.slide_in_right);
 		}
 		
-<<<<<<< HEAD
+
 		public boolean onKeyDown(int keyCode, KeyEvent event) 
 		{
 		    if (keyCode == KeyEvent.KEYCODE_BACK ) {
@@ -133,7 +133,8 @@ public class Register extends Activity {
 		        return false;
 		    }     
 		    return super.onKeyDown(keyCode, event);    
-=======
+		}
+		
 		class CreateUser extends AsyncTask<String, String, String> {
 
 			 /**
@@ -201,7 +202,7 @@ public class Register extends Activity {
 	            }
 
 	        }
-
->>>>>>> origin/master
 		}
+
+		
 }

@@ -38,8 +38,8 @@ public class Login extends Activity {
 	private static JSONParser jsonParser = new JSONParser();
 	
 	// server url (local computer)
-	private static final String LOGIN_URL = "http://193.2.177.195:80/android_connect/login.php";
-	private static final String CHECK_LOGIN_URL = "http://193.2.177.195:80/android_connect/check_if_logged_in.php";
+	private static final String LOGIN_URL = "http://192.168.1.78:80/android_connect/login.php";
+	private static final String CHECK_LOGIN_URL = "http://192.168.1.78:80/android_connect/check_if_logged_in.php";
 	
 	//ids
 	private static final String TAG_SUCCESS = "success";
@@ -193,7 +193,13 @@ public class Login extends Activity {
 				success = json.getInt(TAG_SUCCESS);
 				if (success == 1) {
 					Log.d("Login Successful!", json.toString());
+					
+					
 					Intent i = new Intent(Login.this, MainActivity.class);
+					
+					//dodajam v intent user name uporabnike za uporabo v main aktivnosti - Jaka
+					i.putExtra("username", username);
+					
 					finish();
 					startActivity(i);
 					return json.getString(TAG_MESSAGE);
@@ -212,6 +218,10 @@ public class Login extends Activity {
 		
 		private void doNotCheckLoginData() {
            	Intent i = new Intent(Login.this, MainActivity.class);
+           	
+          //dodajam v intent user name uporabnike za uporabo v main aktivnosti - Jaka
+			i.putExtra("username", user.getText().toString());
+           	
            	finish();
 			startActivity(i);
 		}

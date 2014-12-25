@@ -3,19 +3,32 @@ package com.example.study_coordinator;
 import java.lang.reflect.Field;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.concurrent.ExecutionException;
+
+import org.apache.http.NameValuePair;
+import org.apache.http.message.BasicNameValuePair;
+import org.json.JSONException;
+import org.json.JSONObject;
+
+import com.example.study_coordinator.Login.AttemptLogin;
 
 import android.app.Fragment;
 import android.app.FragmentManager;
 import android.app.FragmentTransaction;
+import android.app.ProgressDialog;
+import android.content.Intent;
+import android.os.AsyncTask;
 import android.os.Bundle;
 import android.support.v4.app.FragmentActivity;
 import android.support.v4.widget.DrawerLayout;
 import android.support.v7.app.ActionBarDrawerToggle;
+import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ListView;
+import android.widget.Toast;
 
 public class MainActivity extends FragmentActivity {
 
@@ -27,7 +40,17 @@ public class MainActivity extends FragmentActivity {
     private ActionBarDrawerToggle drawerToggle;
     CustomDrawerAdapter adapter;
     List<DrawerItem> dataList;
+    private String s1;
     
+    public String getS1(){
+    	return s1;
+    }
+            
+    // JSON parser class
+ 	private static JSONParser jsonParser = new JSONParser();
+ 	
+ 	// server url (local computer)
+ 	private static final String DATABASE_URL = "http://192.168.1.78:80/android_connect/DataCollector.php"; 	
     
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
@@ -38,7 +61,6 @@ public class MainActivity extends FragmentActivity {
 		dataList = new ArrayList<DrawerItem>();
 		drawerLayout = (DrawerLayout) findViewById(R.id.drawer_layout);
 		drawerList = (ListView) findViewById(R.id.left_drawer);		
-		
 		
 		dataList.add(new DrawerItem(getResources().getString(R.string.my_groups), R.drawable.ic_action_groups));		
 		dataList.add(new DrawerItem(getResources().getString(R.string.events), R.drawable.ic_action_events));
@@ -55,8 +77,20 @@ public class MainActivity extends FragmentActivity {
         getActionBar().setDisplayHomeAsUpEnabled(true);
         getActionBar().setHomeButtonEnabled(true);
         drawerListView = (ListView) findViewById(R.id.left_drawer);
- 
         
+        //AttemptLogin al = (AttemptLogin)
+        new DataCollector().execute();
+        
+        try {
+			this.s1 = new DataCollector().execute().get();
+			System.out.println("Data successfully returned: "+s1);
+		} catch (InterruptedException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		} catch (ExecutionException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
 	}
 	
 	public void onDrawerClosed(View view) {
@@ -166,4 +200,65 @@ public class MainActivity extends FragmentActivity {
 		return super.onOptionsItemSelected(item);
 	}
 	
+	class DataCollector extends AsyncTask<String, String, String> {
+		
+	    @Override
+	    protected void onPreExecute() {
+	        super.onPreExecute();  
+	    }
+
+		@Override
+		protected String doInBackground(String... args) {
+			
+			String userName = null;
+			String userLastName = null;
+			//String username = "z-a-x";
+			Intent intent = getIntent();
+			String username = intent.getStringExtra("username");
+			//System.out.println(username);
+			try {
+				// Building Parameters
+				List<NameValuePair> params = new ArrayList<NameValuePair>();
+				params.add(new BasicNameValuePair("username", username));
+
+				Log.d("request!", "starting");
+				// getting server login authorization by making HTTP request
+				JSONObject json = jsonParser.makeHttpRequest(DATABASE_URL, "POST",params);
+
+				// check your log for json response
+				Log.d("Login attempt", json.toString());
+				
+				userName = (String) json.get("user_name");
+				userLastName = (String) json.get("user_last_name");
+				System.out.println(json.get("username"));
+				System.out.println(userName);
+				System.out.println(userLastName);
+				s1 = ""+username+" "+userName+" "+userLastName;				
+			} 
+			catch (JSONException e) {
+				System.out.println("Connection failed!");
+				e.printStackTrace();
+			}
+			return ""+username+" "+userName+" "+userLastName;			
+		}
+		
+		private void doNotCheckLoginData() {
+	      	Intent i = new Intent(MainActivity.this, MainActivity.class);
+	      	finish();
+			startActivity(i);
+		}
+		
+		/**
+	   * After completing background task Dismiss the progress dialog
+	   * **/
+	  protected void onPostExecute(String file_url) {
+	      // dismiss the dialog once product deleted
+		  /*
+	      pDialog.dismiss();
+	      if (file_url != null){
+	      	Toast.makeText(MainActivity.this, file_url, Toast.LENGTH_LONG).show();
+	      }
+		*/
+	  }
+	}
 }
