@@ -23,6 +23,7 @@ import org.json.JSONObject;
 
 import android.app.Activity;
 import android.app.Fragment;
+
 import android.app.ProgressDialog;
 import android.content.Intent;
 import android.graphics.Bitmap;
@@ -32,11 +33,13 @@ import android.media.Image;
 import android.media.JetPlayer;
 import android.os.AsyncTask;
 import android.os.Bundle;
+//import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentActivity;
-import android.util.Log;
+
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -48,6 +51,7 @@ public class FragmentProfil extends Fragment{
     TextView tvUsername;
     TextView tvUserName;
     TextView tvUserLastName;
+    Button btEditProfil;
     FragmentActivity listener;
     Bitmap bitmap;
     
@@ -67,19 +71,19 @@ public class FragmentProfil extends Fragment{
 	
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,Bundle savedInstanceState) {
-    	String result = null;
-    	View view = inflater.inflate(R.layout.fragment_layout_profil, container, false);          
+    	View view = inflater.inflate(R.layout.fragment_layout_profil, container, false);
     	ivIcon = (ImageView) view.findViewById(R.id.frag_profil_icon);       
     	ivProfil = (ImageView) view.findViewById(R.id.frag_profil_profil_image);
     	tvItemName = (TextView) view.findViewById(R.id.frag_profil_tv);                    
     	tvUsername = (TextView) view.findViewById(R.id.frag_profil_email_tv);
     	tvUserName = (TextView) view.findViewById(R.id.frag_profil_name_tv);
     	tvUserLastName = (TextView) view.findViewById(R.id.frag_profil_surname_tv);          
+    	
     	ivIcon.setImageDrawable(view.getResources().getDrawable(getArguments().getInt(IMAGE_RESOURCE_ID)));
     	tvItemName.setText(getArguments().getString(ITEM_NAME));
           
         MainActivity m = (MainActivity) getActivity();
-        String recivedData = m.getS1();
+        final String recivedData = m.getS1();
         String[] parsedData = recivedData.split(" "); 
         String username = parsedData[0];
         String userName = parsedData[1];
@@ -94,6 +98,16 @@ public class FragmentProfil extends Fragment{
 		tvUserName.setTypeface(custom_font);
 		tvUserLastName.setTypeface(custom_font);
 		tvUsername.setTypeface(custom_font);
+		
+		btEditProfil = (Button) view.findViewById(R.id.frag_profil_edit_bt);
+    	btEditProfil.setOnClickListener(new View.OnClickListener() {
+            public void onClick(View v) {            	            	
+            	Intent i = new Intent(getActivity(), ActivityProfilEdit.class);    
+            	i.putExtra("data", recivedData);
+            	getActivity().startActivity(i);
+            	
+            }
+        });
 			
           //new LoadImage().execute("http://http://193.2.179.235:80/android_connect/images/jakaProfil.jpg");          
           return view;

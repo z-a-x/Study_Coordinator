@@ -27,6 +27,7 @@
     <string name="registertext">Register now to get started! =)</string>
     <string name="repeatpassword">Repeat password</string>
     <string name="backLogin">Back to login</string>
-    
+    <string name="editProfil">Edit profil</string>
+    <string name="title_activity_activity_profil_edit">ActivityProfilEdit</string>
 
 </resources>
