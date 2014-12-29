@@ -19,6 +19,7 @@ import org.json.JSONObject;
 import android.app.Activity;
 import android.app.ProgressDialog;
 import android.content.Intent;
+import android.graphics.Typeface;
 import android.os.AsyncTask;
 import android.os.Bundle;
 import android.os.Looper;
@@ -76,8 +77,16 @@ public class ActivityProfilEdit extends Activity {
         etUsername.setText(username);
         etUserName.setText(userName);
         etUserLastName.setText(userLastName);
+        Typeface custom_font = Typeface.createFromAsset(getAssets(), "fonts/Roboto/Roboto-Thin.ttf");					
+		tvUserName.setTypeface(custom_font);
+		tvUserLastName.setTypeface(custom_font);
+		tvUsername.setTypeface(custom_font);
+							
+		etUserName.setTypeface(custom_font);
+		etUserLastName.setTypeface(custom_font);
+		etUsername.setTypeface(custom_font);
         
-        btEditProfil = (Button) findViewById(R.id.profil_editprofile_bt);
+        btEditProfil = (Button) findViewById(R.id.profil_edit_profile_bt);
         btEditProfil.setOnClickListener(new View.OnClickListener() {
             public void onClick(View v) {             	
 	            AsyncTask<String, String, String> result = new DataSender().execute();
@@ -85,6 +94,7 @@ public class ActivityProfilEdit extends Activity {
 	            try {
 	            	Intent i = new Intent(ActivityProfilEdit.this, MainActivity.class);
 		            i.putExtra("update", result.get());
+		            i.putExtra("newData", username);
 					System.out.println("RESULT: "+result.get());
 					finish();
 		  			startActivity(i);
@@ -203,6 +213,8 @@ public class ActivityProfilEdit extends Activity {
 			
 		  }
 	}
+	
+	
 	@Override
 	public boolean onOptionsItemSelected(MenuItem item) {
 		// Handle action bar item clicks here. The action bar will

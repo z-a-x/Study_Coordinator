@@ -23,11 +23,11 @@ import org.json.JSONObject;
 
 import android.app.Activity;
 import android.app.Fragment;
-
 import android.app.ProgressDialog;
 import android.content.Intent;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
+import android.graphics.Color;
 import android.graphics.Typeface;
 import android.media.Image;
 import android.media.JetPlayer;
@@ -35,7 +35,6 @@ import android.os.AsyncTask;
 import android.os.Bundle;
 //import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentActivity;
-
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -45,9 +44,9 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 public class FragmentProfil extends Fragment{
-	ImageView ivIcon;
-	ImageView ivProfil;
-    TextView tvItemName;
+	//ImageView ivIcon;
+	//ImageView ivProfil;
+    //TextView tvItemName;
     TextView tvUsername;
     TextView tvUserName;
     TextView tvUserLastName;
@@ -72,15 +71,15 @@ public class FragmentProfil extends Fragment{
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,Bundle savedInstanceState) {
     	View view = inflater.inflate(R.layout.fragment_layout_profil, container, false);
-    	ivIcon = (ImageView) view.findViewById(R.id.frag_profil_icon);       
-    	ivProfil = (ImageView) view.findViewById(R.id.frag_profil_profil_image);
-    	tvItemName = (TextView) view.findViewById(R.id.frag_profil_tv);                    
+    	//ivIcon = (ImageView) view.findViewById(R.id.frag_profil_icon);       
+    	//ivProfil = (ImageView) view.findViewById(R.id.frag_profil_profil_image);
+    	//tvItemName = (TextView) view.findViewById(R.id.frag_profil_tv);                    
     	tvUsername = (TextView) view.findViewById(R.id.frag_profil_email_tv);
     	tvUserName = (TextView) view.findViewById(R.id.frag_profil_name_tv);
     	tvUserLastName = (TextView) view.findViewById(R.id.frag_profil_surname_tv);          
     	
-    	ivIcon.setImageDrawable(view.getResources().getDrawable(getArguments().getInt(IMAGE_RESOURCE_ID)));
-    	tvItemName.setText(getArguments().getString(ITEM_NAME));
+    	//ivIcon.setImageDrawable(view.getResources().getDrawable(getArguments().getInt(IMAGE_RESOURCE_ID)));
+    	//tvItemName.setText(getArguments().getString(ITEM_NAME));
           
         MainActivity m = (MainActivity) getActivity();
         final String recivedData = m.getS1();
@@ -98,8 +97,11 @@ public class FragmentProfil extends Fragment{
 		tvUserName.setTypeface(custom_font);
 		tvUserLastName.setTypeface(custom_font);
 		tvUsername.setTypeface(custom_font);
+		//custom_font = Typeface.createFromAsset(getActivity().getAssets(), "fonts/Roboto/Roboto-Medium.ttf");
+		//tvItemName.setTypeface(custom_font);
 		
-		btEditProfil = (Button) view.findViewById(R.id.frag_profil_edit_bt);
+		btEditProfil = (Button) view.findViewById(R.id.profil_profil_edit_bt);
+		
     	btEditProfil.setOnClickListener(new View.OnClickListener() {
             public void onClick(View v) {            	            	
             	Intent i = new Intent(getActivity(), ActivityProfilEdit.class);    
@@ -118,30 +120,6 @@ public class FragmentProfil extends Fragment{
         super.onActivityCreated(savedInstanceState);
     }
     
-    private class LoadImage extends AsyncTask<String, String, Bitmap> {
-		@Override
-        protected void onPreExecute() {
-			super.onPreExecute();                
-        }
-		protected Bitmap doInBackground(String... args) {
-        	try {
-        		bitmap = BitmapFactory.decodeStream((InputStream)new URL(args[0]).getContent());
-        		System.out.println("DECODING STREAM");
-        	} 
-        	catch (Exception e) {
-        		System.out.println("LOADING BITMAP FAILED");
-        		e.printStackTrace();
-        	}
-        	return bitmap;
-        }
-       protected void onPostExecute(Bitmap image) {
-    	   if(image != null){
-    		   ivProfil.setImageBitmap(image);
-    	   }
-    	   else{
-    		   System.out.println("NO IMAGE");
-    	   }
-       }
-    }
+    
 }
 

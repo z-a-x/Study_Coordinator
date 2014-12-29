@@ -12,6 +12,7 @@ import org.json.JSONObject;
 
 import com.example.study_coordinator.Login.AttemptLogin;
 
+import android.app.ActionBar;
 import android.app.Fragment;
 import android.app.FragmentManager;
 import android.app.FragmentTransaction;
@@ -42,7 +43,7 @@ public class MainActivity extends FragmentActivity {
     CustomDrawerAdapter adapter;
     List<DrawerItem> dataList;
     private String s1;
-    
+    String username;
     public String getS1(){
     	return s1;
     }
@@ -64,6 +65,9 @@ public class MainActivity extends FragmentActivity {
 		if(message != null){
 			Toast.makeText(getApplicationContext(), message, Toast.LENGTH_LONG).show();
 		}
+		
+		
+		
 		
 		drawerTitle = getTitle();
 		dataList = new ArrayList<DrawerItem>();
@@ -197,15 +201,20 @@ public class MainActivity extends FragmentActivity {
 		return true;
 	}
 
+
+	
 	@Override
 	public boolean onOptionsItemSelected(MenuItem item) {
 		// Handle action bar item clicks here. The action bar will
 		// automatically handle clicks on the Home/Up button, so long
 		// as you specify a parent activity in AndroidManifest.xml.
+		 drawerLayout.openDrawer(drawerList);   
 		int id = item.getItemId();
 		if (id == R.id.action_settings) {
 			return true;
+			
 		}
+		
 		return super.onOptionsItemSelected(item);
 	}
 	
@@ -222,19 +231,28 @@ public class MainActivity extends FragmentActivity {
 			String userName = null;
 			String userLastName = null;			//
 			Intent intent = getIntent();
-			String username = intent.getStringExtra("username");
-			//System.out.println(username);
+			String s = intent.getStringExtra("newData");
+			System.out.println("New data is : "+ s);
+
+			
 			try {
+				if(s != null){
+					username = s;
+				}
+				else{
+					username = intent.getStringExtra("username");
+				}
+				System.out.println("USERNAME IN BACKGROUND: "+username);
 				// Building Parameters
 				List<NameValuePair> params = new ArrayList<NameValuePair>();
 				params.add(new BasicNameValuePair("username", username));
 
-				Log.d("request!", "starting");
+				Log.d("Request for data!", "starting");
 				// getting server login authorization by making HTTP request
 				JSONObject json = jsonParser.makeHttpRequest(DATABASE_URL, "POST",params);
 
 				// check your log for json response
-				Log.d("Login attempt", json.toString());
+				Log.d("Retrieving data attempt", json.toString());
 				
 				userName = (String) json.get("user_name");
 				userLastName = (String) json.get("user_last_name");

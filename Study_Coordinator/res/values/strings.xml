@@ -29,5 +29,6 @@
     <string name="backLogin">Back to login</string>
     <string name="editProfil">Edit profil</string>
     <string name="title_activity_activity_profil_edit">ActivityProfilEdit</string>
+    <string name="confirm">Confirm</string>
 
 </resources>
