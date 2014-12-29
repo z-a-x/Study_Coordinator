@@ -16,6 +16,7 @@ import android.app.Fragment;
 import android.app.FragmentManager;
 import android.app.FragmentTransaction;
 import android.app.ProgressDialog;
+import android.content.ComponentName;
 import android.content.Intent;
 import android.os.AsyncTask;
 import android.os.Bundle;
@@ -56,6 +57,12 @@ public class MainActivity extends FragmentActivity {
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.activity_main);
+						
+		Intent itnt = getIntent();		
+		String message = itnt.getStringExtra("update");
+		if(message != null){
+			Toast.makeText(getApplicationContext(), message, Toast.LENGTH_LONG).show();
+		}
 		
 		drawerTitle = getTitle();
 		dataList = new ArrayList<DrawerItem>();
@@ -79,18 +86,7 @@ public class MainActivity extends FragmentActivity {
         drawerListView = (ListView) findViewById(R.id.left_drawer);
         
         //AttemptLogin al = (AttemptLogin)
-        new DataCollector().execute();
         
-        try {
-			this.s1 = new DataCollector().execute().get();
-			System.out.println("Data successfully returned: "+s1);
-		} catch (InterruptedException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		} catch (ExecutionException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		}
 	}
 	
 	public void onDrawerClosed(View view) {
@@ -119,6 +115,18 @@ public class MainActivity extends FragmentActivity {
 				
 			case 2:								
 				fragment = instantiateFragment(FragmentProfil.class, position, args);
+				new DataCollector().execute();
+		        
+		        try {
+					this.s1 = new DataCollector().execute().get();
+					System.out.println("Data successfully returned: "+s1);
+				} catch (InterruptedException e) {
+					// TODO Auto-generated catch block
+					e.printStackTrace();
+				} catch (ExecutionException e) {
+					// TODO Auto-generated catch block
+					e.printStackTrace();
+				}
 				break;
 				
 			case 3:								

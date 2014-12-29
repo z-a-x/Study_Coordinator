@@ -4,6 +4,7 @@ import java.io.BufferedReader;
 import java.io.InputStream;
 import java.io.InputStreamReader;
 import java.util.ArrayList;
+import java.util.concurrent.ExecutionException;
 
 import org.apache.http.HttpEntity;
 import org.apache.http.HttpResponse;
@@ -16,6 +17,7 @@ import org.apache.http.message.BasicNameValuePair;
 import org.json.JSONObject;
 
 import android.app.Activity;
+import android.app.ProgressDialog;
 import android.content.Intent;
 import android.os.AsyncTask;
 import android.os.Bundle;
@@ -38,7 +40,7 @@ public class ActivityProfilEdit extends Activity {
     TextView tvUserName;
     TextView tvUserLastName;
     Button btEditProfil;
-    
+    private ProgressDialog pDialog;
     String username;
 	String userName;
 	String userLastName;
@@ -75,7 +77,19 @@ public class ActivityProfilEdit extends Activity {
         btEditProfil = (Button) findViewById(R.id.profil_editprofile_bt);
         btEditProfil.setOnClickListener(new View.OnClickListener() {
             public void onClick(View v) {             	
-	            new DataSender().execute();	
+	            AsyncTask<String, String, String> result = new DataSender().execute();
+	            
+	            try {
+	            	Intent i = new Intent(ActivityProfilEdit.this, MainActivity.class);
+		            i.putExtra("update", result.get());
+					System.out.println("RESULT: "+result.get());
+					finish();
+		  			startActivity(i);
+				} catch (Exception e) {
+					// TODO Auto-generated catch block
+					e.printStackTrace();				
+				}
+             	
             }
         });
 	}
@@ -88,9 +102,22 @@ public class ActivityProfilEdit extends Activity {
 	}
 	
 	class DataSender extends AsyncTask<String, String, String>{
+		
+		@Override
+		   protected void onPreExecute() {
+		       super.onPreExecute();
+		       pDialog = new ProgressDialog(ActivityProfilEdit.this);
+		       pDialog.setMessage("Updating data...");
+		       pDialog.setIndeterminate(false);
+		       pDialog.setCancelable(true);
+		       pDialog.show();
+		   }
+		   
+		
 		@Override		
 		public String doInBackground(String... args) {
 			Looper.prepare();
+
 	    	ArrayList<NameValuePair> nameValuePairs = new ArrayList<NameValuePair>();
 	    	System.out.println("POŠILJAM PODATKE "+ username+ " "+userName+" "+userLastName);
 	    	
@@ -103,6 +130,7 @@ public class ActivityProfilEdit extends Activity {
 	    	nameValuePairs.add(new BasicNameValuePair("userLastName", userLastName.toString()));
 	    	
 	    	try{
+	    		
 	    		HttpClient httpclient = new DefaultHttpClient();
 		        HttpPost httppost = new HttpPost("http://192.168.1.78:80/android_connect/updateProfil.php");
 		        httppost.setEntity(new UrlEncodedFormEntity(nameValuePairs));
@@ -134,6 +162,7 @@ public class ActivityProfilEdit extends Activity {
 	            	result = sb.toString();
 	            	Log.e("pass 2", "connection success ");
 	            	System.out.println("Uspešno sestavljeno sporoèilo");
+	            	
 	        }
 	        catch(Exception e){
 	        	Log.e("Fail 2", e.toString());
@@ -142,11 +171,14 @@ public class ActivityProfilEdit extends Activity {
 	        try {
 	        	JSONObject json_data = new JSONObject(result);
 	        	code=(json_data.getInt("code"));
-				
+				System.out.println("VALUE OF CODE IS: "+code);
 	        	if(code==1){	        		
 	        		Toast.makeText(getBaseContext(), "Update Successfully",
-					Toast.LENGTH_SHORT).show();
+					Toast.LENGTH_LONG).show();
 	        		System.out.println("Uspešen zapis v bazo");
+	        		//Toast.makeText(getApplicationContext(), "Successful update!", 2000).show();
+	        		
+	        		
 	        	}
 	        	else{
         			Toast.makeText(getBaseContext(), "Sorry, Try Again",
@@ -158,16 +190,14 @@ public class ActivityProfilEdit extends Activity {
 	        	Log.e("Fail 3", e.toString());
 	        	System.out.println("Postopek ni uspel zaradi drugih napak");
 	    	}
-	   		return "";
+	   		return "Successful update";
 	    }
 		protected void onPostExecute(String file_url) {
 		      // dismiss the dialog once product deleted
-			  /*
+			  
 		      pDialog.dismiss();
-		      if (file_url != null){
-		      	Toast.makeText(MainActivity.this, file_url, Toast.LENGTH_LONG).show();
-		      }
-			*/
+		      
+			
 		  }
 	}
 	@Override
