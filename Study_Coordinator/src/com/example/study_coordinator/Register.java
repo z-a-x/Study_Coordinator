@@ -17,11 +17,8 @@ import android.os.AsyncTask;
 import android.os.Bundle;
 import android.text.Editable;
 import android.text.TextWatcher;
-
 import android.view.KeyEvent;
-
 import android.util.Log;
-
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
@@ -46,7 +43,8 @@ public class Register extends Activity {
     //testing on your device
     //put your local ip instead,  on windows, run CMD > ipconfig
     //or in mac's terminal type ifconfig and look for the ip under en0 or en1
-    private static final String LOGIN_URL = "http://188.230.178.39:80/android_connect/register.php";
+    private static final DatabaseConnect databaseConnect = new DatabaseConnect();
+    private static final String LOGIN_URL = databaseConnect.getIpAddress() + "register.php";
     //ids
     private static final String TAG_SUCCESS = "success";
     private static final String TAG_MESSAGE = "message";

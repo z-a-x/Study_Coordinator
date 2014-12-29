@@ -38,8 +38,9 @@ public class Login extends Activity {
 	private static JSONParser jsonParser = new JSONParser();
 	
 	// server url (local computer)
-	private static final String LOGIN_URL = "http://192.168.1.78:80/Study_Coordinator/android_connect/login.php";
-	private static final String CHECK_LOGIN_URL = "http://192.168.1.78:80/Study_Coordinator/android_connect/check_if_logged_in.php";
+	private static final DatabaseConnect databaseConnect = new DatabaseConnect();
+	private static final String LOGIN_URL = databaseConnect.getIpAddress() + "login.php";
+	private static final String CHECK_LOGIN_URL = databaseConnect.getIpAddress() +"check_if_logged_in.php";
 	
 	//ids
 	private static final String TAG_SUCCESS = "success";

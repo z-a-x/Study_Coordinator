@@ -49,6 +49,9 @@ public class ActivityProfilEdit extends Activity {
 	String result=null;
 	String line=null;
 	int code;
+	
+	private static final DatabaseConnect databaseConnect = new DatabaseConnect();
+	private static final String PROFILE_URL =  databaseConnect.getIpAddress() + "updateProfil.php";
     
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
@@ -132,7 +135,7 @@ public class ActivityProfilEdit extends Activity {
 	    	try{
 	    		
 	    		HttpClient httpclient = new DefaultHttpClient();
-		        HttpPost httppost = new HttpPost("http://192.168.1.78:80/Study_Coordinator/android_connect/updateProfil.php");
+		        HttpPost httppost = new HttpPost(PROFILE_URL);
 		        httppost.setEntity(new UrlEncodedFormEntity(nameValuePairs));
 		        HttpResponse response = httpclient.execute(httppost); 
 		        HttpEntity entity = response.getEntity();

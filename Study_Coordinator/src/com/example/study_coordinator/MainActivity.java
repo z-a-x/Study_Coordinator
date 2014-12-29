@@ -51,7 +51,8 @@ public class MainActivity extends FragmentActivity {
  	private static JSONParser jsonParser = new JSONParser();
  	
  	// server url (local computer)
- 	private static final String DATABASE_URL = "http://192.168.1.78:80/Study_Coordinator/android_connect/DataCollector.php"; 	
+ 	private static final DatabaseConnect databaseConnect = new DatabaseConnect(); 
+ 	private static final String DATABASE_URL =   databaseConnect.getIpAddress() + "DataCollector.php"; 	
     
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
