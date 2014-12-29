@@ -132,7 +132,7 @@ public class ActivityProfilEdit extends Activity {
 	    	try{
 	    		
 	    		HttpClient httpclient = new DefaultHttpClient();
-		        HttpPost httppost = new HttpPost("http://192.168.1.78:80/android_connect/updateProfil.php");
+		        HttpPost httppost = new HttpPost("http://192.168.1.78:80/Study_Coordinator/android_connect/updateProfil.php");
 		        httppost.setEntity(new UrlEncodedFormEntity(nameValuePairs));
 		        HttpResponse response = httpclient.execute(httppost); 
 		        HttpEntity entity = response.getEntity();

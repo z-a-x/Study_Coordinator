@@ -51,7 +51,7 @@ public class MainActivity extends FragmentActivity {
  	private static JSONParser jsonParser = new JSONParser();
  	
  	// server url (local computer)
- 	private static final String DATABASE_URL = "http://192.168.1.78:80/android_connect/DataCollector.php"; 	
+ 	private static final String DATABASE_URL = "http://192.168.1.78:80/Study_Coordinator/android_connect/DataCollector.php"; 	
     
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
@@ -219,8 +219,7 @@ public class MainActivity extends FragmentActivity {
 		protected String doInBackground(String... args) {
 			
 			String userName = null;
-			String userLastName = null;
-			//String username = "z-a-x";
+			String userLastName = null;			//
 			Intent intent = getIntent();
 			String username = intent.getStringExtra("username");
 			//System.out.println(username);
