@@ -74,7 +74,7 @@ public class MainActivity extends FragmentActivity {
 		drawerLayout = (DrawerLayout) findViewById(R.id.drawer_layout);
 		drawerList = (ListView) findViewById(R.id.left_drawer);		
 		
-		dataList.add(new DrawerItem(getResources().getString(R.string.my_groups), R.drawable.ic_action_groups));		
+		dataList.add(new DrawerItem(getResources().getString(R.string.search), R.drawable.ic_action_search));		
 		dataList.add(new DrawerItem(getResources().getString(R.string.events), R.drawable.ic_action_events));
 		dataList.add(new DrawerItem(getResources().getString(R.string.profil), R.drawable.ic_action_person));
 		dataList.add(new DrawerItem(getResources().getString(R.string.settings), R.drawable.ic_action_setting));
@@ -111,7 +111,7 @@ public class MainActivity extends FragmentActivity {
 		Bundle args = new Bundle();
 		switch(position){
 			case 0:								
-				fragment = instantiateFragment(FragmentGroups.class, position, args);
+				fragment = instantiateFragment(FragmentSearch.class, position, args);
 				break;
 				
 			case 1:								
