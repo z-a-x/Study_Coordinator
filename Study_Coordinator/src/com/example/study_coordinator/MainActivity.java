@@ -230,6 +230,7 @@ public class MainActivity extends FragmentActivity {
 			
 			String userName = null;
 			String userLastName = null;			//
+			String email = null;
 			Intent intent = getIntent();
 			String s = intent.getStringExtra("newData");
 			System.out.println("New data is : "+ s);
@@ -256,16 +257,18 @@ public class MainActivity extends FragmentActivity {
 				
 				userName = (String) json.get("user_name");
 				userLastName = (String) json.get("user_last_name");
+				email = (String) json.get("email");
 				System.out.println(json.get("username"));
 				System.out.println(userName);
 				System.out.println(userLastName);
-				s1 = ""+username+" "+userName+" "+userLastName;				
+				System.out.println(email);
+				s1 = ""+username+" "+userName+" "+userLastName+" "+email;				
 			} 
 			catch (JSONException e) {
 				System.out.println("Connection failed!");
 				e.printStackTrace();
 			}
-			return ""+username+" "+userName+" "+userLastName;			
+			return ""+username+" "+userName+" "+userLastName+" "+email;			
 		}
 		
 		private void doNotCheckLoginData() {

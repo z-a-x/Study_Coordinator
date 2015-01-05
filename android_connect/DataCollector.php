@@ -5,10 +5,10 @@ if($db->connect_errno > 0){
     die('Unable to connect to database [' . $db->connect_error . ']');
 }
 
-#$usr = 'jnovak@gmail.com';
+#$usr = 'jPlut';
 $usr = $_POST["username"];
 $sql = <<<SQL
-    SELECT username, user_name, user_last_name
+    SELECT username, user_name, user_last_name, email
     FROM `user`
     WHERE `username` LIKE '$usr'
 SQL;

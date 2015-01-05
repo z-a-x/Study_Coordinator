@@ -8,6 +8,7 @@
     <string name="login">Sign in</string>
     <string name="register">Register</string>
     <string name="email">E-mail address</string>
+    <string name="username">Username: </string>
     <string name="name">Name: </string>
     <string name="surname">Surname: </string>
     <string name="mail">Email: </string>
@@ -30,5 +31,6 @@
     <string name="editProfil">Edit profil</string>
     <string name="title_activity_activity_profil_edit">ActivityProfilEdit</string>
     <string name="confirm">Confirm</string>
+    <string name="title_activity_list_view_example">ListViewExampleActivity</string>
 
 </resources>

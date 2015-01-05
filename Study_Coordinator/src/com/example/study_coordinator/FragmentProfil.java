@@ -50,6 +50,7 @@ public class FragmentProfil extends Fragment{
     TextView tvUsername;
     TextView tvUserName;
     TextView tvUserLastName;
+    TextView tvemail;
     Button btEditProfil;
     FragmentActivity listener;
     Bitmap bitmap;
@@ -74,29 +75,38 @@ public class FragmentProfil extends Fragment{
     	//ivIcon = (ImageView) view.findViewById(R.id.frag_profil_icon);       
     	//ivProfil = (ImageView) view.findViewById(R.id.frag_profil_profil_image);
     	//tvItemName = (TextView) view.findViewById(R.id.frag_profil_tv);                    
-    	tvUsername = (TextView) view.findViewById(R.id.frag_profil_email_tv);
+    	tvUsername = (TextView) view.findViewById(R.id.frag_profil_username_tv);
     	tvUserName = (TextView) view.findViewById(R.id.frag_profil_name_tv);
     	tvUserLastName = (TextView) view.findViewById(R.id.frag_profil_surname_tv);          
-    	
+    	tvemail = (TextView) view.findViewById(R.id.frag_profil_email_tv);
     	//ivIcon.setImageDrawable(view.getResources().getDrawable(getArguments().getInt(IMAGE_RESOURCE_ID)));
     	//tvItemName.setText(getArguments().getString(ITEM_NAME));
           
         MainActivity m = (MainActivity) getActivity();
         final String recivedData = m.getS1();
-        String[] parsedData = recivedData.split(" "); 
+        String[] parsedData = recivedData.split(" ");
+        System.out.println("Printing parsed data: ");
+        for(int i = 0; i < parsedData.length; i++){
+        	System.out.println(parsedData[i]);
+        }
         String username = parsedData[0];
         String userName = parsedData[1];
         String userLastName = parsedData[2];
+        String email = parsedData[3];
+        
+        //String userE = parsedData[2];
           
-        //tvUserLastName.setText(username);
+        tvemail.setText(tvemail.getText()+ " "+email);
+        tvUsername.setText(tvUsername.getText()+" "+username);
         tvUserName.setText(tvUserName.getText()+ " "+userName);
         tvUserLastName.setText(tvUserLastName.getText()+ " "+userLastName);
-        tvUsername.setText(tvUsername.getText()+" "+username);
+        
         //setup custom fonts buttons & title
 		Typeface custom_font = Typeface.createFromAsset(getActivity().getAssets(), "fonts/Roboto/Roboto-Thin.ttf");					
 		tvUserName.setTypeface(custom_font);
 		tvUserLastName.setTypeface(custom_font);
 		tvUsername.setTypeface(custom_font);
+		tvemail.setTypeface(custom_font);
 		//custom_font = Typeface.createFromAsset(getActivity().getAssets(), "fonts/Roboto/Roboto-Medium.ttf");
 		//tvItemName.setTypeface(custom_font);
 		
