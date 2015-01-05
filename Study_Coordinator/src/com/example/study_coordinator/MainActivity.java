@@ -80,6 +80,8 @@ public class MainActivity extends FragmentActivity {
 		dataList.add(new DrawerItem(getResources().getString(R.string.settings), R.drawable.ic_action_setting));
 		dataList.add(new DrawerItem("Groups Jure", R.drawable.ic_action_setting));
 		
+		dataList.add(new DrawerItem("TAB TEST", R.drawable.ic_action_search));
+		
 		adapter = new CustomDrawerAdapter(this, R.layout.custom_drawer_item, dataList);
 		drawerList.setAdapter(adapter);
 		
@@ -135,16 +137,23 @@ public class MainActivity extends FragmentActivity {
 				break;
 				
 			case 3:								
-				fragment = instantiateFragment(FragmentSettings.class, position, args);
-				break;		
-				
+				fragment = instantiateFragment(FragmentSettings.class, position, args);				
+				break;						
 			case 4:								
 				fragment = instantiateFragment(FragmentGroupsJure.class, position, args);
-				break;	
-				
+				break;
+			/*	
+			case 5: 
+			
+			getSupportFragmentManager()
+            .beginTransaction()
+            .replace(R.id.content_frame, TabbedFragment.newInstance(), TabbedFragment.TAG).commit();
+			break;
+				*/
 			default:
 				break;
 		}		 
+		
 		fragment.setArguments(args);
 		FragmentManager fm = getFragmentManager();
 		FragmentTransaction fragmentTransaction = fm.beginTransaction();
