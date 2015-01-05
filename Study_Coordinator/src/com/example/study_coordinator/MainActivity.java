@@ -55,6 +55,9 @@ public class MainActivity extends FragmentActivity {
  	private static final DatabaseConnect databaseConnect = new DatabaseConnect(); 
  	private static final String DATABASE_URL =   databaseConnect.getIpAddress() + "DataCollector.php"; 	
     
+ 	//Session manager class
+ 	SessionManager session;
+ 	
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
@@ -67,8 +70,6 @@ public class MainActivity extends FragmentActivity {
 		}
 		
 		
-		
-		
 		drawerTitle = getTitle();
 		dataList = new ArrayList<DrawerItem>();
 		drawerLayout = (DrawerLayout) findViewById(R.id.drawer_layout);
@@ -79,8 +80,8 @@ public class MainActivity extends FragmentActivity {
 		dataList.add(new DrawerItem(getResources().getString(R.string.profil), R.drawable.ic_action_person));
 		dataList.add(new DrawerItem(getResources().getString(R.string.settings), R.drawable.ic_action_setting));
 		dataList.add(new DrawerItem("Groups Jure", R.drawable.ic_action_setting));
+		dataList.add(new DrawerItem(getResources().getString(R.string.logout), R.drawable.ic_action_setting));
 		
-		dataList.add(new DrawerItem("TAB TEST", R.drawable.ic_action_search));
 		
 		adapter = new CustomDrawerAdapter(this, R.layout.custom_drawer_item, dataList);
 		drawerList.setAdapter(adapter);
@@ -93,6 +94,9 @@ public class MainActivity extends FragmentActivity {
         drawerListView = (ListView) findViewById(R.id.left_drawer);
         
         //AttemptLogin al = (AttemptLogin)
+        
+        //Session manager class
+        session = new SessionManager(getApplicationContext());
         
 	}
 	
@@ -111,6 +115,7 @@ public class MainActivity extends FragmentActivity {
 	public void selectItem(int position){		
 		Fragment fragment = null;
 		Bundle args = new Bundle();
+		boolean logout = false;
 		switch(position){
 			case 0:								
 				fragment = instantiateFragment(FragmentSearch.class, position, args);
@@ -142,25 +147,25 @@ public class MainActivity extends FragmentActivity {
 			case 4:								
 				fragment = instantiateFragment(FragmentGroupsJure.class, position, args);
 				break;
-			/*	
-			case 5: 
-			
-			getSupportFragmentManager()
-            .beginTransaction()
-            .replace(R.id.content_frame, TabbedFragment.newInstance(), TabbedFragment.TAG).commit();
-			break;
-				*/
+				
+			case 5:								
+				session.logoutUser();
+				logout = true;
+				Toast.makeText(getApplicationContext(), "Logout successful!", Toast.LENGTH_SHORT).show();
+				finish();		
+				break;
+
 			default:
 				break;
 		}		 
+		if (!logout) {
+			fragment.setArguments(args);
+			FragmentManager fm = getFragmentManager();
+			FragmentTransaction fragmentTransaction = fm.beginTransaction();
+			fragmentTransaction.replace(R.id.content_frame, fragment);
+			fragmentTransaction.commit();
 		
-		fragment.setArguments(args);
-		FragmentManager fm = getFragmentManager();
-		FragmentTransaction fragmentTransaction = fm.beginTransaction();
-		fragmentTransaction.replace(R.id.content_frame, fragment);
-		fragmentTransaction.commit();
-		
-		
+		}
 		drawerList.setItemChecked(position, true);
 		setTitle(dataList.get(position).getItemName());
 		drawerLayout.closeDrawer(drawerList);
