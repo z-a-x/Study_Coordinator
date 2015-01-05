@@ -19,6 +19,8 @@ import android.view.View.OnClickListener;
 import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
+import android.widget.TabHost;
+import android.widget.TabHost.TabSpec;
 import android.widget.TextView;
 import android.content.Intent;
 
@@ -41,6 +43,22 @@ public class FragmentGroup extends FragmentTemplate {
 	@Override
 	protected void initialize() {
   		try {
+  			TabHost tabHost=(TabHost)getView().findViewById(R.id.tabhost);
+  			tabHost.setup();
+
+  			TabSpec spec1=tabHost.newTabSpec("Tab 1");
+  			spec1.setContent(R.id.tab1);
+  			spec1.setIndicator("Tab 1");
+
+  			TabSpec spec2=tabHost.newTabSpec("Tab 2");
+  			spec2.setIndicator("Tab 2");
+  			spec2.setContent(R.id.tab2);
+
+  			tabHost.addTab(spec1);
+  			tabHost.addTab(spec2);
+  			
+  			
+  			
 			JSONObject groupsJsonObj = new JSONObject(JSON_TEST_STRING);
 			setTitle("Grupa "+id);
 			createUserButtons(groupsJsonObj);
