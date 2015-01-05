@@ -9,111 +9,163 @@
     android:paddingTop="@dimen/activity_vertical_margin"
     tools:context="com.example.study_coordinator.GroupActivity" >
 
-    <TabHost
-        android:id="@+id/tabhost"
+    <LinearLayout
+        android:id="@+id/mainLayout"
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_alignParentBottom="true"
         android:layout_alignParentLeft="true"
-        android:layout_alignParentTop="true" >
+        android:layout_alignParentRight="true"
+        android:layout_alignParentTop="true"
+        android:orientation="vertical" >
 
-        <LinearLayout
+        <TextView
+            android:id="@+id/title"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:gravity="center"
+            android:text="Group"
+            android:textColor="#ffffff"
+            android:textSize="34sp" />
+
+        <TabHost
+            android:id="@+id/tabhost"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:orientation="vertical" >
+            android:layout_alignParentLeft="true"
+            android:layout_alignParentTop="true" >
 
-            <TabWidget
-                android:id="@android:id/tabs"
+            <LinearLayout
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content" >
-            </TabWidget>
+                android:layout_height="match_parent"
+                android:orientation="vertical" >
 
-            <FrameLayout
-                android:id="@android:id/tabcontent"
-                android:layout_width="match_parent"
-                android:layout_height="match_parent" >
+                <TabWidget
+                    android:id="@android:id/tabs"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content" >
+                </TabWidget>
 
-                <LinearLayout
-                    android:id="@+id/tab1"
-                    android:orientation="horizontal"
+                <FrameLayout
+                    android:id="@android:id/tabcontent"
                     android:layout_width="match_parent"
                     android:layout_height="match_parent" >
 
-                    <ScrollView
-                        android:id="@+id/scrollView1"
+                    
+                    
+                    <LinearLayout
+                        android:id="@+id/tabAbout"
                         android:layout_width="match_parent"
-                        android:layout_height="match_parent" >
+                        android:layout_height="match_parent"
+                        android:orientation="horizontal" >
 
-                        <LinearLayout
-                            android:id="@+id/topLayout"
+                        <ScrollView
                             android:layout_width="match_parent"
-                            android:layout_height="match_parent"
-                            android:layout_alignParentBottom="true"
-                            android:layout_alignParentLeft="true"
-                            android:layout_alignParentRight="true"
-                            android:layout_alignParentTop="true"
-                            android:orientation="vertical" >
-
-                            <TextView
-                                android:id="@+id/title"
-                                android:layout_width="match_parent"
-                                android:layout_height="wrap_content"
-                                android:gravity="center"
-                                android:text="Group"
-                                android:textColor="#ffffff"
-                                android:textSize="34sp" />
+                            android:layout_height="match_parent" >
 
                             <LinearLayout
-                                android:id="@+id/usersLayout"
                                 android:layout_width="match_parent"
-                                android:layout_height="wrap_content"
+                                android:layout_height="match_parent"
                                 android:layout_alignParentBottom="true"
                                 android:layout_alignParentLeft="true"
                                 android:layout_alignParentRight="true"
                                 android:layout_alignParentTop="true"
                                 android:orientation="vertical" >
 
-                                <TextView
-                                    android:id="@+id/textViewUsersTitle"
+                                <LinearLayout
+                                    android:id="@+id/aboutLayout"
                                     android:layout_width="match_parent"
                                     android:layout_height="wrap_content"
-                                    android:gravity="center"
-                                    android:text="USERS:"
-                                    android:textColor="#ffffff"
-                                    android:textSize="26sp" />
+                                    android:layout_alignParentBottom="true"
+                                    android:layout_alignParentLeft="true"
+                                    android:layout_alignParentRight="true"
+                                    android:layout_alignParentTop="true"
+                                    android:orientation="vertical" >
+
+                                </LinearLayout>
+
                             </LinearLayout>
+                        </ScrollView>
+                    </LinearLayout>
+
+                    
+                    
+                    <LinearLayout
+                        android:id="@+id/tabEvents"
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:orientation="horizontal" >
+
+                        <ScrollView
+                            android:layout_width="match_parent"
+                            android:layout_height="match_parent" >
 
                             <LinearLayout
-                                android:id="@+id/eventsLayout"
                                 android:layout_width="match_parent"
-                                android:layout_height="wrap_content"
+                                android:layout_height="match_parent"
+                                android:layout_alignParentBottom="true"
+                                android:layout_alignParentLeft="true"
+                                android:layout_alignParentRight="true"
+                                android:layout_alignParentTop="true"
+                                android:orientation="vertical" >
+                               
+                                <LinearLayout
+                                    android:id="@+id/eventsLayout"
+                                    android:layout_width="match_parent"
+                                    android:layout_height="wrap_content"
+                                    android:layout_alignParentBottom="true"
+                                    android:layout_alignParentLeft="true"
+                                    android:layout_alignParentRight="true"
+                                    android:layout_alignParentTop="true"
+                                    android:orientation="vertical" >
+
+                                </LinearLayout>
+                            </LinearLayout>
+                        </ScrollView>
+                    </LinearLayout>
+                    
+                    
+                    
+                    <LinearLayout
+                        android:id="@+id/tabMembers"
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:orientation="horizontal" >
+
+                        <ScrollView
+                            android:layout_width="match_parent"
+                            android:layout_height="match_parent" >
+
+                            <LinearLayout
+                                android:layout_width="match_parent"
+                                android:layout_height="match_parent"
                                 android:layout_alignParentBottom="true"
                                 android:layout_alignParentLeft="true"
                                 android:layout_alignParentRight="true"
                                 android:layout_alignParentTop="true"
                                 android:orientation="vertical" >
 
-                                <TextView
-                                    android:id="@+id/textViewEventsTitle"
+                                <LinearLayout
+                                    android:id="@+id/usersLayout"
                                     android:layout_width="match_parent"
                                     android:layout_height="wrap_content"
-                                    android:gravity="center"
-                                    android:text="EVENTS:"
-                                    android:textColor="#ffffff"
-                                    android:textSize="26sp" />
+                                    android:layout_alignParentBottom="true"
+                                    android:layout_alignParentLeft="true"
+                                    android:layout_alignParentRight="true"
+                                    android:layout_alignParentTop="true"
+                                    android:orientation="vertical" >
+                                   
+                                </LinearLayout>
+
                             </LinearLayout>
-                        </LinearLayout>
-                    </ScrollView>
-                </LinearLayout>
+                        </ScrollView>
+                    </LinearLayout>
 
-                <LinearLayout
-                    android:id="@+id/tab2"
-                    android:orientation="horizontal"
-                    android:layout_width="match_parent"
-                    android:layout_height="match_parent" >
-                </LinearLayout>
-
-            </FrameLayout>
-        </LinearLayout>
-    </TabHost>
+                    
+                    
+                </FrameLayout>
+            </LinearLayout>
+        </TabHost>
+    </LinearLayout>
 
 </RelativeLayout>
