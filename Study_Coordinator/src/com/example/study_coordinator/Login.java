@@ -1,6 +1,7 @@
 package com.example.study_coordinator;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
 
 import org.apache.http.NameValuePair;
@@ -28,11 +29,13 @@ import com.example.study_coordinator.R.id;
 
 public class Login extends Activity {
 	
-	private static boolean DO_NOT_CHECK_LOGIN_DATA = true;
+	private static boolean DO_NOT_CHECK_LOGIN_DATA = false;
 
 	private Button logIn, register;
 	private EditText user, pass;
 	private TextView title;
+	 // Session Manager Class
+    SessionManager session;
 	
 	// JSON parser class
 	private static JSONParser jsonParser = new JSONParser();
@@ -52,7 +55,10 @@ public class Login extends Activity {
 	
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
-		super.onCreate(savedInstanceState);
+		// Session Manager
+        session = new SessionManager(getApplicationContext()); 
+		
+        super.onCreate(savedInstanceState);
 		setContentView(R.layout.activity_login);
 		
 
@@ -76,11 +82,13 @@ public class Login extends Activity {
 		user = (EditText)findViewById(R.id.editTextEmail);
 		pass = (EditText)findViewById(R.id.editTextPass);	
 		
-		//register listeners
-		//logIn.setOnClickListener((OnClickListener) this);
-		//register.setOnClickListener((OnClickListener) this);
-
-//		new CheckLog().execute();
+		
+		if (session.isLoggedIn()) {
+			HashMap<String, String> pref = session.getUserDetails();
+			user.setText(pref.get(SessionManager.KEY_USERNAME));
+			pass.setText(pref.get(SessionManager.KEY_HASHPASS));
+			new AttemptLogin().execute();
+        }
 
 	}
 	
@@ -95,57 +103,6 @@ public class Login extends Activity {
                 R.anim.slide_out_left);
 	}
 	
-	
-	class CheckLog extends AsyncTask<String, String, String> {
-	
-	
-	@Override
-	protected String doInBackground(String... params) {
-		// getting server login authorization by making HTTP request
-        JSONObject json = jsonParser.makeHttpRequest(CHECK_LOGIN_URL, "POST", new ArrayList<NameValuePair>());
-        Log.d("request!", "starting check");
-     // check your log for json response
-        Log.d("Login attempt", json.toString());
-
-        // json success tag
-        try{
-        int success = json.getInt(TAG_SUCCESS);
-	         if (success == 1) {
-	         	Log.d("Login Successful!", json.toString());
-	         	Intent i = new Intent(Login.this, MainActivity.class);
-	         	finish();
-				startActivity(i);
-	         }else{
-	         }
-        }
-        catch (Exception e) {
-			// TODO: handle exception
-		}
-		return null;
-	}
-	}
-	/*
-	
-	
-	
-	@Override
-	public void onClick(View v) {
-		// TODO Auto-generated method stub
-		switch (v.getId()) {
-		case R.id.btnSignIn:
-				new AttemptLogin().execute();
-			break;
-		case R.id.btnRegister:
-				Intent i = new Intent(this, Register.class);
-				startActivity(i);
-			break;
-
-		default:
-			break;
-		}*
-	}*/
-
-
 	
 	class AttemptLogin extends AsyncTask<String, String, String> {
 
@@ -193,14 +150,14 @@ public class Login extends Activity {
 				// json success tag
 				success = json.getInt(TAG_SUCCESS);
 				if (success == 1) {
-					Log.d("Login Successful!", json.toString());
-					
-					
+					Log.d("Login Successful!", json.toString());					
 					Intent i = new Intent(Login.this, MainActivity.class);
 					
 					//dodajam v intent user name uporabnike za uporabo v main aktivnosti - Jaka
 					i.putExtra("username", username);
 					
+					// start session
+	                session.createLoginSession(user.getText().toString(),pass.getText().toString(),"1");
 					finish();
 					startActivity(i);
 					return json.getString(TAG_MESSAGE);
@@ -219,10 +176,8 @@ public class Login extends Activity {
 		
 		private void doNotCheckLoginData() {
            	Intent i = new Intent(Login.this, MainActivity.class);
-           	
           //dodajam v intent user name uporabnike za uporabo v main aktivnosti - Jaka
 			i.putExtra("username", user.getText().toString());
-           	
            	finish();
 			startActivity(i);
 		}
