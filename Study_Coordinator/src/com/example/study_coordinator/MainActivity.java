@@ -81,6 +81,7 @@ public class MainActivity extends FragmentActivity {
 		dataList.add(new DrawerItem(getResources().getString(R.string.settings), R.drawable.ic_action_setting));
 		dataList.add(new DrawerItem("Groups Jure", R.drawable.ic_action_setting));
 		dataList.add(new DrawerItem(getResources().getString(R.string.logout), R.drawable.ic_action_setting));
+		dataList.add(new DrawerItem("Event test", R.drawable.ic_action_setting));
 
 		adapter = new CustomDrawerAdapter(this, R.layout.custom_drawer_item, dataList);
 		drawerList.setAdapter(adapter);
@@ -152,7 +153,11 @@ public class MainActivity extends FragmentActivity {
 			Toast.makeText(getApplicationContext(), "Logout successful!", Toast.LENGTH_SHORT).show();
 			finish();
 			break;
-
+			
+		case 6:
+			fragment = instantiateFragment(FragmentEvent.class, position, args);
+			break;
+			
 		default:
 			break;
 		}

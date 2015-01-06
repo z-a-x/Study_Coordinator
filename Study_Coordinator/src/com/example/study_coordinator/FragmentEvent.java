@@ -8,23 +8,27 @@ import android.support.v4.app.FragmentActivity;
 import android.os.Bundle;
 import android.support.v13.app.FragmentPagerAdapter;
 import android.support.v4.view.ViewPager;
+import android.view.LayoutInflater;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.view.View;
+import android.view.ViewGroup;
 
-public class FragmentEvent extends FragmentActivity {
+public class FragmentEvent extends Fragment  {
 	
 	FragmentPagerAdapter adapterViewPager;
 
-    @Override
-    protected void onCreate(Bundle savedInstanceState) {
-        super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_fragment_event);
-        ViewPager vpPager = (ViewPager) findViewById(R.id.vpPager);
+	@Override
+    public View onCreateView(LayoutInflater inflater, ViewGroup container,
+                Bundle savedInstanceState) {
+		 View view = inflater.inflate(R.layout.activity_fragment_event, container,
+                 false);
+        ViewPager vpPager = (ViewPager) view.findViewById(R.id.vpPager);
         adapterViewPager = new MyPagerAdapter(getFragmentManager());
         vpPager.setAdapter(adapterViewPager);
         
-        ActionBar actionBar = getActionBar();
-		actionBar.hide();
+        return view;
+        
     }
 
     public static class MyPagerAdapter extends FragmentPagerAdapter {
