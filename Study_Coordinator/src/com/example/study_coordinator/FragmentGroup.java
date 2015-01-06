@@ -1,10 +1,14 @@
 package com.example.study_coordinator;
 
+import java.util.List;
+
 import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
 import com.example.study_coordinator.asynctasks.LookUp;
+import com.example.study_coordinator.asynctasks.LookUpUsers;
+import com.example.study_coordinator.baseclasses.User;
 
 import android.annotation.SuppressLint;
 import android.app.ActionBar.LayoutParams;
@@ -40,11 +44,13 @@ public class FragmentGroup extends FragmentTemplate {
 
 			JSONObject groupsJsonObj = new JSONObject(JSON_TEST_STRING);
 			setTitle("Grupa " + id);
-			
-			//createUserList();
-			//createEventList();
-			createUserButtons(groupsJsonObj);
-			createEventButtons(groupsJsonObj);
+
+			createUserList();
+			createEventList();
+
+			// EX:
+			// createUserButtons(groupsJsonObj);
+			// createEventButtons(groupsJsonObj);
 		} catch (JSONException e) {
 			e.printStackTrace();
 		}
@@ -85,7 +91,8 @@ public class FragmentGroup extends FragmentTemplate {
 			@Override
 			public void onTabChanged(String tabId) {
 				for (int i = 0; i < tabHost.getTabWidget().getChildCount(); i++) {
-					TextView tv = (TextView) tabHost.getTabWidget().getChildAt(i).findViewById(android.R.id.title); // Unselected Tabs
+					TextView tv = (TextView) tabHost.getTabWidget().getChildAt(i)
+							.findViewById(android.R.id.title); // Unselected Tabs
 					tv.setTextColor(Color.parseColor("#000000"));
 				}
 				TextView tv = (TextView) tabHost.getCurrentTabView().findViewById(android.R.id.title); // for
@@ -106,25 +113,28 @@ public class FragmentGroup extends FragmentTemplate {
 		}
 		super.onResume();
 	}
-	
-	/////// CREATE LISTS ////////
+
+	// ///// CREATE LISTS ////////
 
 	private void createUserList() {
-		
-		LookUp lookUp = new LookUp(getActivity().getApplicationContext()) {
-			
+
+		LookUp lookUp = new LookUpUsers(getActivity().getApplicationContext()) {
+
 			@Override
 			public void onSuccessfulFetch(JSONObject result) throws JSONException {
-				// TODO Auto-generated method stub
-				
+				List<User> users = getUsers(result);
+				for (User user : users) {
+					createButton(((Integer) user.id).toString(), user.userName, new FragmentProfilJure(),
+							(LinearLayout) getView().findViewById(R.id.usersLayout));
+				}
 			}
 		};
-		lookUp.execute("getUsers.php");
+		lookUp.execute();
 	}
 
 	private void createEventList() {
 		// TODO Auto-generated method stub
-		
+
 	}
 
 	// ////////////////////
@@ -185,8 +195,8 @@ public class FragmentGroup extends FragmentTemplate {
 		transaction.replace(R.id.content_frame, fragment);
 		transaction.addToBackStack(null);
 		transaction.commit();
-	    // NEW (da dela back button)
-	    getFragmentManager().executePendingTransactions();
+		// NEW (da dela back button)
+		getFragmentManager().executePendingTransactions();
 	}
 
 	// #######################################

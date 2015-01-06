@@ -8,7 +8,7 @@ if($db->connect_errno > 0){
 
 #$usr = $_POST["username"];
 $sql = <<<SQL
-    SELECT user_id, user_name, user_last_name, username FROM `user`
+    SELECT * FROM `event`
 	
 SQL;
 $data = array();
