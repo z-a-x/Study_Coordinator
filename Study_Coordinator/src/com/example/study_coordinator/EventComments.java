@@ -8,6 +8,7 @@ import java.util.List;
 import org.apache.http.HttpResponse;
 import org.apache.http.NameValuePair;
 import org.apache.http.client.HttpClient;
+import org.apache.http.client.entity.UrlEncodedFormEntity;
 import org.apache.http.client.methods.HttpPost;
 import org.apache.http.impl.client.DefaultHttpClient;
 import org.apache.http.message.BasicNameValuePair;
@@ -42,9 +43,9 @@ public class EventComments extends Fragment{
     private static JSONParser jsonParser = new JSONParser();
     ListView listView;
     String result;
-    FriendAdapter adapter;
+    CommentAdapter adapter;
     private ProgressDialog pDialog;
-    ArrayList<Friend> friends;
+    ArrayList<Comment> comments;
     
  // Store instance variables
     private String title;
@@ -62,11 +63,11 @@ public class EventComments extends Fragment{
     
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,Bundle savedInstanceState) {
-    	View view = inflater.inflate(R.layout.fragment_layout_search, container, false);
+    	View view = inflater.inflate(R.layout.activity_event_comments, container, false);
         super.onCreate(savedInstanceState);       
         page = getArguments().getInt("someInt", 0);
         title = getArguments().getString("someTitle");
-        listView= (ListView) view.findViewById(R.id.lvUsers);
+        listView= (ListView) view.findViewById(R.id.lvComments);
         
                 
         // ListView Item Click Listener
@@ -104,9 +105,6 @@ public class EventComments extends Fragment{
     
 	
 	class DataCollector extends AsyncTask<String, String, String> {
-		
-	
-	
 	    @Override
 	    protected void onPreExecute() {
 	        super.onPreExecute();  
@@ -134,13 +132,16 @@ public class EventComments extends Fragment{
 				System.out.println("Didn't get shared preferences!");
 			}
 			DatabaseConnect dc = new DatabaseConnect();
-			String database_url =   dc.getIpAddress() + "getUsers.php";
+			String database_url =   dc.getIpAddress() + "getComments.php";
+			List<NameValuePair> nameValuePairs = new ArrayList<NameValuePair>();
+			nameValuePairs.add(new BasicNameValuePair("event_id", "5"));
 			
         	String st = null;
             try
             {
               HttpClient httpclient = new DefaultHttpClient();
               HttpPost httppost = new HttpPost(database_url);
+              httppost.setEntity(new UrlEncodedFormEntity(nameValuePairs)); 
               HttpResponse response = httpclient.execute(httppost);
               st =  EntityUtils.toString(response.getEntity());     
             } 
@@ -168,7 +169,7 @@ public class EventComments extends Fragment{
              * */
 			
 			
-			friends = new ArrayList<Friend>();
+			comments = new ArrayList<Comment>();
 		    
 		    
 		    String response = result.toString();
@@ -176,20 +177,21 @@ public class EventComments extends Fragment{
                 JSONObject jsonObj = new JSONObject(result);
                  
                 // Getting JSON Array node
-                JSONArray users = jsonObj.getJSONArray("users");
+                JSONArray users = jsonObj.getJSONArray("comments");
                 	
                 
                 // looping through All Contacts
                 for (int i = 0; i < users.length(); i++) {
                     JSONObject c = users.getJSONObject(i);
-                    String user_name = c.getString("user_name");
-                    String user_last_name = c.getString("user_last_name");
+                    String username = c.getString("username");
+                    String text = c.getString("text");
                     
-                    System.out.println(c.getString("user_name"));
-                    System.out.println(c.get("user_last_name"));
-                    Friend f = new Friend(user_name, user_last_name);
-                    System.out.println(f.userName+"     "+f.userLastName);
-                    friends.add(f);                    
+                    System.out.println(c.getString("username"));
+                    System.out.println(c.get("text"));
+                    Comment com = new Comment(username, text);
+                    
+                    System.out.println(com.username+"     "+com.text);
+                    comments.add(com);                    
 		    }
                 
             } catch (JSONException e) {
@@ -198,7 +200,7 @@ public class EventComments extends Fragment{
             }
 		    System.out.println(response);	
 		    
-		    adapter = new FriendAdapter(getActivity(), friends);
+		    adapter = new CommentAdapter(getActivity(), comments);
 		    System.out.println("velikost adapterja: "+adapter.getCount());
 		    listView.setAdapter(adapter);
 		}
