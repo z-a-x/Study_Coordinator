@@ -185,6 +185,7 @@ public class Register extends Activity {
 	                }
 	            } catch (JSONException e) {
 	                e.printStackTrace();
+	                cancel(failure);
 	            } catch (Exception e) {
 					cancel(failure);
 				}
