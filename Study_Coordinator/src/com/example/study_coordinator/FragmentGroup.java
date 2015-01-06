@@ -7,7 +7,9 @@ import org.json.JSONException;
 import org.json.JSONObject;
 
 import com.example.study_coordinator.asynctasks.LookUp;
+import com.example.study_coordinator.asynctasks.LookUpEvents;
 import com.example.study_coordinator.asynctasks.LookUpUsers;
+import com.example.study_coordinator.baseclasses.Event;
 import com.example.study_coordinator.baseclasses.User;
 
 import android.annotation.SuppressLint;
@@ -117,7 +119,6 @@ public class FragmentGroup extends FragmentTemplate {
 	// ///// CREATE LISTS ////////
 
 	private void createUserList() {
-
 		LookUp lookUp = new LookUpUsers(getActivity().getApplicationContext()) {
 
 			@Override
@@ -133,7 +134,18 @@ public class FragmentGroup extends FragmentTemplate {
 	}
 
 	private void createEventList() {
-		// TODO Auto-generated method stub
+		LookUp lookUp = new LookUpEvents(getActivity().getApplicationContext()) {
+			
+			@Override
+			public void onSuccessfulFetch(JSONObject result) throws JSONException {
+				List<Event> events = getEvents(result);
+				for (Event event : events) {
+					createButton(((Integer) event.id).toString(), event.name, new FragmentEventJure(),
+							(LinearLayout) getView().findViewById(R.id.eventsLayout));
+				}
+			}
+		};
+		lookUp.execute();
 
 	}
 

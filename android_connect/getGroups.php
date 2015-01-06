@@ -8,7 +8,7 @@ if($db->connect_errno > 0){
 
 #$usr = $_POST["username"];
 $sql = <<<SQL
-    SELECT * FROM `event`
+    SELECT group_id, group_name, groups_owner FROM `groups`
 	
 SQL;
 $data = array();
@@ -20,7 +20,7 @@ while($row = $result->fetch_assoc()){
 	$data[] = $row;
 	
 }
-$json = json_encode(array('users' => $data));
+$json = json_encode(array('groups' => $data));
 echo $json;
 $db->close();
 
