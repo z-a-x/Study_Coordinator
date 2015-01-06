@@ -1,9 +1,9 @@
 package com.example.study_coordinator;
 
 public class Friend {
-    public String username;
-    public String userName;
-    public String userLastName;
+    private String username;
+    private String userName;
+    private String userLastName;
     
     public Friend(String userName, String userLastName){
     	this.userName = userName;
@@ -11,7 +11,15 @@ public class Friend {
     }
 
     public Friend(String username) {
-       this.username = username;
-       
+       this.username = username;       
+    }
+    public String getUsername(){
+    	return username;
+    }
+    public String getUserName(){
+    	return userName;
+    }
+    public String getUserLastName(){
+    	return userLastName;
     }
 }

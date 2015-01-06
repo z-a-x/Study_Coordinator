@@ -1,173 +1,70 @@
 package com.example.study_coordinator;
 
-import java.io.IOException;
-import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.List;
-
-import org.apache.http.HttpResponse;
-import org.apache.http.NameValuePair;
-import org.apache.http.client.HttpClient;
-import org.apache.http.client.methods.HttpPost;
-import org.apache.http.impl.client.DefaultHttpClient;
-import org.apache.http.message.BasicNameValuePair;
-import org.apache.http.util.EntityUtils;
-import org.json.JSONArray;
-import org.json.JSONException;
-import org.json.JSONObject;
-
-import com.example.study_coordinator.Login.AttemptLogin;
-
 import android.app.ActionBar;
+import android.app.Activity;
 import android.app.Fragment;
-import android.app.ProgressDialog;
-import android.os.AsyncTask;
+import android.app.FragmentManager;
+import android.support.v4.app.FragmentActivity;
 import android.os.Bundle;
-import android.support.v7.internal.widget.ActionBarOverlayLayout.ActionBarVisibilityCallback;
-import android.util.Log;
+import android.support.v13.app.FragmentPagerAdapter;
+import android.support.v4.view.ViewPager;
 import android.view.LayoutInflater;
+import android.view.Menu;
+import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.AdapterView;
-import android.widget.AdapterView.OnItemClickListener;
-import android.widget.ArrayAdapter;
-import android.widget.ListView;
-import android.widget.Toast;
-import android.app.ActionBar.Tab;
-import android.content.Intent;
-import android.content.SyncStatusObserver;
 
-public class FragmentSearch extends Fragment {
-	// final ListView listView ;
-	private static JSONParser jsonParser = new JSONParser();
-	ListView listView;
-	String result;
-	FriendAdapter adapter;
-	private ProgressDialog pDialog;
-	ArrayList<Friend> friends;
+public class FragmentSearch extends Fragment  {
+	
+	FragmentPagerAdapter adapterViewPager;
 
 	@Override
-	public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
-		View view = inflater.inflate(R.layout.fragment_layout_search, container, false);
-		super.onCreate(savedInstanceState);
+    public View onCreateView(LayoutInflater inflater, ViewGroup container,
+                Bundle savedInstanceState) {
+		 View view = inflater.inflate(R.layout.activity_fragment_search, container,
+                 false);
+        ViewPager vpPager = (ViewPager) view.findViewById(R.id.vpPager_search);
+        adapterViewPager = new MyPagerAdapter(getFragmentManager());
+        vpPager.setAdapter(adapterViewPager);
+        
+        return view;
+        
+    }
 
-		listView = (ListView) view.findViewById(R.id.lvUsers);
+    public static class MyPagerAdapter extends FragmentPagerAdapter {
+        private static int NUM_ITEMS = 2;
 
-		// ListView Item Click Listener
-		listView.setOnItemClickListener(new OnItemClickListener() {
+            public MyPagerAdapter(FragmentManager fragmentManager) {
+                super(fragmentManager);
+            }
 
-			@Override
-			public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+            // Returns total number of pages
+            @Override
+            public int getCount() {
+                return NUM_ITEMS;
+            }
 
-				// ListView Clicked item index
-				int itemPosition = position;
+        // Returns the fragment to display for that page
+        @Override
+        public Fragment getItem(int position) {
+            switch (position) {
+            case 0: // Fragment # 0 - This will show FirstFragment
+                return SearchUsers.newInstance(0, "Users");
+            case 1: // Fragment # 0 - This will show FirstFragment different title
+                return SearchGroups.newInstance(1, "Groups");
+            
+            default:
+                return null;
+            }
+        }
 
-				// ListView Clicked item value
-				/*
-				 * String itemValue = (String) listView.getItemAtPosition(position);
-				 * 
-				 * // Show Alert Toast.makeText(getActivity().getApplicationContext(),
-				 * "Position :"+itemPosition+"  ListItem : " +itemValue , Toast.LENGTH_LONG) .show();
-				 */
-			}
+        // Returns the page title for the top indicator
+        @Override
+        public CharSequence getPageTitle(int position) {
+            return "Page " + position;
+        }
+        
 
-		});
-
-		new DataCollector().execute();
-		// System.out.println("konèna velikost adapterja: "+adapter.getCount());
-
-		return view;
-	}
-
-	class DataCollector extends AsyncTask<String, String, String> {
-
-		@Override
-		protected void onPreExecute() {
-			super.onPreExecute();
-			pDialog = new ProgressDialog(getActivity());
-			pDialog.setMessage("Please wait...");
-			pDialog.setCancelable(false);
-			pDialog.show();
-		}
-
-		@Override
-		protected String doInBackground(String... args) {
-
-			SessionManager session = new SessionManager(getActivity());
-			String username = null;
-			if (session.isLoggedIn()) {
-				HashMap<String, String> pref = session.getUserDetails();
-				username = pref.get(SessionManager.KEY_USERNAME);
-
-			}
-			if (username != null) {
-				System.out.println("Dobil shared preferences!");
-				System.out.println("Username is: " + username);
-			} else {
-				System.out.println("Didn't get shared preferences!");
-			}
-			DatabaseConnect dc = new DatabaseConnect();
-			String database_url = dc.getIpAddress() + "getUsers.php";
-
-			String st = null;
-			try {
-				HttpClient httpclient = new DefaultHttpClient();
-				HttpPost httppost = new HttpPost(database_url);
-				HttpResponse response = httpclient.execute(httppost);
-				st = EntityUtils.toString(response.getEntity());
-			} catch (IOException e) {
-				// TODO Auto-generated catch block
-				e.printStackTrace();
-			}
-
-			return st;
-
-		}
-
-		/**
-		 * After completing background task Dismiss the progress dialog
-		 * **/
-		@Override
-		protected void onPostExecute(String result) {
-			super.onPostExecute(result);
-			if (pDialog.isShowing())
-				pDialog.dismiss();
-			/**
-			 * Updating parsed JSON data into ListView
-			 * */
-
-			friends = new ArrayList<Friend>();
-
-			String response = result.toString();
-			try {
-				JSONObject jsonObj = new JSONObject(result);
-
-				// Getting JSON Array node
-				JSONArray users = jsonObj.getJSONArray("users");
-
-				// looping through All Contacts
-				for (int i = 0; i < users.length(); i++) {
-					JSONObject c = users.getJSONObject(i);
-					String user_name = c.getString("user_name");
-					String user_last_name = c.getString("user_last_name");
-
-					System.out.println(c.getString("user_name"));
-					System.out.println(c.get("user_last_name"));
-					Friend f = new Friend(user_name, user_last_name);
-					System.out.println(f.userName + "     " + f.userLastName);
-					friends.add(f);
-				}
-
-			} catch (JSONException e) {
-				e.printStackTrace();
-
-			}
-			System.out.println(response);
-
-			adapter = new FriendAdapter(getActivity(), friends);
-			System.out.println("velikost adapterja: " + adapter.getCount());
-			listView.setAdapter(adapter);
-		}
-	}
+    }
 
 }

@@ -26,7 +26,7 @@ public class FriendAdapter extends ArrayAdapter<Friend> {
        TextView tvName = (TextView) convertView.findViewById(R.id.tvName);
        
        // Populate the data into the template view using the data object
-       tvName.setText(friend.userName+ " "+friend.userLastName);
+       tvName.setText(friend.getUserName()+ " "+friend.getUserLastName());
        
        // Return the completed view to render on screen
        return convertView;
