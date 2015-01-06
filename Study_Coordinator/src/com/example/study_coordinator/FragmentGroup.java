@@ -6,24 +6,19 @@ import org.json.JSONObject;
 
 import android.annotation.SuppressLint;
 import android.app.ActionBar.LayoutParams;
-import android.app.Activity;
 import android.app.Fragment;
 import android.app.FragmentTransaction;
 import android.os.Bundle;
 import android.view.LayoutInflater;
-import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
-import android.view.View.OnClickListener;
 import android.widget.Button;
-import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TabHost;
 import android.widget.TabHost.OnTabChangeListener;
 import android.widget.TabHost.TabSpec;
 import android.widget.TextView;
-import android.content.Intent;
 import android.graphics.Color;
 
 public class FragmentGroup extends FragmentTemplate {
@@ -165,6 +160,8 @@ public class FragmentGroup extends FragmentTemplate {
 		transaction.replace(R.id.content_frame, fragment);
 		transaction.addToBackStack(null);
 		transaction.commit();
+	    // NEW (da dela back button)
+	    getFragmentManager().executePendingTransactions();
 	}
 
 	// #######################################
