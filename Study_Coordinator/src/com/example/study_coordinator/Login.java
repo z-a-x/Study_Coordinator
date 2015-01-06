@@ -21,6 +21,7 @@ import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.Button;
+import android.widget.DialerFilter;
 import android.widget.EditText;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -141,14 +142,16 @@ public class Login extends Activity {
 
 				Log.d("request!", "starting");
 				// getting server login authorization by making HTTP request
+
 				JSONObject json = jsonParser.makeHttpRequest(LOGIN_URL, "POST",
 						params);
-
+				
 				// check your log for json response
 				Log.d("Login attempt", json.toString());
 
 				// json success tag
 				success = json.getInt(TAG_SUCCESS);
+				
 				if (success == 1) {
 					Log.d("Login Successful!", json.toString());					
 					Intent i = new Intent(Login.this, MainActivity.class);
@@ -168,10 +171,17 @@ public class Login extends Activity {
 				}
 			} catch (JSONException e) {
 				e.printStackTrace();
+				cancel(failure);
+			} catch (Exception e) {
+				cancel(failure);
 			}
-
 			return null;
 
+		}
+		
+		protected void onCancelled() {
+			Toast.makeText(Login.this, "Network error!", Toast.LENGTH_LONG).show();
+			pDialog.dismiss();
 		}
 		
 		private void doNotCheckLoginData() {
