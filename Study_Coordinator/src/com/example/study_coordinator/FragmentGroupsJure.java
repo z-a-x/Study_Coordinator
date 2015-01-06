@@ -12,45 +12,62 @@ import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.TextView;
 
-public class FragmentGroupsJure extends Fragment{
+public class FragmentGroupsJure extends Fragment {
 	ImageView ivIcon;
-    TextView tvItemName;
+	TextView tvItemName;
 
-    public static final String IMAGE_RESOURCE_ID = "iconResourceID";
-    public static final String ITEM_NAME = "itemName";
+	public static final String IMAGE_RESOURCE_ID = "iconResourceID";
+	public static final String ITEM_NAME = "itemName";
 
-    @Override
-    public View onCreateView(LayoutInflater inflater, ViewGroup container,
-                Bundle savedInstanceState) {
-          View view = inflater.inflate(R.layout.fragment_layout_groups_jure, container,false);
-          
-          //TEST BUTTON
-          Button button = (Button) view.findViewById(R.id.button1);
-          button.setOnClickListener(new OnClickListener()
-	          {
-	                    @Override
-	                    public void onClick(View v)
-	                    {
-	                    	openGroupFragment();
-	                    } 
-	          }); 
-          return view;
-    }
+	@Override
+	public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
+		View view = inflater.inflate(R.layout.fragment_layout_groups_jure, container, false);
 
-    
-    private void openGroupFragment() {
-	    FragmentTransaction transaction = getFragmentManager().beginTransaction();
-	    FragmentGroup fragment = new FragmentGroup();
-	    Bundle arguments = new Bundle();
-	    arguments.putString("id", "1231231");
-	    fragment.setArguments(arguments);
-	    transaction.replace(R.id.content_frame, fragment);
-	    transaction.addToBackStack(null);
-	    transaction.commit();
-	    // NEW (da dela back button)
-	    getFragmentManager().executePendingTransactions();
-    }
-    
+		// TEST BUTTON
+		Button button = (Button) view.findViewById(R.id.button1);
+		button.setOnClickListener(new OnClickListener() {
+			@Override
+			public void onClick(View v) {
+				openGroupFragment();
+			}
+		});
+
+		// TEST BUTTON 2
+		Button button2 = (Button) view.findViewById(R.id.button2);
+		button2.setOnClickListener(new OnClickListener() {
+			@Override
+			public void onClick(View v) {
+				openSearchJureFragment();
+			}
+
+		});
+		return view;
+	}
+
+	private void openGroupFragment() {
+		FragmentTransaction transaction = getFragmentManager().beginTransaction();
+		FragmentGroup fragment = new FragmentGroup();
+		Bundle arguments = new Bundle();
+		arguments.putString("id", "1231231");
+		fragment.setArguments(arguments);
+		transaction.replace(R.id.content_frame, fragment);
+		transaction.addToBackStack(null);
+		transaction.commit();
+		// NEW (da dela back button)
+		getFragmentManager().executePendingTransactions();
+	}
+
+	private void openSearchJureFragment() {
+		FragmentTransaction transaction = getFragmentManager().beginTransaction();
+		FragmentSearchJure fragment = new FragmentSearchJure();
+		Bundle arguments = new Bundle();
+		arguments.putString("id", "1231231");
+		fragment.setArguments(arguments);
+		transaction.replace(R.id.content_frame, fragment);
+		transaction.addToBackStack(null);
+		transaction.commit();
+		// NEW (da dela back button)
+		getFragmentManager().executePendingTransactions();
+
+	}
 }
-
-
