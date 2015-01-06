@@ -148,13 +148,8 @@ public class EventComments extends Fragment{
             catch (IOException e) {
                    // TODO Auto-generated catch block
                    e.printStackTrace();
-                }
-            
-            
-            
-	            return st;
-	            
-	            
+                }           
+	            return st;	            
 		}
 		/**
 	   * After completing background task Dismiss the progress dialog
