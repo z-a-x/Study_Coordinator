@@ -58,6 +58,22 @@
             android:name=".ListViewExampleActivity"
             android:label="@string/title_activity_list_view_example" >
         </activity>
+        <activity
+            android:name=".FragmentEvent"
+            android:label="@string/title_activity_fragment_event" >
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN" />
+                <action android:name="android.intent.category.LAUNCHER" />
+            </intent-filter>
+        </activity>
+        <activity
+            android:name=".EventDetails"
+            android:label="@string/title_activity_event_details" >
+        </activity>
+        <activity
+            android:name=".EventComments"
+            android:label="@string/title_activity_event_comments" >
+        </activity>
     </application>
 
     <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" >
