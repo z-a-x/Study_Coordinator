@@ -185,11 +185,19 @@ public class Register extends Activity {
 	                }
 	            } catch (JSONException e) {
 	                e.printStackTrace();
-	            }
+	            } catch (Exception e) {
+					cancel(failure);
+				}
 
 	            return null;
 
 			}
+			
+			protected void onCancelled() {
+				Toast.makeText(Register.this, "Network error!", Toast.LENGTH_LONG).show();
+				pDialog.dismiss();
+			}
+			
 			 /* After completing background task Dismiss the progress dialog
 	         * **/
 	        protected void onPostExecute(String file_url) {
