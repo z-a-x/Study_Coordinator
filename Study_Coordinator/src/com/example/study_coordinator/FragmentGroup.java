@@ -4,6 +4,8 @@ import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
+import com.example.study_coordinator.asynctasks.LookUp;
+
 import android.annotation.SuppressLint;
 import android.app.ActionBar.LayoutParams;
 import android.app.Fragment;
@@ -38,6 +40,9 @@ public class FragmentGroup extends FragmentTemplate {
 
 			JSONObject groupsJsonObj = new JSONObject(JSON_TEST_STRING);
 			setTitle("Grupa " + id);
+			
+			//createUserList();
+			//createEventList();
 			createUserButtons(groupsJsonObj);
 			createEventButtons(groupsJsonObj);
 		} catch (JSONException e) {
@@ -100,6 +105,26 @@ public class FragmentGroup extends FragmentTemplate {
 			}
 		}
 		super.onResume();
+	}
+	
+	/////// CREATE LISTS ////////
+
+	private void createUserList() {
+		
+		LookUp lookUp = new LookUp(getActivity().getApplicationContext()) {
+			
+			@Override
+			public void onSuccessfulFetch(JSONObject result) throws JSONException {
+				// TODO Auto-generated method stub
+				
+			}
+		};
+		lookUp.execute("getUsers.php");
+	}
+
+	private void createEventList() {
+		// TODO Auto-generated method stub
+		
 	}
 
 	// ////////////////////
