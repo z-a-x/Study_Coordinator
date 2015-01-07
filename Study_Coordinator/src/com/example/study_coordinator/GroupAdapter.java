@@ -1,6 +1,9 @@
 package com.example.study_coordinator;
 
 import java.util.ArrayList;
+import java.util.List;
+
+import com.example.study_coordinator.baseclasses.Group;
 
 import android.content.Context;
 import android.view.LayoutInflater;
@@ -10,7 +13,7 @@ import android.widget.ArrayAdapter;
 import android.widget.TextView;
 
 public class GroupAdapter extends ArrayAdapter<Group>{
-	public GroupAdapter(Context context, ArrayList<Group> users) {
+	public GroupAdapter(Context context, List<Group> users) {
 	       super(context, 0, users);
 	    }
 
@@ -26,7 +29,7 @@ public class GroupAdapter extends ArrayAdapter<Group>{
 	       TextView tvName = (TextView) convertView.findViewById(R.id.tvNameGroup);
 	       
 	       // Populate the data into the template view using the data object
-	       tvName.setText(group.getGroupName());
+	       tvName.setText(group.name);
 	       
 	       // Return the completed view to render on screen
 	       return convertView;

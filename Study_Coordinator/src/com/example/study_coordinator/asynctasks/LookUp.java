@@ -1,5 +1,6 @@
 package com.example.study_coordinator.asynctasks;
 
+import java.util.HashMap;
 import java.util.Timer;
 import java.util.TimerTask;
 
@@ -13,6 +14,7 @@ import org.json.JSONException;
 import org.json.JSONObject;
 
 import com.example.study_coordinator.DatabaseConnect;
+import com.example.study_coordinator.SessionManager;
 
 import android.content.Context;
 import android.os.AsyncTask;
@@ -20,9 +22,9 @@ import android.os.Handler;
 import android.widget.Toast;
 
 /**
- * Basic extension of the AsyncTask, intended for querying JSON APIs.
- * It receives the static part of the URI in the constructor and query part in the first parameter of the execute function.
- * The extending class needs to define onPostExecute function.
+ * Basic extension of the AsyncTask, intended for querying JSON APIs. It receives the static part of the URI
+ * in the constructor and query part in the first parameter of the execute function. The extending class needs
+ * to define onPostExecute function.
  */
 public abstract class LookUp extends AsyncTask<String, Void, JSONObject> {
 
@@ -36,13 +38,13 @@ public abstract class LookUp extends AsyncTask<String, Void, JSONObject> {
 	}
 
 	public abstract void onSuccessfulFetch(JSONObject result) throws JSONException;
-	
+
 	@Override
 	protected JSONObject doInBackground(String... params) {
 		try {
 			String combinedAddress = address;
 			if (params != null && params.length != 0) {
-				combinedAddress = address+params[0];
+				combinedAddress = address + params[0];
 			}
 			final HttpGet request = new HttpGet(combinedAddress);
 			request.addHeader("Accept", "application/json");
@@ -60,8 +62,7 @@ public abstract class LookUp extends AsyncTask<String, Void, JSONObject> {
 	@Override
 	protected void onPostExecute(JSONObject result) {
 		if (result == null) {
-			Toast.makeText(context, "Error occured while downloading data.", Toast.LENGTH_SHORT)
-					.show();
+			Toast.makeText(context, "Error occured while downloading data.", Toast.LENGTH_SHORT).show();
 			return;
 		}
 		try {
@@ -89,5 +90,21 @@ public abstract class LookUp extends AsyncTask<String, Void, JSONObject> {
 		};
 		timer.schedule(asynchronousTask, initialDelay, miliseconds);
 	}
-	
+
+	// TODO: include users id into queries:
+	// Should look something like this (this code used to be in SearchGroups, but it was usless:
+	// SessionManager session = new SessionManager(getActivity());
+	// String username = null;
+	// if (session.isLoggedIn()) {
+	// HashMap<String, String> pref = session.getUserDetails();
+	// username = pref.get(SessionManager.KEY_USERNAME);
+	//
+	// }
+	// if (username != null) {
+	// System.out.println("Dobil shared preferences!");
+	// System.out.println("Username is: " + username);
+	// } else {
+	// System.out.println("Didn't get shared preferences!");
+	// }
+
 }

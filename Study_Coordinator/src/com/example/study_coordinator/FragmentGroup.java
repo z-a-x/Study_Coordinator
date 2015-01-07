@@ -119,7 +119,7 @@ public class FragmentGroup extends FragmentTemplate {
 	// ///// CREATE LISTS ////////
 
 	private void createUserList() {
-		LookUp lookUp = new LookUpUsers(getActivity().getApplicationContext()) {
+		LookUp userFetcher = new LookUpUsers(getActivity().getApplicationContext()) {
 
 			@Override
 			public void onSuccessfulFetch(JSONObject result) throws JSONException {
@@ -130,11 +130,11 @@ public class FragmentGroup extends FragmentTemplate {
 				}
 			}
 		};
-		lookUp.execute();
+		userFetcher.execute();
 	}
 
 	private void createEventList() {
-		LookUp lookUp = new LookUpEvents(getActivity().getApplicationContext()) {
+		LookUp eventFetcher = new LookUpEvents(getActivity().getApplicationContext()) {
 			
 			@Override
 			public void onSuccessfulFetch(JSONObject result) throws JSONException {
@@ -145,7 +145,7 @@ public class FragmentGroup extends FragmentTemplate {
 				}
 			}
 		};
-		lookUp.execute();
+		eventFetcher.execute();
 
 	}
 
