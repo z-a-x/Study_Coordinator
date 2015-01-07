@@ -40,10 +40,10 @@ public abstract class LookUpEvents extends LookUp {
 		for (int i = 0; i < eventsArray.length(); i++) {
 			JSONObject eventObject = eventsArray.getJSONObject(i);
 			int id = eventObject.getInt("event_id");
-			int locationId = eventObject.getInt("location_id");
+			String locationId = eventObject.getString("geoloc");
 			int groupId = eventObject.getInt("group_id");
 			String name = eventObject.getString("event_name");
-			String date = eventObject.getString("date");
+			String date = eventObject.getString("time");
 			String description = eventObject.getString("description");
 			String scope = eventObject.getString("scope");
 			

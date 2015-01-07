@@ -44,7 +44,6 @@ public class Login extends Activity {
 	// server url (local computer)
 	private static final DatabaseConnect databaseConnect = new DatabaseConnect();
 	private static final String LOGIN_URL = databaseConnect.getIpAddress() + "login.php";
-	private static final String CHECK_LOGIN_URL = databaseConnect.getIpAddress() +"check_if_logged_in.php";
 	
 	//ids
 	private static final String TAG_SUCCESS = "success";

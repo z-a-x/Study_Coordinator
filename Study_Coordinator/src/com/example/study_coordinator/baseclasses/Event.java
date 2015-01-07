@@ -6,18 +6,18 @@ import java.util.Date;
 
 public class Event {
 	public final int id;
-	public final int locationId;
+	public final String locationId;
 	public final int groupId;
 	public final String name;
 	public final Date date;
 	public final String description;
 	public final Scope scope;
 
-	public Event(int id, int locationId, int groupId, String name, String date, String description,
+	public Event(int id, String locationId2, int groupId, String name, String date, String description,
 			String scope) throws ParseException {
 		super();
 		this.id = id;
-		this.locationId = locationId;
+		this.locationId = locationId2;
 		this.groupId = groupId;
 		this.name = name;
 		SimpleDateFormat df = new SimpleDateFormat("yyyy-MM-dd kk:mm:ss");
