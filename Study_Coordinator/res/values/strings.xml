@@ -37,5 +37,6 @@
     <string name="title_activity_fragment_event">FragmentEvent</string>
     <string name="title_activity_event_details">EventDetails</string>
     <string name="title_activity_event_comments">EventComments</string>
+    <string name="social">Social</string>
 
 </resources>

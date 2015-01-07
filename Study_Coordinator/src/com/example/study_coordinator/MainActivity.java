@@ -78,7 +78,7 @@ public class MainActivity extends FragmentActivity {
 		dataList.add(new DrawerItem(getResources().getString(R.string.search), R.drawable.ic_action_search));
 		dataList.add(new DrawerItem(getResources().getString(R.string.events), R.drawable.ic_action_events));
 		dataList.add(new DrawerItem(getResources().getString(R.string.profil), R.drawable.ic_action_person));
-		dataList.add(new DrawerItem(getResources().getString(R.string.settings), R.drawable.ic_action_setting));
+		dataList.add(new DrawerItem(getResources().getString(R.string.social), R.drawable.ic_action_group));
 		dataList.add(new DrawerItem("Groups Jure", R.drawable.ic_action_setting));
 		dataList.add(new DrawerItem(getResources().getString(R.string.logout), R.drawable.ic_action_setting));
 		dataList.add(new DrawerItem("Event test", R.drawable.ic_action_setting));
@@ -141,7 +141,7 @@ public class MainActivity extends FragmentActivity {
 			break;
 
 		case 3:
-			fragment = instantiateFragment(FragmentSettings.class, position, args);
+			fragment = instantiateFragment(FragmentSocial.class, position, args);
 			break;
 		case 4:
 			fragment = instantiateFragment(FragmentGroupsJure.class, position, args);

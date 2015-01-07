@@ -1,3 +1,4 @@
+
 package com.example.study_coordinator;
 
 import java.util.ArrayList;
@@ -20,7 +21,7 @@ import android.widget.AdapterView;
 import android.widget.AdapterView.OnItemClickListener;
 import android.widget.ListView;
 
-public class SearchGroups extends Fragment {
+public class SocialGroups extends Fragment {
 	// final ListView listView ;
 	private static JSONParser jsonParser = new JSONParser();
 	ListView listView;
@@ -33,8 +34,8 @@ public class SearchGroups extends Fragment {
 	private int page;
 
 	// newInstance constructor for creating fragment with arguments
-	public static SearchGroups newInstance(int page, String title) {
-		SearchGroups fragmentFirst = new SearchGroups();
+	public static SocialGroups newInstance(int page, String title) {
+		SocialGroups fragmentFirst = new SocialGroups();
 		Bundle args = new Bundle();
 		args.putInt("someInt", page);
 		args.putString("someTitle", title);
@@ -44,11 +45,11 @@ public class SearchGroups extends Fragment {
 
 	@Override
 	public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
-		View view = inflater.inflate(R.layout.activity_search_groups, container, false);
+		View view = inflater.inflate(R.layout.activity_social_groups, container, false);
 		super.onCreate(savedInstanceState);
 		page = getArguments().getInt("someInt", 0);
 		title = getArguments().getString("someTitle");
-		listView = (ListView) view.findViewById(R.id.lv_search_groups);
+		listView = (ListView) view.findViewById(R.id.lv_social_groups);
 
 		// ListView Item Click Listener
 		listView.setOnItemClickListener(new OnItemClickListener() {
@@ -76,18 +77,12 @@ public class SearchGroups extends Fragment {
 			public void onSuccessfulFetch(JSONObject result) throws JSONException {
 				List<Group> groups = getGroups(result);
 				
-				List<String> groupNames = new ArrayList<String>();
-				for (Group group: groups) {
-					groupNames.add(group.name);
-					System.out.println(group.name);
-				}
-				
 				adapter = new GroupAdapter(getActivity(), groups);
 				listView.setAdapter(adapter);
 			}
 		};
-		final String TEST_QUERY = "a";
-		groupFetcher.execute("search", TEST_QUERY);
+		
+		groupFetcher.execute();
 		
 		return view;
 	}

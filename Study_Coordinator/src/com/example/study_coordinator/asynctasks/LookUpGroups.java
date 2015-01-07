@@ -33,12 +33,25 @@ public abstract class LookUpGroups extends LookUp {
 		List<Group> groups = new ArrayList<Group>();
 
 		JSONArray groupsArray = result.getJSONArray("groups");
+		String ownerIdIzBaze="-1";
+		int ownerId = -1;
+		String name = "Napaka";
+		int id = -1;
+		
 		for (int i = 0; i < groupsArray.length(); i++) {
 			JSONObject groupObject = groupsArray.getJSONObject(i);
-			int id = groupObject.getInt("group_id");
-			String name = groupObject.getString("group_name");
-			int ownerId = groupObject.getInt("groups_owner");
+			System.out.println("JSON OBJEKT: "+groupObject.getString("group_name"));
+			
+			id = Integer.parseInt(groupObject.getString("group_id"));
+			name = groupObject.getString("group_name");
+			ownerIdIzBaze =  groupObject.getString("groups_owner");
+			if(!ownerIdIzBaze.equals("")){
+				ownerId = Integer.parseInt(ownerIdIzBaze);
+			}
+			
+			System.out.println(name+" "+id+" "+ownerId);
 			Group group = new Group(id, name, ownerId);
+			System.out.println("GROUP_ID "+id+" GROUP NAME: "+name+" OWNER_ID+ "+ownerId);
 			groups.add(group);
 		}
 		return groups;

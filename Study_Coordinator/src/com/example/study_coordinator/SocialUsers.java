@@ -1,14 +1,14 @@
 package com.example.study_coordinator;
 
-import java.util.ArrayList;
+
 import java.util.List;
 
 import org.json.JSONException;
 import org.json.JSONObject;
 
 import com.example.study_coordinator.asynctasks.LookUp;
-import com.example.study_coordinator.asynctasks.LookUpGroups;
-import com.example.study_coordinator.baseclasses.Group;
+import com.example.study_coordinator.asynctasks.LookUpUsers;
+import com.example.study_coordinator.baseclasses.User;
 
 import android.app.Fragment;
 import android.app.ProgressDialog;
@@ -20,12 +20,12 @@ import android.widget.AdapterView;
 import android.widget.AdapterView.OnItemClickListener;
 import android.widget.ListView;
 
-public class SearchGroups extends Fragment {
+public class SocialUsers extends Fragment {
 	// final ListView listView ;
 	private static JSONParser jsonParser = new JSONParser();
 	ListView listView;
 	String result;
-	GroupAdapter adapter;
+	FriendAdapter adapter;
 	private ProgressDialog pDialog;
 
 	// Store instance variables
@@ -33,8 +33,8 @@ public class SearchGroups extends Fragment {
 	private int page;
 
 	// newInstance constructor for creating fragment with arguments
-	public static SearchGroups newInstance(int page, String title) {
-		SearchGroups fragmentFirst = new SearchGroups();
+	public static SearchUsers newInstance(int page, String title) {
+		SearchUsers fragmentFirst = new SearchUsers();
 		Bundle args = new Bundle();
 		args.putInt("someInt", page);
 		args.putString("someTitle", title);
@@ -44,11 +44,11 @@ public class SearchGroups extends Fragment {
 
 	@Override
 	public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
-		View view = inflater.inflate(R.layout.activity_search_groups, container, false);
+		View view = inflater.inflate(R.layout.activity_social_users, container, false);
 		super.onCreate(savedInstanceState);
 		page = getArguments().getInt("someInt", 0);
 		title = getArguments().getString("someTitle");
-		listView = (ListView) view.findViewById(R.id.lv_search_groups);
+		listView = (ListView) view.findViewById(R.id.lv_social_users);
 
 		// ListView Item Click Listener
 		listView.setOnItemClickListener(new OnItemClickListener() {
@@ -70,25 +70,19 @@ public class SearchGroups extends Fragment {
 
 		});
 
-		LookUp groupFetcher = new LookUpGroups(getActivity().getApplicationContext()) {
+		LookUp userFetcher = new LookUpUsers(getActivity().getApplicationContext()) {
 
 			@Override
 			public void onSuccessfulFetch(JSONObject result) throws JSONException {
-				List<Group> groups = getGroups(result);
-				
-				List<String> groupNames = new ArrayList<String>();
-				for (Group group: groups) {
-					groupNames.add(group.name);
-					System.out.println(group.name);
-				}
-				
-				adapter = new GroupAdapter(getActivity(), groups);
+				List<User> users = getUsers(result);
+				adapter = new FriendAdapter(getActivity(), users);
 				listView.setAdapter(adapter);
 			}
 		};
-		final String TEST_QUERY = "a";
-		groupFetcher.execute("search", TEST_QUERY);
 		
+		userFetcher.execute();
+		
+
 		return view;
 	}
 
