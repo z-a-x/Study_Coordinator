@@ -78,7 +78,9 @@ public class SearchUsers extends Fragment {
 				listView.setAdapter(adapter);
 			}
 		};
-		userFetcher.execute();
+		final String TEST_QUERY = "a";
+		userFetcher.execute("search", TEST_QUERY);
+		
 
 		return view;
 	}

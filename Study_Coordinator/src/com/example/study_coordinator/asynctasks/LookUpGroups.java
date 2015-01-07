@@ -23,7 +23,7 @@ public abstract class LookUpGroups extends LookUp {
 
 	@Override
 	protected JSONObject doInBackground(String... params) {
-		return super.doInBackground("getGroups.php");
+		return super.doInBackground("getGroups.php"+getQuery(params));
 	}
 
 	/*

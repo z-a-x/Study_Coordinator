@@ -22,7 +22,7 @@ public abstract class LookUpUsers extends LookUp {
 
 	@Override
 	protected JSONObject doInBackground(String... params) {
-		return super.doInBackground("getUsers.php");
+		return super.doInBackground("getUsers.php"+getQuery(params));
 	}
 
 	/*

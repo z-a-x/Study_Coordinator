@@ -53,6 +53,7 @@
 
                     
                     
+                    
                     <LinearLayout
                         android:id="@+id/tabAbout"
                         android:layout_width="match_parent"
@@ -82,8 +83,8 @@
                                     android:layout_alignParentTop="true"
                                     android:orientation="vertical" >
 
+                                    
                                 </LinearLayout>
-
                             </LinearLayout>
                         </ScrollView>
                     </LinearLayout>
@@ -108,7 +109,7 @@
                                 android:layout_alignParentRight="true"
                                 android:layout_alignParentTop="true"
                                 android:orientation="vertical" >
-                               
+
                                 <LinearLayout
                                     android:id="@+id/eventsLayout"
                                     android:layout_width="match_parent"
@@ -118,14 +119,23 @@
                                     android:layout_alignParentRight="true"
                                     android:layout_alignParentTop="true"
                                     android:orientation="vertical" >
-
+                                    
+                                    
+                                    <ListView
+                                        android:id="@+id/listViewEvents"
+                                        android:layout_width="match_parent"
+                                        android:layout_height="wrap_content"
+                                        android:layout_alignParentBottom="true"
+                                        android:layout_alignParentLeft="true"
+                                        android:layout_alignParentRight="true"
+                                        android:layout_alignParentTop="true" >
+                                    </ListView>
+                                    
                                 </LinearLayout>
                             </LinearLayout>
                         </ScrollView>
                     </LinearLayout>
-                    
-                    
-                    
+
                     <LinearLayout
                         android:id="@+id/tabMembers"
                         android:layout_width="match_parent"
@@ -154,15 +164,23 @@
                                     android:layout_alignParentRight="true"
                                     android:layout_alignParentTop="true"
                                     android:orientation="vertical" >
-                                   
+                                    
+                                    
+                                    <ListView
+                                        android:id="@+id/listViewUsers"
+                                        android:layout_width="match_parent"
+                                        android:layout_height="wrap_content"
+                                        android:layout_alignParentBottom="true"
+                                        android:layout_alignParentLeft="true"
+                                        android:layout_alignParentRight="true"
+                                        android:layout_alignParentTop="true" >
+                                    </ListView>
+                                    
+                                    
                                 </LinearLayout>
-
                             </LinearLayout>
                         </ScrollView>
                     </LinearLayout>
-
-                    
-                    
                 </FrameLayout>
             </LinearLayout>
         </TabHost>

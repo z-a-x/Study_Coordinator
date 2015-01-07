@@ -75,11 +75,11 @@ public class SearchGroups extends Fragment {
 			public void onSuccessfulFetch(JSONObject result) throws JSONException {
 				List<Group> groups = getGroups(result);
 				adapter = new GroupAdapter(getActivity(), groups);
-				System.out.println("velikost adapterja: " + adapter.getCount());
 				listView.setAdapter(adapter);
 			}
 		};
-		groupFetcher.execute();
+		final String TEST_QUERY = "a";
+		groupFetcher.execute("search", TEST_QUERY);
 		
 		return view;
 	}

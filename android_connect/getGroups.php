@@ -6,11 +6,26 @@ if($db->connect_errno > 0){
 }
 
 
-#$usr = $_POST["username"];
-$sql = <<<SQL
-    SELECT group_id, group_name, groups_owner FROM `groups`
-	
+// if id is passed return only group with the id
+if(isset($_GET["id"])) {
+	$id = $_GET["id"];
+	$sql = <<<SQL
+   	SELECT group_id, group_name, groups_owner FROM `groups` WHERE group_id=$id
 SQL;
+// if search query is passed return groups matching query
+} else if (isset($_GET["search"])) {
+	$query = $_GET["search"];
+	$sql = <<<SQL
+   	SELECT group_id, group_name, groups_owner FROM `groups` WHERE group_name LIKE '%$query%' 
+SQL;
+// if nothing is passed return all groups
+} else {
+	$sql = <<<SQL
+   	SELECT group_id, group_name, groups_owner FROM `groups` 
+SQL;
+}
+
+	
 $data = array();
 if(!$result = $db->query($sql)){
     die('There was an error running the query [' . $db->error . ']');

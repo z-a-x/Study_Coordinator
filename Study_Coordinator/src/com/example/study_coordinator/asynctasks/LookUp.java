@@ -1,22 +1,25 @@
 package com.example.study_coordinator.asynctasks;
 
-import java.util.HashMap;
+import java.util.ArrayList;
+import java.util.List;
 import java.util.Timer;
 import java.util.TimerTask;
 
 import org.apache.http.HttpEntity;
 import org.apache.http.HttpResponse;
+import org.apache.http.NameValuePair;
 import org.apache.http.client.HttpClient;
 import org.apache.http.client.methods.HttpGet;
+import org.apache.http.client.utils.URLEncodedUtils;
 import org.apache.http.impl.client.DefaultHttpClient;
+import org.apache.http.message.BasicNameValuePair;
 import org.apache.http.util.EntityUtils;
 import org.json.JSONException;
 import org.json.JSONObject;
 
 import com.example.study_coordinator.DatabaseConnect;
-import com.example.study_coordinator.SessionManager;
-
 import android.content.Context;
+import android.net.Uri;
 import android.os.AsyncTask;
 import android.os.Handler;
 import android.widget.Toast;
@@ -46,6 +49,7 @@ public abstract class LookUp extends AsyncTask<String, Void, JSONObject> {
 			if (params != null && params.length != 0) {
 				combinedAddress = address + params[0];
 			}
+
 			final HttpGet request = new HttpGet(combinedAddress);
 			request.addHeader("Accept", "application/json");
 			final HttpClient client = new DefaultHttpClient();
@@ -53,6 +57,7 @@ public abstract class LookUp extends AsyncTask<String, Void, JSONObject> {
 			final HttpEntity entity = response.getEntity();
 			String responseJson = EntityUtils.toString(entity);
 			return new JSONObject(responseJson);
+			
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
@@ -90,6 +95,25 @@ public abstract class LookUp extends AsyncTask<String, Void, JSONObject> {
 		};
 		timer.schedule(asynchronousTask, initialDelay, miliseconds);
 	}
+	
+	/**
+	 * Returns a URL query string.
+	 * Params represent name/value pairs; they should always have even length.
+	 * Example:
+	 * in: "id", "14"
+	 * out: "?id=14"
+	 */
+	protected static String getQuery(String... params) {
+		if (params.length == 0) {
+			return "";
+		}
+		List<NameValuePair> paramsList = new ArrayList<NameValuePair>();
+		for (int i = 0; i < params.length/2; i++) {
+			paramsList.add(new BasicNameValuePair(params[i], params[i+1]));
+		}
+	    return "?" + URLEncodedUtils.format(paramsList, "utf-8");
+	}
+
 
 	// TODO: include users id into queries:
 	// Should look something like this (this code used to be in SearchGroups, but it was usless:

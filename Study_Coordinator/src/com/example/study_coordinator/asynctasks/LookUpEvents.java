@@ -27,7 +27,7 @@ public abstract class LookUpEvents extends LookUp {
 
 	@Override
 	protected JSONObject doInBackground(String... params) {
-		return super.doInBackground("getEvents.php");
+		return super.doInBackground("getEvents.php"+getQuery(params));
 	}
 
 	/*

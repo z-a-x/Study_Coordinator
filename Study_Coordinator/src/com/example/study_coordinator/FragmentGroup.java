@@ -1,28 +1,36 @@
 package com.example.study_coordinator;
 
+import java.util.ArrayList;
 import java.util.List;
 
+import org.apache.http.NameValuePair;
+import org.apache.http.message.BasicNameValuePair;
 import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
 import com.example.study_coordinator.asynctasks.LookUp;
 import com.example.study_coordinator.asynctasks.LookUpEvents;
+import com.example.study_coordinator.asynctasks.LookUpGroups;
 import com.example.study_coordinator.asynctasks.LookUpUsers;
 import com.example.study_coordinator.baseclasses.Event;
+import com.example.study_coordinator.baseclasses.Group;
 import com.example.study_coordinator.baseclasses.User;
 
 import android.annotation.SuppressLint;
 import android.app.ActionBar.LayoutParams;
 import android.app.Fragment;
 import android.app.FragmentTransaction;
+import android.app.ListActivity;
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.LinearLayout;
+import android.widget.ListView;
 import android.widget.TabHost;
 import android.widget.TabHost.OnTabChangeListener;
 import android.widget.TabHost.TabSpec;
@@ -41,21 +49,14 @@ public class FragmentGroup extends FragmentTemplate {
 
 	@Override
 	protected void initialize() {
-		try {
-			initializeTabs();
+		initializeTabs();
+		setTitle();
+		createUserList();
+		createEventList();
 
-			JSONObject groupsJsonObj = new JSONObject(JSON_TEST_STRING);
-			setTitle("Grupa " + id);
-
-			createUserList();
-			createEventList();
-
-			// EX:
-			// createUserButtons(groupsJsonObj);
-			// createEventButtons(groupsJsonObj);
-		} catch (JSONException e) {
-			e.printStackTrace();
-		}
+		// EX:
+		// createUserButtons(groupsJsonObj);
+		// createEventButtons(groupsJsonObj);
 	}
 
 	// ///// TABS ////////
@@ -115,6 +116,22 @@ public class FragmentGroup extends FragmentTemplate {
 		}
 		super.onResume();
 	}
+	
+	///////// TITLE ////////
+	
+	private void setTitle() {
+		LookUp groupNameFetcher = new LookUpGroups(getActivity().getApplicationContext()) {
+			
+			@Override
+			public void onSuccessfulFetch(JSONObject result) throws JSONException {
+				List<Group> groups = getGroups(result);
+				if (groups.size() != 0) {
+					setTitle(groups.get(0).name);
+				}
+			}
+		};
+		groupNameFetcher.execute("id", id);
+	}
 
 	// ///// CREATE LISTS ////////
 
@@ -124,10 +141,10 @@ public class FragmentGroup extends FragmentTemplate {
 			@Override
 			public void onSuccessfulFetch(JSONObject result) throws JSONException {
 				List<User> users = getUsers(result);
-				for (User user : users) {
-					createButton(((Integer) user.id).toString(), user.userName, new FragmentProfilJure(),
-							(LinearLayout) getView().findViewById(R.id.usersLayout));
-				}
+				// Uses list view:
+				ListView listView = (ListView) getView().findViewById(R.id.listViewUsers);
+				FriendAdapter adapter = new FriendAdapter(getActivity(), users);
+				listView.setAdapter(adapter);
 			}
 		};
 		userFetcher.execute();
@@ -135,10 +152,11 @@ public class FragmentGroup extends FragmentTemplate {
 
 	private void createEventList() {
 		LookUp eventFetcher = new LookUpEvents(getActivity().getApplicationContext()) {
-			
+
 			@Override
 			public void onSuccessfulFetch(JSONObject result) throws JSONException {
 				List<Event> events = getEvents(result);
+				// Uses buttons:
 				for (Event event : events) {
 					createButton(((Integer) event.id).toString(), event.name, new FragmentEventJure(),
 							(LinearLayout) getView().findViewById(R.id.eventsLayout));
@@ -146,6 +164,7 @@ public class FragmentGroup extends FragmentTemplate {
 			}
 		};
 		eventFetcher.execute();
+		
 
 	}
 

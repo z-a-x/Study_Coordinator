@@ -5,12 +5,26 @@ if($db->connect_errno > 0){
     die('Unable to connect to database [' . $db->connect_error . ']');
 }
 
-
-#$usr = $_POST["username"];
-$sql = <<<SQL
-    SELECT * FROM `event`
-	
+// if id is passed return only event with the id
+if(isset($_GET["id"])) {
+	$id = $_GET["id"];
+	$sql = <<<SQL
+	SELECT * FROM `event` WHERE event_id = $id
 SQL;
+// if search query is passed return events matching query
+} else if (isset($_GET["search"])) {
+	$query = $_GET["search"];
+	$sql = <<<SQL
+    SELECT * FROM `event` WHERE event_name LIKE '%$query%' OR description LIKE '%$query%' 
+SQL;
+// if nothing is passed return all events 
+} else {
+	$sql = <<<SQL
+    SELECT * FROM `event` 
+SQL;
+}
+
+
 $data = array();
 if(!$result = $db->query($sql)){
     die('There was an error running the query [' . $db->error . ']');
