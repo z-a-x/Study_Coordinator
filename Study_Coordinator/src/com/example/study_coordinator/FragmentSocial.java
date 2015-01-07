@@ -54,7 +54,7 @@ public class FragmentSocial extends Fragment  {
             case 1: // Fragment # 0 - This will show FirstFragment different title
                 return SocialGroups.newInstance(1, titles[1]);
             case 2: // Fragment # 0 - This will show FirstFragment different title
-                return SocialUsers.newInstance(2, titles[2]);
+                return SocialFriends.newInstance(2, titles[2]);
             
             default:
                 return null;

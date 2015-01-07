@@ -1,7 +1,6 @@
-
 package com.example.study_coordinator;
 
-import java.util.ArrayList;
+
 import java.util.HashMap;
 import java.util.List;
 
@@ -9,8 +8,10 @@ import org.json.JSONException;
 import org.json.JSONObject;
 
 import com.example.study_coordinator.asynctasks.LookUp;
-import com.example.study_coordinator.asynctasks.LookUpGroups;
+import com.example.study_coordinator.asynctasks.LookUpUserGroup;
+import com.example.study_coordinator.asynctasks.LookUpUsers;
 import com.example.study_coordinator.baseclasses.Group;
+import com.example.study_coordinator.baseclasses.User;
 
 import android.app.Fragment;
 import android.app.ProgressDialog;
@@ -22,23 +23,22 @@ import android.widget.AdapterView;
 import android.widget.AdapterView.OnItemClickListener;
 import android.widget.ListView;
 
-public class SocialGroups extends Fragment {
+public class SocialFriends extends Fragment {
 	// final ListView listView ;
 	private static JSONParser jsonParser = new JSONParser();
 	ListView listView;
 	String result;
-	GroupAdapter adapter;
+	FriendAdapter adapter;
 	private ProgressDialog pDialog;
-	
 
 	// Store instance variables
 	private String title;
 	private int page;
 
-	
+
 	// newInstance constructor for creating fragment with arguments
-	public static SocialGroups newInstance(int page, String title) {
-		SocialGroups fragmentFirst = new SocialGroups();
+	public static SocialFriends newInstance(int page, String title) {
+		SocialFriends fragmentFirst = new SocialFriends();
 		Bundle args = new Bundle();
 		args.putInt("someInt", page);
 		args.putString("someTitle", title);
@@ -48,11 +48,11 @@ public class SocialGroups extends Fragment {
 
 	@Override
 	public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
-		View view = inflater.inflate(R.layout.activity_social_groups, container, false);
+		View view = inflater.inflate(R.layout.activity_social_friends, container, false);
 		super.onCreate(savedInstanceState);
 		page = getArguments().getInt("someInt", 0);
 		title = getArguments().getString("someTitle");
-		listView = (ListView) view.findViewById(R.id.lv_social_groups);
+		listView = (ListView) view.findViewById(R.id.lv_social_friends);
 
 		// ListView Item Click Listener
 		listView.setOnItemClickListener(new OnItemClickListener() {
@@ -74,36 +74,34 @@ public class SocialGroups extends Fragment {
 
 		});
 
-		LookUp groupFetcher = new LookUpGroups(getActivity().getApplicationContext()) {
-
+		LookUp userGroupFetcher = new LookUpUserGroup(getActivity().getApplicationContext()) {
 			@Override
 			public void onSuccessfulFetch(JSONObject result) throws JSONException {
-				List<Group> groups = getGroups(result);
-				String s = "(";
-				for(Group g : groups){
-					s+=g.id+",";
-				}
-				if (s.length() > 0 && s.charAt(s.length()-1)==',') {
-				      s = s.substring(0, s.length()-1);
-				    }
-				s+=")";
-				SessionManager session = new SessionManager(getActivity());
-				session.setUserGroups(s);
-				System.out.println("NASTAVIL MANAGER NA "+s);							
-				adapter = new GroupAdapter(getActivity(), groups);
-				listView.setAdapter(adapter);
+				/*
+				SocialGroups sg = new SocialGroups();
 				
+				List<Group> l =  sg.getSendGroups();
+				s = "(";
+				for(Group g : l){
+					s+= g.name+" ,";
+				}
+				s+=")";
+				*/
+				List<User> friends = getUserGroup(result);
+				
+				adapter = new FriendAdapter(getActivity(), friends);
+				listView.setAdapter(adapter);
 				
 			}
 		};
 		SessionManager session = new SessionManager(getActivity());
 		HashMap<String, String> pref = session.getUserDetails();
-		String username = pref.get(SessionManager.KEY_USERNAME);
-		
-		final String TEST_QUERY = username;
-		groupFetcher.execute("user_id", username);
-		
-		
+		String query_groups = pref.get(SessionManager.KEY_GROUPS);
+	
+		final String TEST_QUERY = query_groups;
+		System.out.println("SSSSSSSSSSSSSSS JE "+TEST_QUERY);
+		userGroupFetcher.execute("selected_groups", TEST_QUERY);
+
 		return view;
 	}
 

@@ -19,7 +19,16 @@ SQL;
    	SELECT group_id, group_name, groups_owner FROM `groups` WHERE group_name LIKE '%$query%' 
 SQL;
 // if nothing is passed return all groups
-} else {
+} else if (isset($_GET["user_id"])) {
+	
+	$user_id = 1;
+	$sql = <<<SQL
+   	SELECT groups.group_id, groups.group_name, groups.groups_owner FROM `groups` INNER JOIN `user_group` ON groups.group_id = user_group.group_id AND user_group.user_id = $user_id
+SQL;
+// if nothing is passed return all groups
+} 
+
+else {
 	$sql = <<<SQL
    	SELECT group_id, group_name, groups_owner FROM `groups` 
 SQL;

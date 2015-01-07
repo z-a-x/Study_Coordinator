@@ -34,6 +34,8 @@ public class SessionManager {
     public static final String KEY_USERID = "user_id";
     // User pass (make variable public to access from outside)
     public static final String KEY_HASHPASS = "user_hashpass";
+    // User groups (make variable public to access from outside)
+    public static final String KEY_GROUPS = "user_groups";
      
     
     // Constructor
@@ -43,6 +45,13 @@ public class SessionManager {
         editor = pref.edit();
     }
      
+    
+    public void setUserGroups(String groups){
+    	editor.putString(KEY_GROUPS, groups);
+    	// commit changes
+        editor.commit();
+    }
+    
     /**
      * Create login session
      * */
@@ -99,6 +108,8 @@ public class SessionManager {
         
         // user email id
         user.put(KEY_HASHPASS, pref.getString(KEY_HASHPASS, null));
+        
+        user.put(KEY_GROUPS, pref.getString(KEY_GROUPS, null));
          
         // return user
         return user;
