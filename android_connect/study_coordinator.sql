@@ -35,7 +35,7 @@ CREATE TABLE IF NOT EXISTS `comment` (
   PRIMARY KEY (`comment_id`),
   KEY `FK_Relationship_4` (`event_id`),
   KEY `FK_Relationship_8` (`user_id`)
-) ENGINE=InnoDB DEFAULT CHARSET=latin1 AUTO_INCREMENT=1 ;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8  AUTO_INCREMENT=1 ;
 
 -- --------------------------------------------------------
 
@@ -52,7 +52,7 @@ CREATE TABLE IF NOT EXISTS `event` (
   `description` text NOT NULL,
   `scope` enum('private','protected','public') DEFAULT NULL,
   PRIMARY KEY (`event_id`)
-) ENGINE=InnoDB DEFAULT CHARSET=latin1 AUTO_INCREMENT=1 ;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8  AUTO_INCREMENT=1 ;
 
 -- --------------------------------------------------------
 
@@ -67,7 +67,7 @@ CREATE TABLE IF NOT EXISTS `event_file` (
   `file_name` char(100) NOT NULL,
   PRIMARY KEY (`event_file_id`),
   KEY `FK_Relationship_6` (`event_id`)
-) ENGINE=InnoDB DEFAULT CHARSET=latin1 AUTO_INCREMENT=1 ;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8  AUTO_INCREMENT=1 ;
 
 -- --------------------------------------------------------
 
@@ -80,7 +80,7 @@ CREATE TABLE IF NOT EXISTS `friend` (
   `user_id` int(11) NOT NULL,
   PRIMARY KEY (`friend_id`,`user_id`),
   KEY `FK_Relationship_5` (`user_id`)
-) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 ;
 
 -- --------------------------------------------------------
 
@@ -94,7 +94,7 @@ CREATE TABLE IF NOT EXISTS `groups` (
   `group_avatar` varchar(100) DEFAULT NULL,
   `groups_owner` varchar(100) NOT NULL,
   PRIMARY KEY (`group_id`)
-) ENGINE=InnoDB DEFAULT CHARSET=latin1 AUTO_INCREMENT=1 ;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8  AUTO_INCREMENT=1 ;
 
 -- --------------------------------------------------------
 
@@ -108,7 +108,7 @@ CREATE TABLE IF NOT EXISTS `location` (
   `latitude` float DEFAULT NULL,
   `longitude` float DEFAULT NULL,
   PRIMARY KEY (`location_id`)
-) ENGINE=InnoDB DEFAULT CHARSET=latin1 AUTO_INCREMENT=1 ;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8  AUTO_INCREMENT=1 ;
 
 -- --------------------------------------------------------
 
@@ -125,7 +125,7 @@ CREATE TABLE IF NOT EXISTS `user` (
   `user_avatar` varchar(100) DEFAULT NULL,
   `email` varchar(100) DEFAULT NULL,
   PRIMARY KEY (`user_id`)
-) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 ;
 
 -- --------------------------------------------------------
 
@@ -138,7 +138,7 @@ CREATE TABLE IF NOT EXISTS `user_group` (
   `user_id` int(11) NOT NULL,
   PRIMARY KEY (`group_id`,`user_id`),
   KEY `FK_Relationship_7` (`user_id`)
-) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 ;
 
 --
 -- Omejitve tabel za povzetek stanja
