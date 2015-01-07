@@ -92,7 +92,7 @@ CREATE TABLE IF NOT EXISTS `groups` (
   `group_id` int(11) NOT NULL AUTO_INCREMENT,
   `group_name` varchar(100) NOT NULL,
   `group_avatar` varchar(100) DEFAULT NULL,
-  `groups_owner` varchar(100) NOT NULL,
+  `groups_owner` int(11) NOT NULL,
   PRIMARY KEY (`group_id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8  AUTO_INCREMENT=1 ;
 
