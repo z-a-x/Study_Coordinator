@@ -80,6 +80,7 @@ CREATE TABLE IF NOT EXISTS `friend` (
   `user_id` int(11) NOT NULL,
   PRIMARY KEY (`friend_id`,`user_id`),
   KEY `FK_Relationship_5` (`user_id`)
+  KEY `FK_Relationship_9` (`friend_id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
 -- --------------------------------------------------------
@@ -117,7 +118,7 @@ CREATE TABLE IF NOT EXISTS `location` (
 --
 
 CREATE TABLE IF NOT EXISTS `user` (
-  `user_id` int(11) NOT NULL,
+  `user_id` int(11) NOT NULL AUTO_INCREMENT,
   `user_name` varchar(100) NOT NULL,
   `user_last_name` varchar(100) NOT NULL,
   `username` varchar(20) NOT NULL,
@@ -162,6 +163,7 @@ ALTER TABLE `event_file`
 --
 ALTER TABLE `friend`
   ADD CONSTRAINT `FK_Relationship_5` FOREIGN KEY (`user_id`) REFERENCES `user` (`user_id`);
+  ADD CONSTRAINT `FK_Relationship_9` FOREIGN KEY (`friend_id`) REFERENCES `user` (`user_id`);
 
 --
 -- Omejitve za tabelo `user_group`
