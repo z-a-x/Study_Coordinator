@@ -99,7 +99,7 @@ public class SocialFriends extends Fragment {
 		String query_groups = pref.get(SessionManager.KEY_GROUPS);
 	
 		final String TEST_QUERY = query_groups;
-		System.out.println("SSSSSSSSSSSSSSS JE "+TEST_QUERY);
+		System.out.println("Zahteva po uporabnikih iz skupin: "+TEST_QUERY);
 		userGroupFetcher.execute("selected_groups", TEST_QUERY);
 
 		return view;

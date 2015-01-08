@@ -50,7 +50,7 @@ public class FragmentSocial extends Fragment  {
             switch (position) {
             case 0: // Fragment # 0 - This will show FirstFragment
                 //return SocialUsers.newInstance(0, "Details");
-            	return SearchUsers.newInstance(0, titles[0]);
+            	return SocialDetails.newInstance(0, titles[0]);
             case 1: // Fragment # 0 - This will show FirstFragment different title
                 return SocialGroups.newInstance(1, titles[1]);
             case 2: // Fragment # 0 - This will show FirstFragment different title

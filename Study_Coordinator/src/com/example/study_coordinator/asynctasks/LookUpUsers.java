@@ -40,7 +40,8 @@ public abstract class LookUpUsers extends LookUp {
 			String name = userObject.getString("user_name");
 			String lastName = userObject.getString("user_last_name");
 			String userName = userObject.getString("username");
-			User user = new User(id, name, lastName, userName);
+			String email = userObject.getString("email");
+			User user = new User(id, name, lastName, userName,email);
 			users.add(user);
 		}
 		return users;

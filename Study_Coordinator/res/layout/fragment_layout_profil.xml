@@ -30,6 +30,27 @@
 	        	/-->
 	        	
         	<TextView 
+		        android:id="@+id/frag_profil_name_tv" 		            
+		        android:layout_width="wrap_content"
+		        android:layout_height="wrap_content"
+		        android:layout_marginTop="12dp"
+		        android:textSize="20sp"
+		        android:text="@string/name"		 
+		        android:layout_marginLeft="20dp" 
+	            
+	        />
+        	
+        	<TextView
+		        android:id="@+id/frag_profil_surname_tv"                
+		        android:layout_width="wrap_content"
+		        android:layout_height="wrap_content"
+		        android:layout_marginTop="12dp"
+		        android:textSize="20sp"
+		        android:text="@string/surname"     
+		        android:layout_marginLeft="20dp"   
+		        />
+        	
+        	<TextView 
 		        android:id="@+id/frag_profil_username_tv" 		            
 		        android:layout_width="wrap_content"
 		        android:layout_height="wrap_content"
@@ -39,27 +60,7 @@
 		        android:layout_marginLeft="20dp" 
 	            
 	        />
-	        	
-		    <TextView 
-		        android:id="@+id/frag_profil_name_tv" 		            
-		        android:layout_width="wrap_content"
-		        android:layout_height="wrap_content"
-		        android:layout_marginTop="12dp"
-		        android:textSize="20sp"
-		        android:text="@string/name"		 
-		        android:layout_marginLeft="20dp" 
-		            
-		        />
-
-		    <TextView
-		        android:id="@+id/frag_profil_surname_tv"                
-		        android:layout_width="wrap_content"
-		        android:layout_height="wrap_content"
-		        android:layout_marginTop="12dp"
-		        android:textSize="20sp"
-		        android:text="@string/surname"     
-		        android:layout_marginLeft="20dp"   
-		        />
+	    
 		    <TextView
 		        android:id="@+id/frag_profil_email_tv"         			        
 		        android:layout_width="wrap_content"
@@ -76,7 +77,7 @@
         		android:orientation="horizontal"
         		>
         		<Button             
-	        	android:id="@+id/profil_profil_edit_bt"		        
+	        	android:id="@+id/frag_profil_edit_bt"		        
 	       		android:layout_width="wrap_content"
 	       		android:layout_height="wrap_content"     
 	       		android:width="180dp"  		

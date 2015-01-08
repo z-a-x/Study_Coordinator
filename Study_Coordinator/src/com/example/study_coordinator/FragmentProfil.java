@@ -110,7 +110,7 @@ public class FragmentProfil extends Fragment{
 		//custom_font = Typeface.createFromAsset(getActivity().getAssets(), "fonts/Roboto/Roboto-Medium.ttf");
 		//tvItemName.setTypeface(custom_font);
 		
-		btEditProfil = (Button) view.findViewById(R.id.profil_profil_edit_bt);
+		btEditProfil = (Button) view.findViewById(R.id.frag_profil_edit_bt);
 		
     	btEditProfil.setOnClickListener(new View.OnClickListener() {
             public void onClick(View v) {            	            	

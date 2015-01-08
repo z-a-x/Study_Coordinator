@@ -36,8 +36,10 @@ public abstract class LookUpFriends extends LookUp {
 			int id = userObject.getInt("user_id");
 			String name = userObject.getString("user_name");
 			String lastName = userObject.getString("user_last_name");
-			String userName = userObject.getString("username");
-			User user = new User(id, name, lastName, userName);
+			String username = userObject.getString("username");
+			String email = userObject.getString("email");
+			User user = new User(id, name, lastName, username, email);
+			
 			users.add(user);
 		}
 		return users;
