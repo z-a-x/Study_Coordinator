@@ -10,6 +10,7 @@ import java.net.HttpURLConnection;
 import java.net.MalformedURLException;
 import java.net.URL;
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.concurrent.ExecutionException;
 
 import org.apache.http.HttpEntity;
@@ -61,11 +62,13 @@ public class ActivityProfilEdit extends Activity {
     String email;
 	String userName;
 	String userLastName;
+	String username;
     
 	InputStream is=null;
 	String result=null;
 	String line=null;
 	
+	String fileName = "";
 	ImageView profilePicture;
 	String realPath;        
     String upLoadServerUri = null;
@@ -88,7 +91,7 @@ public class ActivityProfilEdit extends Activity {
 		selectButton = (Button)findViewById(R.id.edit_Profil_selectButton);  
         uploadButton = (Button)findViewById(R.id.edit_profil_uploadButton);
         messageText  = (TextView)findViewById(R.id.edit_profil_messageText);
-        messageText.setVisibility(View.GONE);
+        //messageText.setVisibility(View.GONE);
         
         
 		etEmail = (EditText)findViewById(R.id.frag_profil_edit_email_et);
@@ -199,6 +202,9 @@ public class ActivityProfilEdit extends Activity {
     	        Uri selectedImage = imageReturnedIntent.getData();
     	        profilePicture.setImageURI(selectedImage);    	        
     	        messageText.setText(getRealPathFromURI(getApplicationContext(), selectedImage));
+    	        System.out.println("SPLITAM STRING: "+messageText.getText().toString());
+    	        String[] f = messageText.getText().toString().split("/");    	       
+      	    	fileName = "images/"+f[f.length-1];
     	    }
     	break; 
     	}
@@ -230,14 +236,27 @@ public class ActivityProfilEdit extends Activity {
 
 	    	ArrayList<NameValuePair> nameValuePairs = new ArrayList<NameValuePair>();
 	    	System.out.println("POŠILJAM PODATKE "+ email+ " "+userName+" "+userLastName);
-	    	
-	    	Editable username = etEmail.getText();
+	    	SessionManager session = new SessionManager(getApplicationContext());
+			HashMap<String, String> pref = session.getUserDetails();
+			username = pref.get(SessionManager.KEY_USERNAME);
+			
+	    	Editable email = etEmail.getText();
 	    	Editable userName = etUserName.getText();
 	    	Editable userLastName = etUserLastName.getText();
+	    	if(!fileName.equals("")){
+	    		System.out.println("POSODABLJAM SLIKO NA: "+fileName);	
+	    		nameValuePairs.add(new BasicNameValuePair("user_avatar",fileName));
+	    	}
+	    	else{
+	    		System.out.println("FILE NAME JE PRAZEN: "+fileName);
+	    	}
 	    	
-	    	nameValuePairs.add(new BasicNameValuePair("username",username.toString()));
+	    	nameValuePairs.add(new BasicNameValuePair("username",username));
+	    	nameValuePairs.add(new BasicNameValuePair("email",email.toString()));
 	    	nameValuePairs.add(new BasicNameValuePair("userName",userName.toString()));
 	    	nameValuePairs.add(new BasicNameValuePair("userLastName", userLastName.toString()));
+	    	
+	    	
 	    	
 	    	try{
 	    		HttpClient httpclient = new DefaultHttpClient();
@@ -402,6 +421,7 @@ public class ActivityProfilEdit extends Activity {
                       
                      runOnUiThread(new Runnable() {
                           public void run() {   
+                        	
                         	  messageText.setText("File is uploaded.");
                               Toast.makeText(ActivityProfilEdit.this, "File Upload Complete.", 
                                            Toast.LENGTH_SHORT).show();

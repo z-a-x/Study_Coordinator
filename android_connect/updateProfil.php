@@ -9,14 +9,24 @@ if($db->connect_errno > 0){
 #$name='Jaka';
 #$surname="Plut";
 	 
+
+	 
 $username=$_REQUEST['username'];
+$email=$_REQUEST['email'];
 $name=$_REQUEST['userName'];
 $surname=$_REQUEST['userLastName'];
 
-
-$sql = <<<SQL
-UPDATE `user` SET `username` = '$username', `user_name` = '$name', `user_last_name` = '$surname'  WHERE `username` LIKE '$username'
+if(isset($_REQUEST["user_avatar"])) {
+	$user_avatar = $_REQUEST["user_avatar"];
+	$sql = <<<SQL
+	UPDATE `user` SET `email` = '$email', `user_name` = '$name', `user_last_name` = '$surname', `user_avatar` = '$user_avatar'  WHERE `username` LIKE '$username'
 SQL;
+}
+else {
+	$sql = <<<SQL
+	UPDATE `user` SET `email` = '$email', `user_name` = '$name', `user_last_name` = '$surname'  WHERE `username` LIKE '$username'
+SQL;
+}
  
 $flag['code']=1;
  
