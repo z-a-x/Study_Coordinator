@@ -74,6 +74,10 @@
             android:name=".EventComments"
             android:label="@string/title_activity_event_comments" >
         </activity>
+         <activity
+            android:name=".UploadToServer"
+            android:label="@string/title_activity_event_comments" >
+        </activity>
     </application>
 
     <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" >

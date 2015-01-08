@@ -8,7 +8,7 @@ if($db->connect_errno > 0){
 $user_id = $_GET["user_id"];
 
 $sql = <<<SQL
-    SELECT user_id, user_name, user_last_name, username, email 
+    SELECT user_id, user_name, user_last_name, username, email, user_avatar 
 	FROM `user` 
 	WHERE user_id = $user_id
 SQL;

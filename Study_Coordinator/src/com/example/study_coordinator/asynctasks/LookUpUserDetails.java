@@ -39,13 +39,19 @@ public abstract class LookUpUserDetails extends LookUp {
 		JSONArray userGroupArray = result.getJSONArray("user");
 		
 		for (int i = 0; i < userGroupArray.length(); i++) {
+			
 			JSONObject userObject = userGroupArray.getJSONObject(i);			
 			int id = userObject.getInt("user_id");
 			String name = userObject.getString("user_name");
 			String lastName = userObject.getString("user_last_name");
 			String userName = userObject.getString("username");
 			String email = userObject.getString("email");
-			User user = new User(id, name, lastName, userName, email);
+			String picture =userObject.getString("user_avatar");
+
+			User user = new User(id, name, lastName, userName, email, picture);
+				
+			
+			
 			users.add(user);
 			break;
 		}

@@ -2,6 +2,7 @@ package com.example.study_coordinator;
 
 import java.lang.reflect.Field;
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
 import java.util.concurrent.ExecutionException;
 
@@ -11,6 +12,7 @@ import org.json.JSONException;
 import org.json.JSONObject;
 
 import com.example.study_coordinator.Login.AttemptLogin;
+import com.example.study_coordinator.asynctasks.DownloadImageTask;
 
 import android.app.ActionBar;
 import android.app.Fragment;
@@ -29,6 +31,7 @@ import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.AdapterView;
+import android.widget.ImageView;
 import android.widget.ListView;
 import android.widget.Toast;
 
@@ -63,6 +66,8 @@ public class MainActivity extends FragmentActivity {
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.activity_main);
+		
+		
 
 		Intent itnt = getIntent();
 		String message = itnt.getStringExtra("update");
@@ -126,6 +131,7 @@ public class MainActivity extends FragmentActivity {
 
 		case 2:
 			fragment = instantiateFragment(FragmentProfil.class, position, args);
+			
 			new DataCollector().execute();
 
 			try {
@@ -138,6 +144,7 @@ public class MainActivity extends FragmentActivity {
 				// TODO Auto-generated catch block
 				e.printStackTrace();
 			}
+			
 			break;
 
 		case 3:
@@ -257,16 +264,16 @@ public class MainActivity extends FragmentActivity {
 			String userName = null;
 			String userLastName = null; //
 			String email = null;
+			String pathToPicture = null;
 			Intent intent = getIntent();
 			String s = intent.getStringExtra("newData");
 			System.out.println("New data is : " + s);
-
+			SessionManager session = new SessionManager(getApplicationContext());
+			HashMap<String, String> pref = session.getUserDetails();
+			username = pref.get(SessionManager.KEY_USERNAME);
+			
 			try {
-				if (s != null) {
-					username = s;
-				} else {
-					username = intent.getStringExtra("username");
-				}
+				
 				System.out.println("USERNAME IN BACKGROUND: " + username);
 				// Building Parameters
 				List<NameValuePair> params = new ArrayList<NameValuePair>();
@@ -277,21 +284,33 @@ public class MainActivity extends FragmentActivity {
 				JSONObject json = jsonParser.makeHttpRequest(DATABASE_URL, "POST", params);
 
 				// check your log for json response
+				System.out.println("MAIN ACTIVITY CLASS");
 				Log.d("Retrieving data attempt", json.toString());
 
 				userName = (String) json.get("user_name");
 				userLastName = (String) json.get("user_last_name");
 				email = (String) json.get("email");
+				pathToPicture=(String)json.get("user_avatar");
+				
 				System.out.println(json.get("username"));
 				System.out.println(userName);
 				System.out.println(userLastName);
 				System.out.println(email);
-				s1 = "" + username + " " + userName + " " + userLastName + " " + email;
+				System.out.println(pathToPicture);
+				
+				if(pathToPicture == null || pathToPicture.equals("null")){
+					System.out.println("NI SLIKE");
+					
+				}
+				else{
+					System.out.println("SLIKAAAAAAAAA "+pathToPicture);					
+				}
+				s1 = "" + userName + " " + userLastName + " " + username + " " + email+" "+pathToPicture;
 			} catch (JSONException e) {
 				System.out.println("Connection failed!");
 				e.printStackTrace();
 			}
-			return "" + username + " " + userName + " " + userLastName + " " + email;
+			return "" + userName + " " + userLastName + " " + username + " " + email+" "+pathToPicture;
 		}
 
 		private void doNotCheckLoginData() {
