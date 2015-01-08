@@ -1,6 +1,9 @@
 package com.example.study_coordinator;
 
 import java.io.Console;
+import java.text.SimpleDateFormat;
+import java.util.ArrayList;
+import java.util.Calendar;
 import java.util.List;
 
 import org.json.JSONException;
@@ -8,26 +11,31 @@ import org.json.JSONObject;
 
 import com.example.study_coordinator.asynctasks.LookUp;
 import com.example.study_coordinator.asynctasks.LookUpEvents;
+import com.example.study_coordinator.CustomGridViewAdapter;
+import com.example.study_coordinator.baseclasses.Item;
 import com.example.study_coordinator.baseclasses.Event;
 
 import android.app.Fragment;
+import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.GridView;
 import android.widget.TextView;
 
 public class EventDetails extends Fragment {
-    // Store instance variables
-    private String title;
-    private int page;
     
     TextView tvName;
     TextView tvDate;
     TextView tvTime;
     TextView tvDesc;
-    
+    GridView gridView;
+    ArrayList<Item> gridArray = new ArrayList<Item>();
+    CustomGridViewAdapter customGridAdapter;
+
 
     private void createEventList() {
 		LookUp eventFetcher = new LookUpEvents(getActivity().getApplicationContext()) {
@@ -35,11 +43,15 @@ public class EventDetails extends Fragment {
 			@Override
 			public void onSuccessfulFetch(JSONObject result) throws JSONException {
 				List<Event> events = getEvents(result);
+				Calendar cal = Calendar.getInstance();
+				SimpleDateFormat sdf = new SimpleDateFormat("EEEE MMMM");
 				for (Event event : events) {
 					Log.d(event.name, event.name);
 					tvName.setText(event.name);
-					tvDate.setText(event.date.toString());
-					tvTime.setText(event.date.toString());
+					
+					cal.setTime(event.date);
+					tvDate.setText(sdf.format(event.date) + " " + (cal.get(Calendar.MONTH) + 1 ));
+					tvTime.setText(cal.get(Calendar.HOUR_OF_DAY) + " : " +  cal.get(Calendar.MINUTE));
 					tvDesc.setText(event.description);
 				}
 			}
@@ -48,12 +60,8 @@ public class EventDetails extends Fragment {
 	}
 
     // newInstance constructor for creating fragment with arguments
-    public static EventDetails newInstance(int page, String title) {
+    public static EventDetails newInstance() {
         EventDetails fragmentFirst = new EventDetails();
-        Bundle args = new Bundle();
-        args.putInt("someInt", page);
-        args.putString("someTitle", title);
-        fragmentFirst.setArguments(args);
         return fragmentFirst;
     }
 
@@ -61,8 +69,6 @@ public class EventDetails extends Fragment {
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        page = getArguments().getInt("someInt", 0);
-        title = getArguments().getString("someTitle");
         
        
     }
@@ -71,15 +77,46 @@ public class EventDetails extends Fragment {
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.activity_event_details, container, false);
-        TextView tvLabel = (TextView) view.findViewById(R.id.tvLabel);
-        tvLabel.setText(page + " -- " + title);
+
+
+        //set grid view item
+        Bitmap homeIcon = BitmapFactory.decodeResource(this.getResources(), R.drawable.person);
+        Bitmap userIcon = BitmapFactory.decodeResource(this.getResources(), R.drawable.person);
         
       //setup textViews
         tvName = (TextView)view.findViewById(R.id.tvName);
         tvDate = (TextView)view.findViewById(R.id.tvDate);
         tvTime = (TextView)view.findViewById(R.id.tvTime);
         tvDesc = (TextView)view.findViewById(R.id.tvDesc);
+
+        
+        gridArray.add(new Item(homeIcon,"Janez"));
+        gridArray.add(new Item(userIcon,"Jure"));
+        gridArray.add(new Item(homeIcon,"Jaka"));
+        gridArray.add(new Item(userIcon,"Ales"));
+        gridArray.add(new Item(homeIcon,"Rok"));
+        gridArray.add(new Item(userIcon,"Robi"));
+        gridArray.add(new Item(homeIcon,"User"));
+        gridArray.add(new Item(userIcon,"xxProxx"));
+        gridArray.add(new Item(homeIcon,"RdecaKapica"));
+        gridArray.add(new Item(userIcon,"Homi"));
+        gridArray.add(new Item(homeIcon,"Obama"));
+        gridArray.add(new Item(userIcon,"xyz"));
+        gridArray.add(new Item(userIcon,"Robi"));
+        gridArray.add(new Item(homeIcon,"User"));
+        gridArray.add(new Item(userIcon,"xxProxx"));
+        gridArray.add(new Item(homeIcon,"RdecaKapica"));
+        gridArray.add(new Item(userIcon,"Homi"));
+        gridArray.add(new Item(homeIcon,"Obama"));
+        gridArray.add(new Item(userIcon,"xyz"));
+        
+        gridView = (GridView) view.findViewById(R.id.gridView1);
+        customGridAdapter = new CustomGridViewAdapter(view.getContext(), R.layout.row_grid, gridArray);
+		gridView.setAdapter(customGridAdapter);
+        
         createEventList();
+        
+        
         return view;
     }
 }

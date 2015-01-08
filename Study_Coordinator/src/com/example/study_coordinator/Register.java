@@ -63,7 +63,7 @@ public class Register extends Activity {
 		Button registerBtn = (Button) findViewById(R.id.btnRegister);
 		Button backBtn = (Button) findViewById(R.id.backLogin);
 		EditText email = (EditText) findViewById(R.id.editTextEmail);
-		TextView registerText = (TextView) findViewById(R.id.textView1);
+		TextView registerText = (TextView) findViewById(R.id.tvOn);
 		
 		//setup custom fonts buttons & title
 		Typeface custom_font = Typeface.createFromAsset(getAssets(), "fonts/Roboto/Roboto-Thin.ttf");

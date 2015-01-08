@@ -32,7 +32,7 @@ public class FragmentEvent extends Fragment  {
     }
 
     public static class MyPagerAdapter extends FragmentPagerAdapter {
-        private static int NUM_ITEMS = 3;
+        private static int NUM_ITEMS = 2;
 
             public MyPagerAdapter(FragmentManager fragmentManager) {
                 super(fragmentManager);
@@ -49,11 +49,9 @@ public class FragmentEvent extends Fragment  {
         public Fragment getItem(int position) {
             switch (position) {
             case 0: // Fragment # 0 - This will show FirstFragment
-                return EventDetails.newInstance(0, "Page # 1");
-            case 1: // Fragment # 0 - This will show FirstFragment different title
-                return EventDetails.newInstance(1, "Page # 2");
-            case 2: // Fragment # 1 - This will show SecondFragment
-                return EventComments.newInstance(2, "Page # 3");
+                return EventDetails.newInstance();
+            case 1: // Fragment # 1 - This will show SecondFragment
+                return EventComments.newInstance();
             default:
                 return null;
             }
@@ -62,7 +60,9 @@ public class FragmentEvent extends Fragment  {
         // Returns the page title for the top indicator
         @Override
         public CharSequence getPageTitle(int position) {
-            return "Page " + position;
+        	if (position == 0)
+        		return "Details";
+        	else return "Comments";
         }
         
 

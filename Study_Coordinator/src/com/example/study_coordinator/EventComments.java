@@ -47,17 +47,10 @@ public class EventComments extends Fragment{
     private ProgressDialog pDialog;
     ArrayList<Comment> comments;
     
- // Store instance variables
-    private String title;
-    private int page;
     
  // newInstance constructor for creating fragment with arguments
-    public static EventComments newInstance(int page, String title) {
+    public static EventComments newInstance() {
         EventComments fragmentFirst = new EventComments();
-        Bundle args = new Bundle();
-        args.putInt("someInt", page);
-        args.putString("someTitle", title);
-        fragmentFirst.setArguments(args);
         return fragmentFirst;
     }
     
@@ -65,8 +58,6 @@ public class EventComments extends Fragment{
     public View onCreateView(LayoutInflater inflater, ViewGroup container,Bundle savedInstanceState) {
     	View view = inflater.inflate(R.layout.activity_event_comments, container, false);
         super.onCreate(savedInstanceState);       
-        page = getArguments().getInt("someInt", 0);
-        title = getArguments().getString("someTitle");
         listView= (ListView) view.findViewById(R.id.lvComments);
         
                 

@@ -1,53 +1,127 @@
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/rl1"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:paddingBottom="@dimen/activity_vertical_margin"
-    android:paddingLeft="@dimen/activity_horizontal_margin"
-    android:paddingRight="@dimen/activity_horizontal_margin"
-    android:paddingTop="@dimen/activity_vertical_margin"
     tools:context="com.example.study_coordinator.EventDetails" >
 
-    <TextView
-        android:id="@+id/tvLabel"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content" />
-
-    <TextView
-        android:id="@+id/tvName"
-        android:layout_width="wrap_content"
+    <RelativeLayout
+        android:id="@+id/rl2"
+        android:layout_width="fill_parent"
         android:layout_height="wrap_content"
-        android:layout_alignLeft="@+id/tvLabel"
-        android:layout_below="@+id/tvLabel"
-        android:layout_marginTop="90dp"
-        android:text="Large Text"
-        android:textAppearance="?android:attr/textAppearanceLarge" />
+        android:background="@color/green_200"
+        android:paddingBottom="80dp"
+        android:paddingLeft="20dp"
+        android:paddingTop="60dp" >
 
-    <TextView
-        android:id="@+id/tvDate"
-        android:layout_width="wrap_content"
+        <TextView
+            android:id="@+id/tvOn"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignBaseline="@+id/tvDate"
+            android:layout_alignBottom="@+id/tvDate"
+            android:layout_alignLeft="@+id/tvName"
+            android:text="On "
+            android:textAppearance="?android:attr/textAppearanceLarge"
+            android:textColor="@color/red_50"
+            android:textStyle="bold" />
+
+        <TextView
+            android:id="@+id/tvDate"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@+id/tvName"
+            android:layout_marginTop="20dp"
+            android:layout_toRightOf="@+id/tvOn"
+            android:text="Datum"
+            android:textAppearance="?android:attr/textAppearanceLarge"
+            android:typeface="sans" />
+
+        <TextView
+            android:id="@+id/tvAt"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignBaseline="@+id/tvDate"
+            android:layout_alignBottom="@+id/tvDate"
+            android:layout_toRightOf="@+id/tvDate"
+            android:text=" at "
+            android:textAppearance="?android:attr/textAppearanceLarge"
+            android:textColor="@color/red_50"
+            android:textStyle="bold" />
+
+        <TextView
+            android:id="@+id/tvTime"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignBaseline="@+id/tvAt"
+            android:layout_alignBottom="@+id/tvAt"
+            android:layout_toRightOf="@+id/tvAt"
+            android:text="Čas"
+            android:textAppearance="?android:attr/textAppearanceLarge"
+            android:typeface="sans" />
+
+        <TextView
+            android:id="@+id/tvName"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentLeft="true"
+            android:layout_alignParentTop="true"
+            android:text="Naslov dogodka"
+            android:textAppearance="?android:attr/textAppearanceLarge"
+            android:typeface="sans" />
+
+    </RelativeLayout>
+
+    <RelativeLayout
+        android:id="@+id/rl3"
+        android:layout_width="fill_parent"
         android:layout_height="wrap_content"
-        android:layout_alignLeft="@+id/tvLabel"
-        android:layout_below="@+id/tvName"
-        android:text="Large Text"
-        android:textAppearance="?android:attr/textAppearanceLarge" />
-
-    <TextView
-        android:id="@+id/tvTime"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_alignLeft="@+id/tvLabel"
-        android:layout_below="@+id/tvDate"
-        android:text="Large Text"
-        android:textAppearance="?android:attr/textAppearanceLarge" />
-
+        android:layout_below="@+id/rl2"
+        android:paddingBottom="50dp"
+        android:paddingLeft="20dp"
+        android:paddingTop="20dp" >
+    
     <TextView
         android:id="@+id/tvDesc"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_alignLeft="@+id/tvLabel"
-        android:layout_below="@+id/tvTime"
-        android:text="Large Text"
+        android:layout_marginTop="25dp"
+        android:text="Opis"
         android:textAppearance="?android:attr/textAppearanceLarge" />
+
+    </RelativeLayout>
+
+    <TextView
+        android:id="@+id/tvAttend"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/rl3"
+        android:paddingLeft="20dp"
+        android:text="Attending this event:"
+        android:textAppearance="?android:attr/textAppearanceSmallPopupMenu" />
+
+    <ScrollView
+        android:id="@+id/scrollView1"
+        android:layout_width="fill_parent"
+    	android:layout_height="fill_parent"
+        android:layout_below="@+id/tvAttend"
+        android:fillViewport="true"
+        android:fadeScrollbars="false" >
+
+        <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent" >
+
+            <GridView
+                android:id="@+id/gridView1"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:numColumns="4"
+                android:paddingLeft="30dp"
+                android:paddingTop="20dp" >
+            </GridView>
+
+        </RelativeLayout>
+    </ScrollView>
 
 </RelativeLayout>

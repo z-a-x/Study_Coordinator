@@ -9,7 +9,7 @@
     tools:context="com.example.study_coordinator.Register" >
 
     <TextView
-        android:id="@+id/textView1"
+        android:id="@+id/tvOn"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_alignParentTop="true"
@@ -23,7 +23,7 @@
         android:id="@+id/editTextEmail"
         android:layout_width="wrap_content"
         android:layout_height="40dp"
-        android:layout_below="@+id/textView1"
+        android:layout_below="@+id/tvOn"
         android:layout_centerHorizontal="true"
         android:layout_marginTop="35dp"
         android:background="@drawable/userpass"
