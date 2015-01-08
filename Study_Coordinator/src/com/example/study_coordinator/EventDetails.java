@@ -10,10 +10,12 @@ import org.json.JSONException;
 import org.json.JSONObject;
 
 import com.example.study_coordinator.asynctasks.LookUp;
+import com.example.study_coordinator.asynctasks.LookUpAttendants;
 import com.example.study_coordinator.asynctasks.LookUpEvents;
 import com.example.study_coordinator.CustomGridViewAdapter;
 import com.example.study_coordinator.baseclasses.Item;
 import com.example.study_coordinator.baseclasses.Event;
+import com.example.study_coordinator.baseclasses.User;
 
 import android.app.Fragment;
 import android.graphics.Bitmap;
@@ -36,7 +38,7 @@ public class EventDetails extends Fragment {
     ArrayList<Item> gridArray = new ArrayList<Item>();
     CustomGridViewAdapter customGridAdapter;
 
-
+    // pridobi event glede na id
     private void createEventList() {
 		LookUp eventFetcher = new LookUpEvents(getActivity().getApplicationContext()) {
 
@@ -57,6 +59,22 @@ public class EventDetails extends Fragment {
 			}
 		};
 		eventFetcher.execute("id", "5");
+	}
+    
+    // pridobi seznam ljudi, ki se bodo udeležili eventa
+    private void createAttendantist(final Bitmap userIcon) {
+		LookUp eventFetcher = new LookUpAttendants(getActivity().getApplicationContext()) {
+			@Override
+			public void onSuccessfulFetch(JSONObject result) throws JSONException {
+				List<User> attendants = getAttendants(result);
+				for (User user : attendants) {
+					Log.d("test",user.name);
+					gridArray.add(new Item(userIcon,user.name + " " + user.lastName));					
+				}
+				gridView.setAdapter(customGridAdapter);
+			}
+		};
+		eventFetcher.execute();
 	}
 
     // newInstance constructor for creating fragment with arguments
@@ -88,34 +106,12 @@ public class EventDetails extends Fragment {
         tvDate = (TextView)view.findViewById(R.id.tvDate);
         tvTime = (TextView)view.findViewById(R.id.tvTime);
         tvDesc = (TextView)view.findViewById(R.id.tvDesc);
-
-        
-        gridArray.add(new Item(homeIcon,"Janez"));
-        gridArray.add(new Item(userIcon,"Jure"));
-        gridArray.add(new Item(homeIcon,"Jaka"));
-        gridArray.add(new Item(userIcon,"Ales"));
-        gridArray.add(new Item(homeIcon,"Rok"));
-        gridArray.add(new Item(userIcon,"Robi"));
-        gridArray.add(new Item(homeIcon,"User"));
-        gridArray.add(new Item(userIcon,"xxProxx"));
-        gridArray.add(new Item(homeIcon,"RdecaKapica"));
-        gridArray.add(new Item(userIcon,"Homi"));
-        gridArray.add(new Item(homeIcon,"Obama"));
-        gridArray.add(new Item(userIcon,"xyz"));
-        gridArray.add(new Item(userIcon,"Robi"));
-        gridArray.add(new Item(homeIcon,"User"));
-        gridArray.add(new Item(userIcon,"xxProxx"));
-        gridArray.add(new Item(homeIcon,"RdecaKapica"));
-        gridArray.add(new Item(userIcon,"Homi"));
-        gridArray.add(new Item(homeIcon,"Obama"));
-        gridArray.add(new Item(userIcon,"xyz"));
         
         gridView = (GridView) view.findViewById(R.id.gridView1);
         customGridAdapter = new CustomGridViewAdapter(view.getContext(), R.layout.row_grid, gridArray);
-		gridView.setAdapter(customGridAdapter);
-        
-        createEventList();
-        
+				
+		createAttendantist(userIcon);
+        createEventList();        
         
         return view;
     }
