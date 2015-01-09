@@ -8,16 +8,30 @@ if($db->connect_errno > 0){
 if(isset($_GET["id"])) {
 	$id = $_GET["id"];
 	$sql = <<<SQL
-    SELECT user_id, user_name, user_last_name, username FROM `user` WHERE user_id = $id
+	SELECT user_id, user_name, user_last_name, username, user_avatar, email
+    FROM `user` 
+	WHERE user_id = $id
 SQL;
 } else if (isset($_GET["search"])) {
 	$query = $_GET["search"];
 	$sql = <<<SQL
-    SELECT user_id, user_name, user_last_name, username FROM `user` WHERE user_name LIKE '%$query%' OR user_last_name LIKE '%$query%' OR username LIKE '%$query%' 
+    SELECT user_id, user_name, user_last_name, username, user_avatar, email
+	FROM `user` 
+	WHERE user_name LIKE '%$query%' OR user_last_name LIKE '%$query%' OR username LIKE '%$query%' 
+SQL;
+} else if (isset($_GET["group_id"])) {
+	$group_id = $_GET["group_id"];
+	$sql = <<<SQL
+    SELECT user.user_id, user.user_name, user.user_last_name, user.username, user.user_avatar, user.email
+	FROM `user` 
+	INNER JOIN `user_group` 
+	ON user.user_id = user_group.user_id
+    WHERE user_group.group_id = $group_id
 SQL;
 } else {
 	$sql = <<<SQL
-    SELECT user_id, user_name, user_last_name, username FROM `user`
+    SELECT user_id, user_name, user_last_name, username, user_avatar, email
+	FROM `user`
 SQL;
 }
 

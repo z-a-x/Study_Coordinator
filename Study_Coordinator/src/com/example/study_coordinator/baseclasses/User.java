@@ -15,13 +15,15 @@ public class User {
 		this.username=username;
 		this.email = email;
 	}
-	public User(int id,  String name, String lastName, String username) {
+
+	public User(int id, String name, String lastName, String username) {
 		this.id = id;
 		this.name = name;
-		this.lastName = lastName;		
-		this.username=username;
-	
+		this.lastName = lastName;
+		this.username = username;
+
 	}
+	
 	public User(int id,  String name, String username, String lastName, String email, String pathToPicture ) {
 		this.id = id;
 		this.name = name;

@@ -23,12 +23,7 @@ public abstract class LookUpUsers extends LookUp {
 	@Override
 	protected JSONObject doInBackground(String... params) {
 		return super.doInBackground("getUsers.php"+getQuery(params));
-	}
-
-	/*
-	 * STATIC FUNCTIONS, FOR USE IN onSuccessfulFetch(JSONObject result) FUNCTION, THAT NEEDS TO BE
-	 * IMPLEMENTED IN EXTENDING CLASS:
-	 */
+	}	
 
 	protected static List<User> getUsers(JSONObject result) throws JSONException {
 		List<User> users = new ArrayList<User>();
@@ -36,12 +31,15 @@ public abstract class LookUpUsers extends LookUp {
 		JSONArray usersArray = result.getJSONArray("users");
 		for (int i = 0; i < usersArray.length(); i++) {
 			JSONObject userObject = usersArray.getJSONObject(i);
-			int id = userObject.getInt("user_id");
-			String name = userObject.getString("user_name");
-			String lastName = userObject.getString("user_last_name");
-			String userName = userObject.getString("username");
+			
+			int user_id = userObject.getInt("user_id");
+			String user_name = userObject.getString("user_name");
+			String user_last_name = userObject.getString("user_last_name");
+			String username = userObject.getString("username");
+			String user_avatar = userObject.getString("user_avatar");
 			String email = userObject.getString("email");
-			User user = new User(id, name, lastName, userName,email);
+			
+			User user = new User(user_id, user_name, user_last_name, username, email);
 			users.add(user);
 		}
 		return users;

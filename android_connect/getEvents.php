@@ -17,6 +17,12 @@ SQL;
 	$sql = <<<SQL
     SELECT * FROM `event` WHERE event_name LIKE '%$query%' OR description LIKE '%$query%' 
 SQL;
+// if search query is passed return events matching query
+} else if (isset($_GET["group_id"])) {
+	$group_id = $_GET["group_id"];
+	$sql = <<<SQL
+    SELECT * FROM `event` WHERE group_id = $group_id
+SQL;
 // if nothing is passed return all events 
 } else {
 	$sql = <<<SQL

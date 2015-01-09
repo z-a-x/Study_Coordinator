@@ -32,15 +32,7 @@ public class FragmentGroupsJure extends Fragment {
 			}
 		});
 
-		// TEST BUTTON 2
-		Button button2 = (Button) view.findViewById(R.id.button2);
-		button2.setOnClickListener(new OnClickListener() {
-			@Override
-			public void onClick(View v) {
-				openSearchJureFragment();
-			}
-
-		});
+		
 		return view;
 	}
 
@@ -48,7 +40,7 @@ public class FragmentGroupsJure extends Fragment {
 		FragmentTransaction transaction = getFragmentManager().beginTransaction();
 		FragmentGroup fragment = new FragmentGroup();
 		Bundle arguments = new Bundle();
-		arguments.putString("id", "1231231");
+		arguments.putInt("id", 1);
 		fragment.setArguments(arguments);
 		transaction.replace(R.id.content_frame, fragment);
 		transaction.addToBackStack(null);
@@ -57,17 +49,4 @@ public class FragmentGroupsJure extends Fragment {
 		getFragmentManager().executePendingTransactions();
 	}
 
-	private void openSearchJureFragment() {
-		FragmentTransaction transaction = getFragmentManager().beginTransaction();
-		FragmentSearchJure fragment = new FragmentSearchJure();
-		Bundle arguments = new Bundle();
-		arguments.putString("id", "1231231");
-		fragment.setArguments(arguments);
-		transaction.replace(R.id.content_frame, fragment);
-		transaction.addToBackStack(null);
-		transaction.commit();
-		// NEW (da dela back button)
-		getFragmentManager().executePendingTransactions();
-
-	}
 }
