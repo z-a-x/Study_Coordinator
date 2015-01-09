@@ -15,29 +15,34 @@ import android.view.ViewGroup;
 public class FragmentGroup extends Fragment {
 
 	FragmentPagerAdapter adapterViewPager;
-	private static Integer id;
 
 	@Override
 	public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
-		id = getArguments().getInt("id");
+		int id = getArguments().getInt("id");
 
 		View view = inflater.inflate(R.layout.activity_fragment_group, container, false);
 		ViewPager vpPager = (ViewPager) view.findViewById(R.id.vpPager_group);
-		adapterViewPager = new MyPagerAdapter(getFragmentManager());
+		adapterViewPager = new MyPagerAdapter(getFragmentManager(), id);
 		vpPager.setAdapter(adapterViewPager);
-
-		id = getArguments().getInt("id");
 
 		return view;
 
 	}
 
+	@Override
+	public void onStart() {
+		// TODO Auto-generated method stub
+		super.onStart();
+	}
+
 	public static class MyPagerAdapter extends FragmentPagerAdapter {
 		private static int NUM_ITEMS = 3;
 		private String[] titles = new String[] { "Details", "Events", "Members" };
+		private final Integer id;
 
-		public MyPagerAdapter(FragmentManager fragmentManager) {
+		public MyPagerAdapter(FragmentManager fragmentManager, int id) {
 			super(fragmentManager);
+			this.id = id;
 		}
 
 		// Returns total number of pages
@@ -51,7 +56,7 @@ public class FragmentGroup extends Fragment {
 		public Fragment getItem(int position) {
 			switch (position) {
 			case 0:
-				return GroupDetails.newInstance(0, titles[0], id);
+				return GroupDetails.newInstance(0, titles[0], "id", id.toString());
 			case 1:
 				return TabEvents.newInstance(1, titles[1], "group_id", id.toString());
 			case 2:
@@ -67,7 +72,5 @@ public class FragmentGroup extends Fragment {
 		public CharSequence getPageTitle(int position) {
 			return titles[position];
 		}
-
 	}
-
 }
