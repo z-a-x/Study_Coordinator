@@ -1,6 +1,6 @@
 package com.example.study_coordinator.baseclasses;
 
-public class Group {
+public class Group implements HasId {
 	public final int id;
 	public final String name;
     public final int ownerId;
@@ -9,5 +9,10 @@ public class Group {
 		this.id = id;
 		this.name = name;
 		this.ownerId = ownerId;
+	}
+	
+	@Override
+	public int getId() {
+		return id;
 	}
 }

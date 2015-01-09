@@ -1,5 +1,8 @@
 package com.example.study_coordinator;
 
+import com.example.study_coordinator.tabs.TabGroups;
+import com.example.study_coordinator.tabs.TabUsers;
+
 import android.app.ActionBar;
 import android.app.Activity;
 import android.app.Fragment;
@@ -14,57 +17,55 @@ import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
 
-public class FragmentSearch extends Fragment  {
-	
+public class FragmentSearch extends Fragment {
+
 	FragmentPagerAdapter adapterViewPager;
 
 	@Override
-    public View onCreateView(LayoutInflater inflater, ViewGroup container,
-                Bundle savedInstanceState) {
-		 View view = inflater.inflate(R.layout.activity_fragment_search, container,
-                 false);
-        ViewPager vpPager = (ViewPager) view.findViewById(R.id.vpPager_search);
-        adapterViewPager = new MyPagerAdapter(getFragmentManager());
-        vpPager.setAdapter(adapterViewPager);
-        
-        return view;
-        
-    }
+	public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
+		View view = inflater.inflate(R.layout.activity_fragment_search, container, false);
+		ViewPager vpPager = (ViewPager) view.findViewById(R.id.vpPager_search);
+		adapterViewPager = new MyPagerAdapter(getFragmentManager());
+		vpPager.setAdapter(adapterViewPager);
 
-    public static class MyPagerAdapter extends FragmentPagerAdapter {
-        private static int NUM_ITEMS = 2;
+		return view;
 
-            public MyPagerAdapter(FragmentManager fragmentManager) {
-                super(fragmentManager);
-            }
+	}
 
-            // Returns total number of pages
-            @Override
-            public int getCount() {
-                return NUM_ITEMS;
-            }
+	public static class MyPagerAdapter extends FragmentPagerAdapter {
+		private static int NUM_ITEMS = 2;
+		private String[] titles = new String[] { "Users", "Groups" };
 
-        // Returns the fragment to display for that page
-        @Override
-        public Fragment getItem(int position) {
-            switch (position) {
-            case 0: // Fragment # 0 - This will show FirstFragment
-                return SearchUsers.newInstance(0, "Users");
-            case 1: // Fragment # 0 - This will show FirstFragment different title
-                return SearchGroups.newInstance(1, "Groups");
-            
-            default:
-                return null;
-            }
-        }
+		public MyPagerAdapter(FragmentManager fragmentManager) {
+			super(fragmentManager);
+		}
 
-        // Returns the page title for the top indicator
-        @Override
-        public CharSequence getPageTitle(int position) {
-            return "Page " + position;
-        }
-        
+		// Returns total number of pages
+		@Override
+		public int getCount() {
+			return NUM_ITEMS;
+		}
 
-    }
+		// Returns the fragment to display for that page
+		@Override
+		public Fragment getItem(int position) {
+			switch (position) {
+			case 0:
+				return TabUsers.newInstance(0, titles[0], "search", "i");
+			case 1:
+				return TabGroups.newInstance(1, titles[1], "search", "z");
+
+			default:
+				return null;
+			}
+		}
+
+		// Returns the page title for the top indicator
+		@Override
+		public CharSequence getPageTitle(int position) {
+			return titles[position];
+		}
+
+	}
 
 }

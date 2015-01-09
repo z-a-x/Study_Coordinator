@@ -1,6 +1,6 @@
 package com.example.study_coordinator.baseclasses;
 			
-public class User {
+public class User implements HasId {
 	public final int id;
 	public final String name;
     public final String lastName;    
@@ -31,5 +31,10 @@ public class User {
 		this.username=username;
 		this.email = email;
 		this.pathToPicture = pathToPicture;
+	}
+	
+	@Override
+	public int getId() {
+		return id;
 	}
 }

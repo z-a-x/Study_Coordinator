@@ -4,7 +4,7 @@ import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 
-public class Event {
+public class Event implements HasId {
 	public final int id;
 	public final int locationId;
 	public final int groupId;
@@ -24,6 +24,11 @@ public class Event {
 		this.date = df.parse(date);
 		this.description = description;
 		this.scope = Scope.get(scope);
+	}
+
+	@Override
+	public int getId() {
+		return id;
 	}
 }
 
