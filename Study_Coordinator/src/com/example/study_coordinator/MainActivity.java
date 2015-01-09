@@ -126,7 +126,7 @@ public class MainActivity extends FragmentActivity {
 			break;
 
 		case 1:
-			fragment = instantiateFragment(FragmentEvents.class, position, args);
+			fragment = instantiateFragment(UpcomingActivity2.class, position, args);
 			break;
 
 		case 2:
