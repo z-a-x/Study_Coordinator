@@ -34,18 +34,26 @@ public abstract class LookUpEvents extends LookUp {
 	 * FOR USE IN onSuccessfulFetch(JSONObject result) FUNCTION
 	 */
 	protected static List<Event> getEvents(JSONObject result) throws JSONException {
+		//System.out.println("Izpis lastnosti eventa:");
 		List<Event> events = new ArrayList<Event>();
 		JSONArray eventsArray = result.getJSONArray("events");
 		
 		for (int i = 0; i < eventsArray.length(); i++) {
+			
 			JSONObject eventObject = eventsArray.getJSONObject(i);
 			int id = eventObject.getInt("event_id");
+			//System.out.println(id);
 			int locationId = eventObject.getInt("location_id");
+			//System.out.println(locationId);
 			int groupId = eventObject.getInt("group_id");
+			//System.out.println(groupId);
 			String name = eventObject.getString("event_name");
+			//System.out.println(name);
 			String date = eventObject.getString("time");
+			//System.out.println(date);
 			String description = eventObject.getString("description");
 			String scope = eventObject.getString("scope");
+			//System.out.println("Scope je: "+scope);
 			
 			try {
 				Event event = new Event(id, locationId, groupId, name, date, description, scope);

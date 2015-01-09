@@ -126,7 +126,7 @@ public class MainActivity extends FragmentActivity {
 			break;
 
 		case 1:
-			fragment = instantiateFragment(UpcomingActivity2.class, position, args);
+			fragment = instantiateFragment(FragmentUpcomingEvents.class, position, args);
 			break;
 
 		case 2:
@@ -260,7 +260,7 @@ public class MainActivity extends FragmentActivity {
 
 		@Override
 		protected String doInBackground(String... args) {
-
+			String user_id = null;
 			String userName = null;
 			String userLastName = null; //
 			String email = null;
@@ -286,7 +286,9 @@ public class MainActivity extends FragmentActivity {
 				// check your log for json response
 				System.out.println("MAIN ACTIVITY CLASS");
 				Log.d("Retrieving data attempt", json.toString());
-
+				user_id = json.getInt("user_id")+"";
+				System.out.println("pravi user id je: "+user_id);
+				session.setUserId(user_id);
 				userName = (String) json.get("user_name");
 				userLastName = (String) json.get("user_last_name");
 				email = (String) json.get("email");

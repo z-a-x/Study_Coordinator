@@ -35,7 +35,11 @@ public class SessionManager {
     // User pass (make variable public to access from outside)
     public static final String KEY_HASHPASS = "user_hashpass";
     // User groups (make variable public to access from outside)
+
+    
     public static final String KEY_GROUPS = "user_groups";
+    //grupe od userja naprave
+    public static final String KEY_MY_GROUPS = "my_groups";
     
     public static final String KEY_SEARCH_WORD = "search_word";
      
@@ -47,11 +51,21 @@ public class SessionManager {
         editor = pref.edit();
     }
      
+    //nastavi grupe od userja naprave
+    public void setMyGroups(String myGroups){
+    	editor.putString(KEY_MY_GROUPS, myGroups);
+    	editor.commit();
+    }
     
     public void setUserGroups(String groups){
     	editor.putString(KEY_GROUPS, groups);
     	// commit changes
         editor.commit();
+    }
+    
+    public void setUserId(String userId){
+    	editor.putString(KEY_USERID, userId);
+    	editor.commit();
     }
     
     public void setSearchWord(String searchWord){
@@ -102,8 +116,13 @@ public class SessionManager {
          
     }     
     
+    //pridobi trenutno iskalno besedo
     public String getSearchWord(){
     	return pref.getString(KEY_SEARCH_WORD, null);
+    }
+    
+    public String getMyGroups(){
+    	return pref.getString(KEY_MY_GROUPS, null);
     }
      
     /**

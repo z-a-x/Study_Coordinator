@@ -23,6 +23,12 @@ SQL;
 	$sql = <<<SQL
     SELECT * FROM `event` WHERE group_id = $group_id
 SQL;
+}else if (isset($_GET["selected_groups"])) {
+	$grps = $_GET["selected_groups"];
+	$sql = <<<SQL
+    SELECT event_id, location_id, group_id, event_name, time, description, scope FROM `event` 
+	WHERE group_id IN $grps
+SQL;
 // if nothing is passed return all events 
 } else {
 	$sql = <<<SQL

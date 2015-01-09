@@ -31,7 +31,12 @@ public class EventAdapter extends ArrayAdapter<Event> {
        TextView tvName = (TextView) convertView.findViewById(R.id.tvName);
        
        // Populate the data into the template view using the data object
-       tvName.setText(event.name);
+       //your_array_list.add("1. dogodek 1.1.2015 - CTK - predmet1 19:00");
+       String s = (String) event.date.toString();
+       String[] s1 = s.split(" ");
+       
+       System.out.println(s);
+       tvName.setText(event.name+" - "+s1[2]+". "+" "+s1[1]+" "+s1[5]+" ob "+s1[3]);
        
        // Return the completed view to render on screen
        return convertView;

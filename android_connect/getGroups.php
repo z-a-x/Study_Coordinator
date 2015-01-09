@@ -21,9 +21,13 @@ SQL;
 // if nothing is passed return all groups
 } else if (isset($_GET["user_id"])) {
 	
-	$user_id = 1;
+	$user_id = $_GET["user_id"];
 	$sql = <<<SQL
-   	SELECT groups.group_id, groups.group_name, groups.groups_owner FROM `groups` INNER JOIN `user_group` ON groups.group_id = user_group.group_id AND user_group.user_id = $user_id
+   	SELECT groups.group_id, groups.group_name, groups.groups_owner 
+	FROM `groups` 
+	INNER JOIN `user_group` 
+	ON groups.group_id = user_group.group_id 
+	AND user_group.user_id = $user_id
 SQL;
 // if nothing is passed return all groups
 } 

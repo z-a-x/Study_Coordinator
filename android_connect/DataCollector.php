@@ -8,7 +8,7 @@ if($db->connect_errno > 0){
 #$usr = 'jPlut';
 $usr = $_POST["username"];
 $sql = <<<SQL
-    SELECT username, user_name, user_last_name, email, user_avatar
+    SELECT user_id, username, user_name, user_last_name, email, user_avatar
     FROM `user`
     WHERE `username` LIKE '$usr'
 SQL;
