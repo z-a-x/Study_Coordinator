@@ -132,8 +132,9 @@ public class FragmentProfil extends Fragment{
 			@Override
 			public void onSuccessfulFetch(JSONObject result) throws JSONException {
 				
-					if(pathToPicture == null || pathToPicture.equals("null")){
+					if(pathToPicture == null || pathToPicture.equals("null") || pathToPicture.equals("NULL")){
 						System.out.println("NI SLIKE");
+						profilPicture = (ImageView) getView().findViewById(R.id.frag_profil_image);
 						profilPicture.setImageResource(R.drawable.test);
 					}
 					else{

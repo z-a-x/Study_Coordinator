@@ -36,6 +36,8 @@ public class SessionManager {
     public static final String KEY_HASHPASS = "user_hashpass";
     // User groups (make variable public to access from outside)
     public static final String KEY_GROUPS = "user_groups";
+    
+    public static final String KEY_SEARCH_WORD = "search_word";
      
     
     // Constructor
@@ -50,6 +52,11 @@ public class SessionManager {
     	editor.putString(KEY_GROUPS, groups);
     	// commit changes
         editor.commit();
+    }
+    
+    public void setSearchWord(String searchWord){
+    	editor.putString(KEY_GROUPS, searchWord);
+    	editor.commit();
     }
     
     /**
@@ -94,6 +101,10 @@ public class SessionManager {
         }
          
     }     
+    
+    public String getSearchWord(){
+    	return pref.getString(KEY_SEARCH_WORD, null);
+    }
      
     /**
      * Get stored session data

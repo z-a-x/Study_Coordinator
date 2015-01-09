@@ -290,7 +290,15 @@ public class MainActivity extends FragmentActivity {
 				userName = (String) json.get("user_name");
 				userLastName = (String) json.get("user_last_name");
 				email = (String) json.get("email");
-				pathToPicture=(String)json.get("user_avatar");
+				
+				if(json.isNull( "user_avatar" )){
+					
+					pathToPicture="NULL";
+				}
+				else{
+					pathToPicture = (String)json.get("user_avatar");
+					
+				}
 				
 				System.out.println(json.get("username"));
 				System.out.println(userName);

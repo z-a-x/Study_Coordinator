@@ -31,7 +31,7 @@ public abstract class LookUpUsers extends LookUp {
 		JSONArray usersArray = result.getJSONArray("users");
 		for (int i = 0; i < usersArray.length(); i++) {
 			JSONObject userObject = usersArray.getJSONObject(i);
-			
+			System.out.println("JSON OBJEKT: "+userObject.getString("user_name"));
 			int user_id = userObject.getInt("user_id");
 			String user_name = userObject.getString("user_name");
 			String user_last_name = userObject.getString("user_last_name");
