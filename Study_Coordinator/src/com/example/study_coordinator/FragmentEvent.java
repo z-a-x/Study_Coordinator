@@ -14,20 +14,18 @@ import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
 
-public class FragmentEvent extends Fragment  {
+public class FragmentEvent extends FragmentActivity  {
 	
 	FragmentPagerAdapter adapterViewPager;
 
 	@Override
-    public View onCreateView(LayoutInflater inflater, ViewGroup container,
-                Bundle savedInstanceState) {
-		 View view = inflater.inflate(R.layout.activity_fragment_event, container,
-                 false);
-        ViewPager vpPager = (ViewPager) view.findViewById(R.id.vpPager);
+	protected void onCreate(Bundle savedInstanceState) {
+		super.onCreate(savedInstanceState);
+		setContentView(R.layout.activity_fragment_event);
+        ViewPager vpPager = (ViewPager) findViewById(R.id.vpPager);
         adapterViewPager = new MyPagerAdapter(getFragmentManager());
         vpPager.setAdapter(adapterViewPager);
-        
-        return view;
+
         
     }
 

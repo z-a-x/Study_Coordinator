@@ -154,7 +154,11 @@ public class MainActivity extends FragmentActivity {
 			break;
 			
 		case 6:
-			fragment = instantiateFragment(FragmentEvent.class, position, args);
+			logout = true;
+			//fragment = instantiateFragment(FragmentEvent.class, position, args);
+			Intent intent = new Intent(this, FragmentEvent.class);
+			startActivity(intent);
+            finish();
 			break;
 			
 		default:
