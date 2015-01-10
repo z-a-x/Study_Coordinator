@@ -7,7 +7,9 @@ import org.json.JSONObject;
 
 import android.app.Fragment;
 import android.app.FragmentTransaction;
+import android.content.Intent;
 import android.os.Bundle;
+import android.support.v4.app.FragmentActivity;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -46,7 +48,7 @@ public class TabGroups extends Fragment {
 		final ListView listView = (ListView) view.findViewById(R.id.listview);
 
 		// On copy/paste CHANGE THIS !!!
-		final Fragment callingFragment = new FragmentGroup();
+		final FragmentActivity callingFragment = new FragmentGroup();
 		
 		listView.setOnItemClickListener(new OnItemClickListener() {
 
@@ -54,14 +56,17 @@ public class TabGroups extends Fragment {
 			public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
 				HasId baseClass = (HasId) listView.getItemAtPosition(position);
 
-				FragmentTransaction transaction = getFragmentManager().beginTransaction();
-				Bundle arguments = new Bundle();
-				arguments.putInt("id", baseClass.getId());
-				callingFragment.setArguments(arguments);
-				transaction.replace(R.id.content_frame, callingFragment);
-				transaction.addToBackStack(null);
-				transaction.commit();
-				getFragmentManager().executePendingTransactions();
+//				FragmentTransaction transaction = getFragmentManager().beginTransaction();
+//				Bundle arguments = new Bundle();
+//				arguments.putInt("id", baseClass.getId());
+//				callingFragment.setArguments(arguments);
+//				transaction.replace(R.id.content_frame, callingFragment);
+//				transaction.addToBackStack(null);
+//				transaction.commit();
+//				getFragmentManager().executePendingTransactions();
+				
+				//TODO add id!				
+				startActivity(new Intent(getActivity(), FragmentGroup.class));
 			}
 		});
 

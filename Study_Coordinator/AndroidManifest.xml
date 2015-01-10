@@ -67,6 +67,14 @@
             </intent-filter>
         </activity>
         <activity
+            android:name=".FragmentGroup"
+            android:label="@string/title_activity_fragment_group" >
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN" />
+                <action android:name="android.intent.category.LAUNCHER" />
+            </intent-filter>
+        </activity>
+        <activity
             android:name=".FragmentUpcomingEvents"
             android:label="@string/title_activity_fragment_upcoming_events" >
             <intent-filter>

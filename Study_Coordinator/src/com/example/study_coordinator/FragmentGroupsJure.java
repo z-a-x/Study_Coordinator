@@ -3,6 +3,7 @@ package com.example.study_coordinator;
 import android.app.Fragment;
 import android.app.FragmentManager;
 import android.app.FragmentTransaction;
+import android.content.Intent;
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -37,16 +38,22 @@ public class FragmentGroupsJure extends Fragment {
 	}
 
 	private void openGroupFragment() {
-		FragmentTransaction transaction = getFragmentManager().beginTransaction();
-		FragmentGroup fragment = new FragmentGroup();
-		Bundle arguments = new Bundle();
-		arguments.putInt("id", 1);
-		fragment.setArguments(arguments);
-		transaction.replace(R.id.content_frame, fragment);
-		transaction.addToBackStack(null);
-		transaction.commit();
-		// NEW (da dela back button)
-		getFragmentManager().executePendingTransactions();
+//		FragmentTransaction transaction = getFragmentManager().beginTransaction();
+//		FragmentGroup fragment = new FragmentGroup();
+//		Bundle arguments = new Bundle();
+//		arguments.putInt("id", 1);
+//		fragment.setArguments(arguments);
+//		transaction.replace(R.id.content_frame, fragment);
+//		transaction.addToBackStack(null);
+//		transaction.commit();
+//		// NEW (da dela back button)
+//		getFragmentManager().executePendingTransactions();
+		
+		Intent intent = new Intent(getActivity(), FragmentGroup.class);
+		Bundle args = new Bundle();
+		args.putInt("id", 1);
+		intent.putExtras(args);
+		startActivity(intent);
 	}
 
 }
