@@ -72,14 +72,14 @@ public class MainActivity extends FragmentActivity {
 		setContentView(R.layout.activity_main);
 		//BUTTON
 		
-		final Animation animTranslate = AnimationUtils.loadAnimation(this, R.anim.button_out);
-		Button testButton = (Button) findViewById(R.id.Testbutton1);
-		testButton.setOnClickListener(new OnClickListener() {
-			@Override
-			public void onClick(View v) {
-				v.startAnimation(animTranslate);
-			}
-		});
+//		final Animation animTranslate = AnimationUtils.loadAnimation(this, R.anim.button_out);
+//		Button testButton = (Button) findViewById(R.id.Testbutton1);
+//		testButton.setOnClickListener(new OnClickListener() {
+//			@Override
+//			public void onClick(View v) {
+//				v.startAnimation(animTranslate);
+//			}
+//		});
 		//BUTTON
 		
 

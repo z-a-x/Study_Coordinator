@@ -15,29 +15,49 @@ import android.view.LayoutInflater;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
+import android.view.View.OnClickListener;
 import android.view.ViewGroup;
+import android.widget.EditText;
+import android.widget.ImageButton;
 
 public class FragmentSearch extends Fragment {
 
-	FragmentPagerAdapter adapterViewPager;
+	SearchPagerAdapter adapterViewPager;
+	View view;
 
 	@Override
 	public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
-		View view = inflater.inflate(R.layout.activity_fragment_search, container, false);
+		view = inflater.inflate(R.layout.activity_fragment_search, container, false);
 		ViewPager vpPager = (ViewPager) view.findViewById(R.id.vpPager_search);
-		adapterViewPager = new MyPagerAdapter(getFragmentManager());
+		adapterViewPager = new SearchPagerAdapter(getFragmentManager(),
+				"feq8u89urq3ujrq");
 		vpPager.setAdapter(adapterViewPager);
-
+		setOnClickListener();
 		return view;
-
 	}
 
-	public static class MyPagerAdapter extends FragmentPagerAdapter {
+	private void setOnClickListener() {
+		ImageButton searchButton = (ImageButton) view.findViewById(R.id.bt_search);
+		searchButton.setOnClickListener(new OnClickListener() {
+			@Override
+			public void onClick(View view) {
+				runSearch();
+			}
+		});
+	}
+	
+	public void runSearch() {
+		adapterViewPager.query = "a";
+	}
+
+	public static class SearchPagerAdapter extends FragmentPagerAdapter {
 		private static int NUM_ITEMS = 2;
 		private String[] titles = new String[] { "Users", "Groups" };
+		public String query;
 
-		public MyPagerAdapter(FragmentManager fragmentManager) {
+		public SearchPagerAdapter(FragmentManager fragmentManager, String query) {
 			super(fragmentManager);
+			this.query = query;
 		}
 
 		// Returns total number of pages
@@ -51,9 +71,9 @@ public class FragmentSearch extends Fragment {
 		public Fragment getItem(int position) {
 			switch (position) {
 			case 0:
-				return TabUsers.newInstance(0, titles[0], "search", "i");
+				return TabUsers.newInstance(0, titles[0], "search", query);
 			case 1:
-				return TabGroups.newInstance(1, titles[1], "search", "z");
+				return TabGroups.newInstance(1, titles[1], "search", query);
 
 			default:
 				return null;
@@ -65,7 +85,5 @@ public class FragmentSearch extends Fragment {
 		public CharSequence getPageTitle(int position) {
 			return titles[position];
 		}
-
 	}
-
 }
