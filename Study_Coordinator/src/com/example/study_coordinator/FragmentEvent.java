@@ -44,7 +44,8 @@ public class FragmentEvent extends FragmentActivity  {
 	private ActionBarDrawerToggle drawerToggle;
 	CustomDrawerAdapter adapter;
 	List<DrawerItem> dataList;
-
+	String eventId;
+	
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
@@ -52,7 +53,7 @@ public class FragmentEvent extends FragmentActivity  {
 		
 		//PRIDOBLJEN ID EVENTA IZ UPCOMING EVENTS
 		Intent intent = getIntent();
-		String eventId = intent.getStringExtra("selected_event");
+		eventId = intent.getStringExtra("selected_event");
 		
 		
         ViewPager vpPager = (ViewPager) findViewById(R.id.pager);

@@ -167,6 +167,7 @@ public class MainActivity extends FragmentActivity {
 			logout = true;
 			//fragment = instantiateFragment(FragmentEvent.class, position, args);
 			Intent intent = new Intent(this, FragmentEvent.class);
+			intent.putExtra("selected_event", 5);
 			overridePendingTransition(R.anim.fadeout, R.anim.fadein);
 			startActivity(intent);
             finish();
