@@ -15,11 +15,14 @@ import com.example.study_coordinator.baseclasses.Group;
 
 import android.app.Fragment;
 import android.app.ProgressDialog;
+import android.content.Intent;
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Adapter;
+import android.widget.AdapterView;
+import android.widget.AdapterView.OnItemClickListener;
 import android.widget.ArrayAdapter;
 import android.widget.ImageView;
 import android.widget.ListView;
@@ -43,6 +46,17 @@ public class FragmentUpcomingEvents extends Fragment {
             View view = inflater.inflate(R.layout.fragment_upcoming_events, container,false);
             
             listView = (ListView) view.findViewById(R.id.lv_upcoming);
+            listView.setOnItemClickListener(new OnItemClickListener() {
+                @Override
+                public void onItemClick(AdapterView<?> parent, View view, int position,long id) {
+                    Intent intent = new Intent(getActivity(), FragmentEvent.class);
+                    String event_id = adapter.getItem(position).id+"";
+                    intent.putExtra("selected_event", event_id);
+                    startActivity(intent);
+                }
+
+				
+            });
             
             LookUp groupFetcher = new LookUpGroups(getActivity().getApplicationContext()) {
 
@@ -98,6 +112,9 @@ public class FragmentUpcomingEvents extends Fragment {
             //listView.smoothScrollToPosition(0);
             ivIcon = (ImageView) view.findViewById(R.id.frag_events_icon);
             tvItemName = (TextView) view.findViewById(R.id.frag_events_tv);
+            
+            
+            
  
             //tvItemName.setText(getArguments().getString(ITEM_NAME));
             //ivIcon.setImageDrawable(view.getResources().getDrawable(getArguments().getInt(IMAGE_RESOURCE_ID)));

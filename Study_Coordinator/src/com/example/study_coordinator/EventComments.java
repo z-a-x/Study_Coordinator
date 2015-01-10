@@ -46,12 +46,17 @@ public class EventComments extends Fragment{
     CommentAdapter adapter;
     private ProgressDialog pDialog;
     ArrayList<Comment> comments;
+    String eventId;
     
     
  // newInstance constructor for creating fragment with arguments
-    public static EventComments newInstance() {
-        EventComments fragmentFirst = new EventComments();
+    public static EventComments newInstance(String eventId) {
+        EventComments fragmentFirst = new EventComments(eventId);
         return fragmentFirst;
+    }
+    
+    public EventComments(String eventId){
+    	this.eventId = eventId;
     }
     
     @Override
@@ -125,7 +130,7 @@ public class EventComments extends Fragment{
 			DatabaseConnect dc = new DatabaseConnect();
 			String database_url =   dc.getIpAddress() + "getComments.php";
 			List<NameValuePair> nameValuePairs = new ArrayList<NameValuePair>();
-			nameValuePairs.add(new BasicNameValuePair("event_id", "5"));
+			nameValuePairs.add(new BasicNameValuePair("event_id", eventId));
 			
         	String st = null;
             try

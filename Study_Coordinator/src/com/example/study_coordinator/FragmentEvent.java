@@ -49,8 +49,14 @@ public class FragmentEvent extends FragmentActivity  {
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.activity_fragment_event);
+		
+		//PRIDOBLJEN ID EVENTA IZ UPCOMING EVENTS
+		Intent intent = getIntent();
+		String eventId = intent.getStringExtra("selected_event");
+		
+		
         ViewPager vpPager = (ViewPager) findViewById(R.id.pager);
-        adapterViewPager = new MyPagerAdapter(getFragmentManager());
+        adapterViewPager = new MyPagerAdapter(getFragmentManager(), eventId);
         vpPager.setAdapter(adapterViewPager);
 
         
@@ -145,9 +151,11 @@ public class FragmentEvent extends FragmentActivity  {
 
     public static class MyPagerAdapter extends FragmentPagerAdapter {
         private static int NUM_ITEMS = 2;
+        String eventId;
 
-            public MyPagerAdapter(FragmentManager fragmentManager) {
+            public MyPagerAdapter(FragmentManager fragmentManager, String eventId) {
                 super(fragmentManager);
+                this.eventId = eventId;
             }
 
             // Returns total number of pages
@@ -161,9 +169,9 @@ public class FragmentEvent extends FragmentActivity  {
         public Fragment getItem(int position) {
             switch (position) {
             case 0: // Fragment # 0 - This will show FirstFragment
-                return EventDetails.newInstance();
+                return EventDetails.newInstance(this.eventId);
             case 1: // Fragment # 1 - This will show SecondFragment
-                return EventComments.newInstance();
+                return EventComments.newInstance(this.eventId);
             default:
                 return null;
             }

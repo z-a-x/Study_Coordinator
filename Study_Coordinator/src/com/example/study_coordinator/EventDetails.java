@@ -29,7 +29,7 @@ import android.widget.GridView;
 import android.widget.TextView;
 
 public class EventDetails extends Fragment {
-    
+    String eventId;
     TextView tvName;
     TextView tvDate;
     TextView tvTime;
@@ -57,8 +57,8 @@ public class EventDetails extends Fragment {
 					tvDesc.setText(event.description);
 				}
 			}
-		};
-		eventFetcher.execute("id", "5");
+		};		
+		eventFetcher.execute("id", eventId);
 	}
     
     // pridobi seznam ljudi, ki se bodo udeležili eventa
@@ -78,11 +78,14 @@ public class EventDetails extends Fragment {
 	}
 
     // newInstance constructor for creating fragment with arguments
-    public static EventDetails newInstance() {
-        EventDetails fragmentFirst = new EventDetails();
+    public static EventDetails newInstance(String eventId) {
+        EventDetails fragmentFirst = new EventDetails(eventId);
         return fragmentFirst;
     }
 
+    public EventDetails(String eventId){
+    	this.eventId = eventId;
+    }
     // Store instance variables based on arguments passed
     @Override
     public void onCreate(Bundle savedInstanceState) {

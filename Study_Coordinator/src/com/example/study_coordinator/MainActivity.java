@@ -112,13 +112,16 @@ public class MainActivity extends FragmentActivity {
 		Fragment fragment = null;
 		Bundle args = new Bundle();
 		boolean logout = false;
+		boolean upcoming = false;
 		switch (position) {
 		case 0:
 			fragment = instantiateFragment(FragmentSearch.class, position, args);
 			break;
 
 		case 1:
+			upcoming = true;
 			fragment = instantiateFragment(FragmentUpcomingEvents.class, position, args);
+						
 			break;
 
 		case 2:
@@ -136,6 +139,11 @@ public class MainActivity extends FragmentActivity {
 				// TODO Auto-generated catch block
 				e.printStackTrace();
 			}
+			fragment.setArguments(args);
+			FragmentManager fm = getFragmentManager();
+			FragmentTransaction fragmentTransaction = fm.beginTransaction();
+			fragmentTransaction.replace(R.id.content_frame, fragment);
+			fragmentTransaction.commit();
 			
 			break;
 
@@ -165,12 +173,13 @@ public class MainActivity extends FragmentActivity {
 			break;
 		}
 		if (!logout) {
+			
 			fragment.setArguments(args);
 			FragmentManager fm = getFragmentManager();
 			FragmentTransaction fragmentTransaction = fm.beginTransaction();
 			fragmentTransaction.replace(R.id.content_frame, fragment);
 			fragmentTransaction.commit();
-
+			 
 		}
 		drawerList.setItemChecked(position, true);
 		setTitle(dataList.get(position).getItemName());
