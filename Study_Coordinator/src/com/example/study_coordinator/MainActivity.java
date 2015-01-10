@@ -112,14 +112,14 @@ public class MainActivity extends FragmentActivity {
 		Fragment fragment = null;
 		Bundle args = new Bundle();
 		boolean logout = false;
-		boolean upcoming = false;
+		boolean social = false;
 		switch (position) {
 		case 0:
 			fragment = instantiateFragment(FragmentSearch.class, position, args);
 			break;
 
 		case 1:
-			upcoming = true;
+			
 			fragment = instantiateFragment(FragmentUpcomingEvents.class, position, args);
 						
 			break;
@@ -148,7 +148,9 @@ public class MainActivity extends FragmentActivity {
 			break;
 
 		case 3:
-			fragment = instantiateFragment(FragmentSocial.class, position, args);
+			social = true;
+			Intent i = new Intent(this, FragmentSocial.class);			
+			startActivity(i);
 			break;
 		case 4:
 			fragment = instantiateFragment(FragmentGroupsJure.class, position, args);
@@ -174,7 +176,7 @@ public class MainActivity extends FragmentActivity {
 		default:
 			break;
 		}
-		if (!logout) {
+		if (!logout && !social) {
 			
 			fragment.setArguments(args);
 			FragmentManager fm = getFragmentManager();

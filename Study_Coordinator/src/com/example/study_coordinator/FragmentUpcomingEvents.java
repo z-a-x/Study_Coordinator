@@ -53,6 +53,7 @@ public class FragmentUpcomingEvents extends Fragment {
                     String event_id = adapter.getItem(position).id+"";
                     intent.putExtra("selected_event", event_id);
                     startActivity(intent);
+                    
                 }
 
 				
@@ -83,7 +84,7 @@ public class FragmentUpcomingEvents extends Fragment {
     		
     		System.out.println("---------------------------------------");
     		System.out.println("ID USER: "+userId);
-    		System.out.println("USER GROUPS: "+session.getMyGroups());
+    		System.out.println("1. USER GROUPS: "+session.getMyGroups());
     		System.out.println("---------------------------------------");
             
             LookUp eventFetcher = new LookUpEvents(getActivity().getApplicationContext()) {
@@ -94,8 +95,9 @@ public class FragmentUpcomingEvents extends Fragment {
 					adapter = new EventAdapter(getActivity(),list);
 					listView.setAdapter(adapter);
 				}
-			};
+			};			
 			eventFetcher.execute("selected_groups", session.getMyGroups());
+			System.out.println("2. USER GROUPS: "+session.getMyGroups());
             /*
             List<String> your_array_list = new ArrayList<String>();
             your_array_list.add("1. dogodek 1.1.2015 - CTK - predmet1 19:00");

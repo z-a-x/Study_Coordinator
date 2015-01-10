@@ -42,6 +42,7 @@ public class SocialDetails extends Fragment {
 	TextView tvUserLastName;
 	TextView tvUsername;
 	TextView tvEmail;
+	String userId;
 	
 	ImageView profilPicture;
 	
@@ -51,9 +52,12 @@ public class SocialDetails extends Fragment {
 	private int page;
 
 
+	public SocialDetails(String userId){
+		this.userId = userId;
+	}
 	// newInstance constructor for creating fragment with arguments
-	public static SocialDetails newInstance(int page, String title) {
-		SocialDetails fragmentFirst = new SocialDetails();
+	public static SocialDetails newInstance(int page, String title, String userId) {
+		SocialDetails fragmentFirst = new SocialDetails(userId);
 		Bundle args = new Bundle();
 		args.putInt("someInt", page);
 		args.putString("someTitle", title);
@@ -122,7 +126,7 @@ public class SocialDetails extends Fragment {
 		
 		final String TEST_QUERY = "4";
 		System.out.println("SSSSSSSSSSSSSSS JE "+TEST_QUERY);
-		userDetailsFetcher.execute("user_id", TEST_QUERY);
+		userDetailsFetcher.execute("user_id", userId);
 		
 		return view;
 	}

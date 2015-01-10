@@ -75,6 +75,14 @@
             </intent-filter>
         </activity>
         <activity
+            android:name=".FragmentSocial"
+            android:label="@string/title_activity_fragment_social" >
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN" />
+                <action android:name="android.intent.category.LAUNCHER" />
+            </intent-filter>
+        </activity>
+        <activity
             android:name=".EventDetails"
             android:label="@string/title_activity_event_details" >
         </activity>

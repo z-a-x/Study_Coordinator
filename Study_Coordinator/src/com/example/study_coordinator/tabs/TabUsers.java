@@ -7,6 +7,7 @@ import org.json.JSONObject;
 
 import android.app.Fragment;
 import android.app.FragmentTransaction;
+import android.content.Intent;
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -16,6 +17,7 @@ import android.widget.ListAdapter;
 import android.widget.ListView;
 import android.widget.AdapterView.OnItemClickListener;
 
+import com.example.study_coordinator.FragmentEvent;
 import com.example.study_coordinator.FragmentGroup;
 import com.example.study_coordinator.FragmentSocial;
 import com.example.study_coordinator.FriendAdapter;
@@ -26,6 +28,7 @@ import com.example.study_coordinator.baseclasses.HasId;
 import com.example.study_coordinator.baseclasses.User;
 
 public class TabUsers extends Fragment {
+	ListAdapter adapter;
 
 	public static Fragment newInstance(int page, String title, String argumentName, String argumentValue) {
 		// On copy/paste CHANGE THIS !!!
@@ -47,7 +50,8 @@ public class TabUsers extends Fragment {
 		final ListView listView = (ListView) view.findViewById(R.id.listview);
 
 		// On copy/paste CHANGE THIS !!!
-		final Fragment callingFragment = new FragmentSocial();
+		
+		//final Fragment callingFragment = new FragmentSocial();
 		
 		listView.setOnItemClickListener(new OnItemClickListener() {
 
@@ -56,10 +60,20 @@ public class TabUsers extends Fragment {
 				HasId baseClass = (HasId) listView.getItemAtPosition(position);
 
 				FragmentTransaction transaction = getFragmentManager().beginTransaction();
-				Bundle arguments = new Bundle();
-				arguments.putInt("id", baseClass.getId());
-				callingFragment.setArguments(arguments);
-				transaction.replace(R.id.content_frame, callingFragment);
+				//Bundle arguments = new Bundle();
+				//arguments.putInt("id", baseClass.getId());
+				
+				
+				Intent intent = new Intent(getActivity(), FragmentSocial.class);
+				User u = (User) adapter.getItem(position);
+		        intent.putExtra("selected_user", u.id+"");
+		        System.out.println("----------------");
+				System.out.println("Razred TabsUsers");
+				System.out.println("Pošiljam userja: "+u.id+"");
+				System.out.println("----------------");
+		        startActivity(intent);
+				//callingFragment.setArguments(arguments);
+				//transaction.replace(R.id.content_frame, callingFragment);
 				transaction.addToBackStack(null);
 				transaction.commit();
 				getFragmentManager().executePendingTransactions();
@@ -72,7 +86,7 @@ public class TabUsers extends Fragment {
 			@Override
 			public void onSuccessfulFetch(JSONObject result) throws JSONException {
 				List<User> users = getUsers(result);
-				ListAdapter adapter = new FriendAdapter(getActivity(), users);
+				adapter = new FriendAdapter(getActivity(), users);
 				listView.setAdapter(adapter);
 			}
 		};
