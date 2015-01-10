@@ -69,7 +69,7 @@ public class FragmentSocial extends FragmentActivity  {
                 //return SocialUsers.newInstance(0, "Details");
             	return SocialDetails.newInstance(0, titles[0], userId);
             case 1: // Fragment # 0 - This will show FirstFragment different title
-                return SocialGroups.newInstance(1, titles[1]);
+                return SocialGroups.newInstance(1, titles[1], userId);
             case 2: // Fragment # 0 - This will show FirstFragment different title
                 return SocialFriends.newInstance(2, titles[2]);
             

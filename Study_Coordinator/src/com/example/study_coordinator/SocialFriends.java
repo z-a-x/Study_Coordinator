@@ -95,12 +95,11 @@ public class SocialFriends extends Fragment {
 			}
 		};
 		SessionManager session = new SessionManager(getActivity());
-		HashMap<String, String> pref = session.getUserDetails();
-		String query_groups = pref.get(SessionManager.KEY_GROUPS);
+		String query_groups = session.getUserGroups();
 	
-		final String TEST_QUERY = query_groups;
-		System.out.println("Zahteva po uporabnikih iz skupin: "+TEST_QUERY);
-		userGroupFetcher.execute("selected_groups", TEST_QUERY);
+		
+		System.out.println("Zahteva po uporabnikih iz skupin: "+query_groups);
+		userGroupFetcher.execute("selected_groups", query_groups);
 
 		return view;
 	}

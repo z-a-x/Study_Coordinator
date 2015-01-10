@@ -29,6 +29,7 @@ public class SocialGroups extends Fragment {
 	String result;
 	GroupAdapter adapter;
 	private ProgressDialog pDialog;
+	String userId;
 	
 
 	// Store instance variables
@@ -36,9 +37,13 @@ public class SocialGroups extends Fragment {
 	private int page;
 
 	
+	public SocialGroups(String userId){
+		this.userId = userId;
+	}
+	
 	// newInstance constructor for creating fragment with arguments
-	public static SocialGroups newInstance(int page, String title) {
-		SocialGroups fragmentFirst = new SocialGroups();
+	public static SocialGroups newInstance(int page, String title, String userId) {
+		SocialGroups fragmentFirst = new SocialGroups(userId);
 		Bundle args = new Bundle();
 		args.putInt("someInt", page);
 		args.putString("someTitle", title);
@@ -92,16 +97,10 @@ public class SocialGroups extends Fragment {
 				System.out.println("NASTAVIL MANAGER NA "+s);							
 				adapter = new GroupAdapter(getActivity(), groups);
 				listView.setAdapter(adapter);
-				
-				
 			}
 		};
-		SessionManager session = new SessionManager(getActivity());
-		HashMap<String, String> pref = session.getUserDetails();
-		String username = pref.get(SessionManager.KEY_USERNAME);
 		
-		final String TEST_QUERY = username;
-		groupFetcher.execute("user_id", username);
+		groupFetcher.execute("user_id", userId);
 		
 		
 		return view;

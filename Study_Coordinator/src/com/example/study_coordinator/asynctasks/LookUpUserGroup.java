@@ -1,7 +1,9 @@
 package com.example.study_coordinator.asynctasks;
 
 import java.util.ArrayList;
+import java.util.HashSet;
 import java.util.List;
+import java.util.Set;
 
 import org.json.JSONArray;
 import org.json.JSONException;
@@ -31,7 +33,7 @@ public abstract class LookUpUserGroup extends LookUp {
 	 */
 	protected static List<User> getUserGroup(JSONObject result) throws JSONException {
 		List<User> users = new ArrayList<User>();
-
+		List<Integer> ids = new ArrayList<Integer>();
 		JSONArray userGroupArray = result.getJSONArray("user_group");
 		
 		for (int i = 0; i < userGroupArray.length(); i++) {
@@ -43,8 +45,20 @@ public abstract class LookUpUserGroup extends LookUp {
 			String userName = userObject.getString("username");
 			
 			User user = new User(id, name, lastName, userName);
-			users.add(user);
-		}
+			ids.add(user.id);
+			System.out.println(user.id);
+			if(i == 0){
+				users.add(user);
+			}
+			
+			else{
+				if(!(ids.get(i-1) == ids.get(i))){
+				System.out.println("DODAJAM");
+				users.add(user);
+				}
+			}
+			
+		}		
 		return users;
 	}
 

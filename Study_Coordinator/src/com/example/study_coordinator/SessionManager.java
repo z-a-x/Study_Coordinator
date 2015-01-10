@@ -57,10 +57,16 @@ public class SessionManager {
     	editor.commit();
     }
     
+    //splošen uporabnik
     public void setUserGroups(String groups){
     	editor.putString(KEY_GROUPS, groups);
     	// commit changes
         editor.commit();
+    }
+    
+    //skupine splošnega uporabnika
+    public String getUserGroups(){
+    	return pref.getString(KEY_GROUPS, null);
     }
     
     public void setUserId(String userId){
@@ -139,7 +145,7 @@ public class SessionManager {
         // user email id
         user.put(KEY_HASHPASS, pref.getString(KEY_HASHPASS, null));
         
-        user.put(KEY_GROUPS, pref.getString(KEY_GROUPS, null));
+        user.put(KEY_GROUPS, pref.getString(KEY_MY_GROUPS, null));
          
         // return user
         return user;
