@@ -157,8 +157,8 @@ public class MainActivity extends FragmentActivity {
 			logout = true;
 			//fragment = instantiateFragment(FragmentEvent.class, position, args);
 			Intent intent = new Intent(this, FragmentEvent.class);
-			startActivity(intent);
             finish();
+            startActivity(intent);
 			break;
 			
 		default:

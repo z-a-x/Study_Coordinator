@@ -18,6 +18,7 @@ import android.widget.AdapterView.OnItemClickListener;
 
 import com.example.study_coordinator.EventAdapter;
 import com.example.study_coordinator.FragmentEvent;
+import com.example.study_coordinator.FragmentEventJure;
 import com.example.study_coordinator.FragmentSocial;
 import com.example.study_coordinator.FriendAdapter;
 import com.example.study_coordinator.R;
@@ -50,7 +51,7 @@ public class TabEvents extends Fragment {
 		final ListView listView = (ListView) view.findViewById(R.id.listview);
 
 		// On copy/paste CHANGE THIS !!!
-		final Fragment callingFragment = new FragmentEvent();
+		final Fragment callingFragment = new FragmentEventJure();
 		
 		listView.setOnItemClickListener(new OnItemClickListener() {
 
