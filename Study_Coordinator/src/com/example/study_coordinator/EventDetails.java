@@ -74,7 +74,7 @@ public class EventDetails extends Fragment {
 				gridView.setAdapter(customGridAdapter);
 			}
 		};
-		eventFetcher.execute();
+		eventFetcher.execute("id", eventId);
 	}
 
     // newInstance constructor for creating fragment with arguments
