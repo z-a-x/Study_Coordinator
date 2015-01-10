@@ -1,6 +1,7 @@
 package com.example.study_coordinator;
 
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.HashMap;
 import java.util.List;
 
@@ -17,6 +18,7 @@ import android.app.Fragment;
 import android.app.ProgressDialog;
 import android.content.Intent;
 import android.os.Bundle;
+
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -92,9 +94,18 @@ public class FragmentUpcomingEvents extends Fragment {
 				@Override
 				public void onSuccessfulFetch(JSONObject result) throws JSONException {					
 					List<Event> list = getEvents(result);
-					adapter = new EventAdapter(getActivity(),list);
+					List<Event> list1 = new ArrayList<Event>();
+					for(Event e:list){
+						Date date1 = e.date;
+						Date date2 = new Date();
+						if(date2.before(date1)){
+							list1.add(e);
+						}
+					}
+					adapter = new EventAdapter(getActivity(),list1);
 					listView.setAdapter(adapter);
 				}
+			
 			};			
 			eventFetcher.execute("selected_groups", session.getMyGroups());
 			System.out.println("2. USER GROUPS: "+session.getMyGroups());
