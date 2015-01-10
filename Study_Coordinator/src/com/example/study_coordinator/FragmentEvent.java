@@ -97,7 +97,6 @@ public class FragmentEvent extends FragmentActivity  {
 			intent = new Intent(this, MainActivity.class);
 			startActivity(intent);
             this.finish();
-            startActivity(intent);
 		case 1:
 			logout = true;
 			//fragment = instantiateFragment(FragmentEvent.class, position, args);

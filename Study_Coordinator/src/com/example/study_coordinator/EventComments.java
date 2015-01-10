@@ -44,7 +44,6 @@ public class EventComments extends Fragment{
     ListView listView;
     String result;
     CommentAdapter adapter;
-    private ProgressDialog pDialog;
     ArrayList<Comment> comments;
     String eventId;
     
@@ -104,10 +103,6 @@ public class EventComments extends Fragment{
 	    @Override
 	    protected void onPreExecute() {
 	        super.onPreExecute();  
-	        pDialog = new ProgressDialog(getActivity());
-            pDialog.setMessage("Please wait...");
-            pDialog.setCancelable(false);
-            pDialog.show();
 	    }
 
 		@Override
@@ -152,13 +147,7 @@ public class EventComments extends Fragment{
 	   * **/
 		@Override
 	    protected void onPostExecute(String result) {
-			super.onPostExecute(result);
-			if (pDialog.isShowing())
-                pDialog.dismiss();
-            /**
-             * Updating parsed JSON data into ListView
-             * */
-			
+			super.onPostExecute(result);			
 			
 			comments = new ArrayList<Comment>();
 		    
