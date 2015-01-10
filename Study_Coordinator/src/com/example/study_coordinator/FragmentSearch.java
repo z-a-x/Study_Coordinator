@@ -7,6 +7,7 @@ import android.app.ActionBar;
 import android.app.Activity;
 import android.app.Fragment;
 import android.app.FragmentManager;
+import android.app.FragmentTransaction;
 import android.support.v4.app.FragmentActivity;
 import android.os.Bundle;
 import android.support.v13.app.FragmentPagerAdapter;
@@ -24,13 +25,21 @@ public class FragmentSearch extends Fragment {
 
 	SearchPagerAdapter adapterViewPager;
 	View view;
+	
+	LayoutInflater inflater;
+	ViewGroup container; 
+	Bundle savedInstanceState;
 
 	@Override
 	public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
+		this.inflater = inflater;
+		this.container = container;
+		this.savedInstanceState = savedInstanceState;
+		
 		view = inflater.inflate(R.layout.activity_fragment_search, container, false);
 		ViewPager vpPager = (ViewPager) view.findViewById(R.id.vpPager_search);
 		adapterViewPager = new SearchPagerAdapter(getFragmentManager(),
-				"feq8u89urq3ujrq");
+				"b");
 		vpPager.setAdapter(adapterViewPager);
 		setOnClickListener();
 		return view;
@@ -47,7 +56,7 @@ public class FragmentSearch extends Fragment {
 	}
 	
 	public void runSearch() {
-		adapterViewPager.query = "a";
+		System.out.println("#### Running search");
 	}
 
 	public static class SearchPagerAdapter extends FragmentPagerAdapter {
