@@ -10,7 +10,11 @@
         android:id="@+id/content_frame"
         android:layout_width="match_parent"
         android:layout_height="match_parent" 
-        xmlns:android="http://schemas.android.com/apk/res/android"/>
+        xmlns:android="http://schemas.android.com/apk/res/android">
+
+        
+
+    </FrameLayout>
  
     <!-- The navigation drawer -->
     <ListView android:id="@+id/left_drawer"
@@ -25,5 +29,11 @@
         android:paddingLeft="15sp"
         android:paddingRight="15sp"
         />
- 
+ <Button
+            android:id="@+id/Testbutton1"
+	        android:layout_width="45dp"
+	        android:layout_height="45dp"
+	        android:background="@drawable/roundedbutton"
+	        android:text="+"
+	        android:textColor="@android:color/white"  />
 </android.support.v4.widget.DrawerLayout>

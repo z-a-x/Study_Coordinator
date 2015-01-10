@@ -30,7 +30,11 @@ import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
+import android.view.View.OnClickListener;
+import android.view.animation.Animation;
+import android.view.animation.AnimationUtils;
 import android.widget.AdapterView;
+import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.ListView;
 import android.widget.Toast;
@@ -66,7 +70,17 @@ public class MainActivity extends FragmentActivity {
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.activity_main);
+		//BUTTON
 		
+		final Animation animTranslate = AnimationUtils.loadAnimation(this, R.anim.button_out);
+		Button testButton = (Button) findViewById(R.id.Testbutton1);
+		testButton.setOnClickListener(new OnClickListener() {
+			@Override
+			public void onClick(View v) {
+				v.startAnimation(animTranslate);
+			}
+		});
+		//BUTTON
 		
 
 		Intent itnt = getIntent();
