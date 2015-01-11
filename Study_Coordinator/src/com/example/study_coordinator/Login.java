@@ -154,12 +154,12 @@ public class Login extends Activity {
 				if (success == 1) {
 					Log.d("Login Successful!", json.toString());					
 					Intent i = new Intent(Login.this, MainActivity.class);
-					
+					int userId =json.getInt("user_id");
 					//dodajam v intent user name uporabnike za uporabo v main aktivnosti - Jaka
 					i.putExtra("username", username);
 					
 					// start session
-	                session.createLoginSession(user.getText().toString(),pass.getText().toString(),"1");
+	                session.createLoginSession(user.getText().toString(),pass.getText().toString(),userId+"");
 					finish();
 					startActivity(i);
 					return json.getString(TAG_MESSAGE);

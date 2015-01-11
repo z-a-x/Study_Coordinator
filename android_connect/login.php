@@ -57,6 +57,7 @@ if (!empty($_POST)) {
             $login_ok = true;
 
 			$_SESSION['id'] = $row['user_id'];
+			$response["user_id"] = $row['user_id'];
         }
     }
     

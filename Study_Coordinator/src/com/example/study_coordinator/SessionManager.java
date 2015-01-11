@@ -69,6 +69,10 @@ public class SessionManager {
     	return pref.getString(KEY_GROUPS, null);
     }
     
+    public String getMyUserId(){
+    	return pref.getString(KEY_USERID, null);
+    }
+    
     public void setUserId(String userId){
     	editor.putString(KEY_USERID, userId);
     	editor.commit();
