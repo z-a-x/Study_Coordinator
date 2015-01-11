@@ -109,7 +109,7 @@ public class FragmentActivityWithDrawer extends FragmentActivity {
 			this.finish();
 			break;
 		case 2:
-			intent = new Intent(this, FragmentEvents.class);
+			intent = new Intent(this, FragmentUpcomingEvents.class);
 			startActivity(intent);
 			this.finish();
 			break;
