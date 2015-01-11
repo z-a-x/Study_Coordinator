@@ -28,7 +28,7 @@ import android.widget.AdapterView;
 import android.widget.ListView;
 import android.widget.Toast;
 
-public class MainActivity extends FragmentActivity {
+public class MainActivity extends FragmentActivityWithDrawer {
 
 	private String[] drawerListViewItems;
 	private ListView drawerListView;
@@ -67,176 +67,185 @@ public class MainActivity extends FragmentActivity {
 			Toast.makeText(getApplicationContext(), message, Toast.LENGTH_LONG).show();
 		}
 
-		drawerTitle = getTitle();
-		dataList = new ArrayList<DrawerItem>();
-		drawerLayout = (DrawerLayout) findViewById(R.id.drawer_layout);
-		drawerList = (ListView) findViewById(R.id.left_drawer);
+//		OLD DRAWER COMMENTED OUT (now replaced with new one, with setDrawer() call):
+//		
+//		drawerTitle = getTitle();
+//		dataList = new ArrayList<DrawerItem>();
+//		drawerLayout = (DrawerLayout) findViewById(R.id.drawer_layout);
+//		drawerList = (ListView) findViewById(R.id.left_drawer);
 
-		dataList.add(new DrawerItem(getResources().getString(R.string.search), R.drawable.ic_action_search));
-		dataList.add(new DrawerItem(getResources().getString(R.string.events), R.drawable.ic_action_events));
-		dataList.add(new DrawerItem(getResources().getString(R.string.profil), R.drawable.ic_action_person));
-		dataList.add(new DrawerItem(getResources().getString(R.string.social), R.drawable.ic_action_group));
-		dataList.add(new DrawerItem("Groups Jure", R.drawable.ic_action_setting));
-		dataList.add(new DrawerItem(getResources().getString(R.string.logout), R.drawable.ic_action_setting));
-		dataList.add(new DrawerItem("Event test", R.drawable.ic_action_setting));
+//		dataList.add(new DrawerItem(getResources().getString(R.string.search), R.drawable.ic_action_search));
+//		dataList.add(new DrawerItem(getResources().getString(R.string.events), R.drawable.ic_action_events));
+//		dataList.add(new DrawerItem(getResources().getString(R.string.profil), R.drawable.ic_action_person));
+//		dataList.add(new DrawerItem(getResources().getString(R.string.social), R.drawable.ic_action_group));
+//		dataList.add(new DrawerItem("Groups Jure", R.drawable.ic_action_setting));
+//		dataList.add(new DrawerItem(getResources().getString(R.string.logout), R.drawable.ic_action_setting));
+//		dataList.add(new DrawerItem("Event test", R.drawable.ic_action_setting));
 
-		adapter = new CustomDrawerAdapter(this, R.layout.custom_drawer_item, dataList);
-		drawerList.setAdapter(adapter);
+//		adapter = new CustomDrawerAdapter(this, R.layout.custom_drawer_item, dataList);
+//		drawerList.setAdapter(adapter);
 
-		drawerList.setOnItemClickListener(new DrawerItemClickListener());
+//		drawerList.setOnItemClickListener(new DrawerItemClickListener());
 
 		getActionBar().setDisplayHomeAsUpEnabled(true);
 		getActionBar().setHomeButtonEnabled(true);
-		drawerListView = (ListView) findViewById(R.id.left_drawer);
+//		drawerListView = (ListView) findViewById(R.id.left_drawer);
 
 		// AttemptLogin al = (AttemptLogin)
 
 		// Session manager class
 		session = new SessionManager(getApplicationContext());
-
+        setDrawer();
 	}
 
-	public void onDrawerClosed(View view) {
-		getActionBar().setTitle(drawerTitle);
-		invalidateOptionsMenu(); // creates call to
-									// onPrepareOptionsMenu()
-	}
+//	OLD DRAWER METHODS COMMENTED OUT (new code is in FragmentActivityWithDrawer.java):
+//
+//	public void onDrawerClosed(View view) {
+//		getActionBar().setTitle(drawerTitle);
+//		invalidateOptionsMenu(); // creates call to
+//									// onPrepareOptionsMenu()
+//	}
+//
+//	public void onDrawerOpened(View drawerView) {
+//		getActionBar().setTitle(drawerTitle);
+//		invalidateOptionsMenu(); // creates call to
+//									// onPrepareOptionsMenu()
+//	}
+//
+//	public void selectItem(int position) {
+//		Fragment fragment = null;
+//		Bundle args = new Bundle();
+//		boolean logout = false;
+//		boolean social = false;
+//		boolean event = false;
+//		switch (position) {
+//		case 0:
+//			//fragment = instantiateFragment(FragmentSearch.class, position, args);
+//			//break;
+//			logout = true;
+//			//fragment = instantiateFragment(FragmentEvent.class, position, args);
+//			Intent intentSearch = new Intent(this, FragmentSearch.class);
+//			overridePendingTransition(R.anim.fadeout, R.anim.fadein);
+//			startActivity(intentSearch);
+//            finish();
+//            
+//			break;
+//
+//		case 1:
+//			event = true;
+//			Intent intentEvents = new Intent(this, FragmentUpcomingEvents.class);
+//			overridePendingTransition(R.anim.fadeout, R.anim.fadein);
+//			startActivity(intentEvents);
+//			finish();
+//						
+//			break;
+//
+//		case 2:
+//			new DataCollector().execute();
+//			event=true;
+//			Intent intentProfil = new Intent(this, FragmentProfil.class);
+//			overridePendingTransition(R.anim.fadeout, R.anim.fadein);
+//			startActivity(intentProfil);
+//			finish();
+//			/*
+//			fragment = instantiateFragment(FragmentProfil.class, position, args);
+//			
+//			
+//
+//			try {
+//				this.s1 = new DataCollector().execute().get();
+//				System.out.println("Data successfully returned: " + s1);
+//			} catch (InterruptedException e) {
+//				// TODO Auto-generated catch block
+//				e.printStackTrace();
+//			} catch (ExecutionException e) {
+//				// TODO Auto-generated catch block
+//				e.printStackTrace();
+//			}
+//			fragment.setArguments(args);
+//			FragmentManager fm = getFragmentManager();
+//			FragmentTransaction fragmentTransaction = fm.beginTransaction();
+//			fragmentTransaction.replace(R.id.content_frame, fragment);
+//			fragmentTransaction.commit();
+//			*/
+//			break;
+//
+//		case 3:
+//			social = true;
+//			Intent i = new Intent(this, FragmentSocial.class);			
+//			startActivity(i);
+//			break;
+//		case 4:
+//			fragment = instantiateFragment(FragmentGroupsJure.class, position, args);
+//			break;
+//
+//		case 5:
+//			session.logoutUser();
+//			logout = true;
+//			Toast.makeText(getApplicationContext(), "Logout successful!", Toast.LENGTH_SHORT).show();
+//			finish();
+//			break;
+//			
+//		case 6:
+//			logout = true;
+//			//fragment = instantiateFragment(FragmentEvent.class, position, args);
+//			Intent intent = new Intent(this, FragmentEvent.class);
+//			intent.putExtra("selected_event", "5");
+//			overridePendingTransition(R.anim.fadeout, R.anim.fadein);
+//			startActivity(intent);
+//            finish();
+//            
+//			break;
+//			
+//		default:
+//			break;
+//		}
+//		if (!logout && !social && !event) {
+//			
+//			fragment.setArguments(args);
+//			FragmentManager fm = getFragmentManager();
+//			FragmentTransaction fragmentTransaction = fm.beginTransaction();
+//			fragmentTransaction.replace(R.id.content_frame, fragment);
+//			fragmentTransaction.commit();
+//			 
+//		}
+//		drawerList.setItemChecked(position, true);
+//		setTitle(dataList.get(position).getItemName());
+//		drawerLayout.closeDrawer(drawerList);
+//	}
+//	
+//	private class DrawerItemClickListener implements ListView.OnItemClickListener {
+//		@Override
+//		public void onItemClick(AdapterView parent, View view, int position, long id) {
+//			selectItem(position);
+//			drawerLayout.closeDrawer(drawerListView);
+//		}
+//	}
 
-	public void onDrawerOpened(View drawerView) {
-		getActionBar().setTitle(drawerTitle);
-		invalidateOptionsMenu(); // creates call to
-									// onPrepareOptionsMenu()
-	}
+	
+//	OLD CODE FOR INSTIATING FRAGMENTS:
+//
+//	private Fragment instantiateFragment(Class<?> fragmentClass, int position, Bundle args) {
+//		Fragment fragment = Fragment.instantiate(this, fragmentClass.getName());
+//		String name = getFragmentName(fragmentClass);
+//		args.putString(name, dataList.get(position).getItemName());
+//		args.putInt(FragmentGroups.IMAGE_RESOURCE_ID, dataList.get(position).getImageId());
+//		return fragment;
+//	}
+//
+//	private String getFragmentName(Class<?> fragmentClass) {
+//		String name = "";
+//		try {
+//			Field f = fragmentClass.getDeclaredField("ITEM_NAME");
+//			name = (String) f.get(null);
+//		} catch (Exception e) {
+//			name = "undefined";
+//			e.printStackTrace();
+//		}
+//		return name;
+//	}
 
-	public void selectItem(int position) {
-		Fragment fragment = null;
-		Bundle args = new Bundle();
-		boolean logout = false;
-		boolean social = false;
-		boolean event = false;
-		switch (position) {
-		case 0:
-			//fragment = instantiateFragment(FragmentSearch.class, position, args);
-			//break;
-			logout = true;
-			//fragment = instantiateFragment(FragmentEvent.class, position, args);
-			Intent intentSearch = new Intent(this, FragmentSearch.class);
-			overridePendingTransition(R.anim.fadeout, R.anim.fadein);
-			startActivity(intentSearch);
-            finish();
-            
-			break;
 
-		case 1:
-			event = true;
-			Intent intentEvents = new Intent(this, FragmentUpcomingEvents.class);
-			overridePendingTransition(R.anim.fadeout, R.anim.fadein);
-			startActivity(intentEvents);
-			finish();
-						
-			break;
-
-		case 2:
-			new DataCollector().execute();
-			event=true;
-			Intent intentProfil = new Intent(this, FragmentProfil.class);
-			overridePendingTransition(R.anim.fadeout, R.anim.fadein);
-			startActivity(intentProfil);
-			finish();
-			/*
-			fragment = instantiateFragment(FragmentProfil.class, position, args);
-			
-			
-
-			try {
-				this.s1 = new DataCollector().execute().get();
-				System.out.println("Data successfully returned: " + s1);
-			} catch (InterruptedException e) {
-				// TODO Auto-generated catch block
-				e.printStackTrace();
-			} catch (ExecutionException e) {
-				// TODO Auto-generated catch block
-				e.printStackTrace();
-			}
-			fragment.setArguments(args);
-			FragmentManager fm = getFragmentManager();
-			FragmentTransaction fragmentTransaction = fm.beginTransaction();
-			fragmentTransaction.replace(R.id.content_frame, fragment);
-			fragmentTransaction.commit();
-			*/
-			break;
-
-		case 3:
-			social = true;
-			Intent i = new Intent(this, FragmentSocial.class);			
-			startActivity(i);
-			break;
-		case 4:
-			fragment = instantiateFragment(FragmentGroupsJure.class, position, args);
-			break;
-
-		case 5:
-			session.logoutUser();
-			logout = true;
-			Toast.makeText(getApplicationContext(), "Logout successful!", Toast.LENGTH_SHORT).show();
-			finish();
-			break;
-			
-		case 6:
-			logout = true;
-			//fragment = instantiateFragment(FragmentEvent.class, position, args);
-			Intent intent = new Intent(this, FragmentEvent.class);
-			intent.putExtra("selected_event", "5");
-			overridePendingTransition(R.anim.fadeout, R.anim.fadein);
-			startActivity(intent);
-            finish();
-            
-			break;
-			
-		default:
-			break;
-		}
-		if (!logout && !social && !event) {
-			
-			fragment.setArguments(args);
-			FragmentManager fm = getFragmentManager();
-			FragmentTransaction fragmentTransaction = fm.beginTransaction();
-			fragmentTransaction.replace(R.id.content_frame, fragment);
-			fragmentTransaction.commit();
-			 
-		}
-		drawerList.setItemChecked(position, true);
-		setTitle(dataList.get(position).getItemName());
-		drawerLayout.closeDrawer(drawerList);
-	}
-
-	private Fragment instantiateFragment(Class<?> fragmentClass, int position, Bundle args) {
-		Fragment fragment = Fragment.instantiate(this, fragmentClass.getName());
-		String name = getFragmentName(fragmentClass);
-		args.putString(name, dataList.get(position).getItemName());
-		args.putInt(FragmentGroups.IMAGE_RESOURCE_ID, dataList.get(position).getImageId());
-		return fragment;
-	}
-
-	private String getFragmentName(Class<?> fragmentClass) {
-		String name = "";
-		try {
-			Field f = fragmentClass.getDeclaredField("ITEM_NAME");
-			name = (String) f.get(null);
-		} catch (Exception e) {
-			name = "undefined";
-			e.printStackTrace();
-		}
-		return name;
-	}
-
-	private class DrawerItemClickListener implements ListView.OnItemClickListener {
-		@Override
-		public void onItemClick(AdapterView parent, View view, int position, long id) {
-			selectItem(position);
-			drawerLayout.closeDrawer(drawerListView);
-		}
-	}
 
 	@Override
 	public void setTitle(CharSequence title) {
