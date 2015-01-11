@@ -1,4 +1,4 @@
--- phpMyAdmin SQL Dump
+﻿-- phpMyAdmin SQL Dump
 -- version 4.1.14
 -- http://www.phpmyadmin.net
 --
@@ -72,13 +72,13 @@ CREATE TABLE IF NOT EXISTS `event` (
 --
 
 INSERT INTO `event` (`event_id`, `location_id`, `group_id`, `event_name`, `time`, `description`, `scope`) VALUES
-(1, 1, 1, 'Dogodek za biologe', '0000-00-00 00:00:00', 'Opis dogodka tukaj', NULL),
-(2, 2, 6, 'Dogodek za Strojnike', '0000-00-00 00:00:00', 'Opis dogodka tukaj', NULL),
-(3, 3, 4, 'Dogodek za Obramboslovce 1', '0000-00-00 00:00:00', 'Opis dogodka tukaj', NULL),
-(4, 3, 4, 'Dogodek za Obramboslovce 2', '0000-00-00 00:00:00', 'Opis dogodka tukaj', NULL),
-(5, 5, 3, 'Dogodek za Matematike 1', '0000-00-00 00:00:00', 'Opis dogodka tukaj', NULL),
-(6, 5, 3, 'Dogodek za Matematike 2', '0000-00-00 00:00:00', 'Opis dogodka tukaj', NULL),
-(7, 5, 3, 'Dogodek za Matematike 3', '0000-00-00 00:00:00', 'Opis dogodka tukaj', NULL);
+(1, 1, 1, 'Dogodek za biologe', '2015-04-09 09:00:00', 'Opis dogodka tukaj', NULL),
+(2, 2, 6, 'Dogodek za Strojnike', '2015-02-03 09:00:00', 'Opis dogodka tukaj', NULL),
+(3, 3, 4, 'Dogodek za Obramboslovce 1', '2015-03-19 09:00:00', 'Opis dogodka tukaj', NULL),
+(4, 3, 4, 'Dogodek za Obramboslovce 2', '2015-11-12 09:00:00', 'Opis dogodka tukaj', NULL),
+(5, 5, 3, 'Dogodek za Matematike 1', '2015-02-09 09:00:00', 'Opis dogodka tukaj', NULL),
+(6, 5, 3, 'Dogodek za Matematike 2', '2015-03-17 09:00:00', 'Opis dogodka tukaj', NULL),
+(7, 5, 3, 'Dogodek za Matematike 3', '2015-04-02 09:00:00', 'Opis dogodka tukaj', NULL);
 
 -- --------------------------------------------------------
 
