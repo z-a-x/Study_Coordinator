@@ -6,10 +6,11 @@
 
     <ImageView
         android:id="@+id/social_details_profil_image"
-        android:layout_width="100dp"
-        android:layout_height="100dp"
-        android:layout_marginLeft="20dp"
-        android:layout_marginTop="20dp" />
+        android:layout_width="fill_parent"
+        android:layout_height="300dp"
+        android:layout_marginLeft="0dp"
+        android:layout_marginTop="0dp"
+        android:layout_gravity="center_horizontal" />
 
     <TextView
         android:id="@+id/social_details_name_tv"
