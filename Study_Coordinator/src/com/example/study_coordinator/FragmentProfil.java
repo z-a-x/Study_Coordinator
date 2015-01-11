@@ -6,6 +6,7 @@ import java.io.InputStreamReader;
 import java.net.MalformedURLException;
 import java.net.URL;
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
 
 import org.apache.http.HttpEntity;
@@ -48,7 +49,7 @@ import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
 
-public class FragmentProfil extends Fragment{
+public class FragmentProfil extends FragmentActivity{
     TextView tvUsername;
     TextView tvUserName;
     TextView tvUserLastName;
@@ -63,58 +64,56 @@ public class FragmentProfil extends Fragment{
     public static final String IMAGE_RESOURCE_ID = "iconResourceID";
     public static final String ITEM_NAME = "itemName";
     
-    @Override
-	public void onAttach(Activity activity){
-		super.onAttach(activity);
-		this.listener = (FragmentActivity) activity;
-	}
+   
 	
 	@Override
     public void onCreate(Bundle savedInstanceState) {
-        super.onCreate(savedInstanceState);        
-    }	
-	
-    @Override
-    public View onCreateView(LayoutInflater inflater, ViewGroup container,Bundle savedInstanceState) {
-    	View view = inflater.inflate(R.layout.fragment_layout_profil, container, false);
+        super.onCreate(savedInstanceState);   
+        setContentView(R.layout.fragment_layout_profil);
+    	
     	//ivIcon = (ImageView) view.findViewById(R.id.frag_profil_icon);       
     	//ivProfil = (ImageView) view.findViewById(R.id.frag_profil_profil_image);
     	//tvItemName = (TextView) view.findViewById(R.id.frag_profil_tv);
     	
-    	tvUsername = (TextView) view.findViewById(R.id.frag_profil_username_tv);
-    	tvUserName = (TextView) view.findViewById(R.id.frag_profil_name_tv);
-    	tvUserLastName = (TextView) view.findViewById(R.id.frag_profil_surname_tv);          
-    	tvemail = (TextView) view.findViewById(R.id.frag_profil_email_tv);
+    	tvUsername = (TextView) findViewById(R.id.frag_profil_username_tv);
+    	tvUserName = (TextView) findViewById(R.id.frag_profil_name_tv);
+    	tvUserLastName = (TextView) findViewById(R.id.frag_profil_surname_tv);          
+    	tvemail = (TextView) findViewById(R.id.frag_profil_email_tv);
     	//ivIcon.setImageDrawable(view.getResources().getDrawable(getArguments().getInt(IMAGE_RESOURCE_ID)));
     	//tvItemName.setText(getArguments().getString(ITEM_NAME));
-          
-        MainActivity m = (MainActivity) getActivity();
+        
+    	/*
+        MainActivity m = new MainActivity();
         final String recivedData = m.getS1();
         String[] parsedData = recivedData.split(" ");
         System.out.println("Printing parsed data: ");
         for(int i = 0; i < parsedData.length; i++){
         	System.out.println(parsedData[i]);
         }
+        */
+    	SessionManager session = new SessionManager(getApplicationContext());
+    	HashMap<String, String> pref = session.getUserDetails();
+		
         
-        String userName = parsedData[0];
-        String userLastName = parsedData[1];
-        String username = parsedData[2];
-        String email = parsedData[3];
-        pathToPicture = parsedData[4];
         
+        String userName = session.getMyName();
+        String userLastName = session.getMyLastName();
+        String username = pref.get(SessionManager.KEY_USERNAME);
+        String email = session.getMyEmail();
+        pathToPicture = session.getMyPicture();
+        final String recivedData = "" + userName + " " + userLastName + " " + username + " " + email+" "+pathToPicture;
           
         tvemail.setText(tvemail.getText()+ " "+email);
         tvUsername.setText(tvUsername.getText()+" "+username);
         tvUserName.setText(tvUserName.getText()+ " "+userName);
         tvUserLastName.setText(tvUserLastName.getText()+ " "+userLastName);
         
-		btEditProfil = (Button) view.findViewById(R.id.frag_profil_edit_bt);
-		btEditProfil.setVisibility(view.VISIBLE);
+		btEditProfil = (Button) findViewById(R.id.frag_profil_edit_bt);		
     	btEditProfil.setOnClickListener(new View.OnClickListener() {
             public void onClick(View v) {            	            	
-            	Intent i = new Intent(getActivity(), ActivityProfilEdit.class);    
+            	Intent i = new Intent(FragmentProfil.this, ActivityProfilEdit.class);    
             	i.putExtra("data", recivedData);
-            	getActivity().startActivity(i);
+            	startActivity(i);
             	
             }
         });
@@ -128,19 +127,19 @@ public class FragmentProfil extends Fragment{
 		tvemail.setTypeface(custom_font);
 		 */
 		//Lookup uporabljamo samo zaradi asynctaska pr loudanju slike
-		LookUp userDetailsFetcher = new LookUpUserDetails(getActivity().getApplicationContext()) {
+		LookUp userDetailsFetcher = new LookUpUserDetails(getApplicationContext()) {
 			@Override
 			public void onSuccessfulFetch(JSONObject result) throws JSONException {
 				
 					if(pathToPicture == null || pathToPicture.equals("null") || pathToPicture.equals("NULL")){
 						System.out.println("NI SLIKE");
-						profilPicture = (ImageView) getView().findViewById(R.id.frag_profil_image);
+						profilPicture = (ImageView) findViewById(R.id.frag_profil_image);
 						profilPicture.setImageResource(R.drawable.test);
 					}
 					else{
 						System.out.println("SLIKAAAAAAAAA "+pathToPicture);
 						DatabaseConnect dc = new DatabaseConnect();
-						new DownloadImageTask((ImageView) getView().findViewById(R.id.frag_profil_image)).execute(dc.getIpAddress()+pathToPicture);
+						new DownloadImageTask((ImageView) findViewById(R.id.frag_profil_image)).execute(dc.getIpAddress()+pathToPicture);
 					}
 				}
 		};
@@ -149,15 +148,11 @@ public class FragmentProfil extends Fragment{
 		userDetailsFetcher.execute("user_id", TEST_QUERY);
 		
           //new LoadImage().execute("http://http://193.2.179.235:80/android_connect/images/jakaProfil.jpg");          
-          return view;
+          
     }
     
 	    
-    @Override
-    public void onActivityCreated(Bundle savedInstanceState) {
-        super.onActivityCreated(savedInstanceState);
-    }
-    
+   
     
 }
 

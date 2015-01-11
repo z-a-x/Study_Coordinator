@@ -16,7 +16,11 @@ if (!empty($_POST)) {
     $query = " 
             SELECT  
 				user_id,
+				user_name,
+				user_last_name,
+				email,
                 username, 
+				user_avatar,
                 password
             FROM user 
             WHERE 
@@ -58,6 +62,10 @@ if (!empty($_POST)) {
 
 			$_SESSION['id'] = $row['user_id'];
 			$response["user_id"] = $row['user_id'];
+			$response["user_name"] = $row['user_name'];
+			$response["user_last_name"] = $row['user_last_name'];
+			$response["user_avatar"] = $row['user_avatar'];
+			$response["email"] = $row['email'];
         }
     }
     

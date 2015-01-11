@@ -85,8 +85,8 @@ public class MainActivity extends FragmentActivity {
 
 		drawerList.setOnItemClickListener(new DrawerItemClickListener());
 
-		getActionBar().setDisplayHomeAsUpEnabled(false);
-		getActionBar().setHomeButtonEnabled(false);
+		getActionBar().setDisplayHomeAsUpEnabled(true);
+		getActionBar().setHomeButtonEnabled(true);
 		drawerListView = (ListView) findViewById(R.id.left_drawer);
 
 		// AttemptLogin al = (AttemptLogin)
@@ -113,7 +113,7 @@ public class MainActivity extends FragmentActivity {
 		Bundle args = new Bundle();
 		boolean logout = false;
 		boolean social = false;
-		Intent intent;
+		boolean event = false;
 		switch (position) {
 		case 0:
 			//fragment = instantiateFragment(FragmentSearch.class, position, args);
@@ -128,16 +128,25 @@ public class MainActivity extends FragmentActivity {
 			break;
 
 		case 1:
-			logout = true;
-			intent = new Intent(this, FragmentUpcomingEvents.class);
-			startActivity(intent);
-			this.finish();						
+			event = true;
+			Intent intentEvents = new Intent(this, FragmentUpcomingEvents.class);
+			overridePendingTransition(R.anim.fadeout, R.anim.fadein);
+			startActivity(intentEvents);
+			finish();
+						
 			break;
 
 		case 2:
+			new DataCollector().execute();
+			event=true;
+			Intent intentProfil = new Intent(this, FragmentProfil.class);
+			overridePendingTransition(R.anim.fadeout, R.anim.fadein);
+			startActivity(intentProfil);
+			finish();
+			/*
 			fragment = instantiateFragment(FragmentProfil.class, position, args);
 			
-			new DataCollector().execute();
+			
 
 			try {
 				this.s1 = new DataCollector().execute().get();
@@ -154,7 +163,7 @@ public class MainActivity extends FragmentActivity {
 			FragmentTransaction fragmentTransaction = fm.beginTransaction();
 			fragmentTransaction.replace(R.id.content_frame, fragment);
 			fragmentTransaction.commit();
-			
+			*/
 			break;
 
 		case 3:
@@ -176,8 +185,8 @@ public class MainActivity extends FragmentActivity {
 		case 6:
 			logout = true;
 			//fragment = instantiateFragment(FragmentEvent.class, position, args);
-			intent = new Intent(this, FragmentEvent.class);
-			intent.putExtra("selected_event", "5");
+			Intent intent = new Intent(this, FragmentEvent.class);
+			intent.putExtra("selected_event", 5);
 			overridePendingTransition(R.anim.fadeout, R.anim.fadein);
 			startActivity(intent);
             finish();
@@ -187,7 +196,7 @@ public class MainActivity extends FragmentActivity {
 		default:
 			break;
 		}
-		if (!logout && !social) {
+		if (!logout && !social && !event) {
 			
 			fragment.setArguments(args);
 			FragmentManager fm = getFragmentManager();
@@ -238,7 +247,7 @@ public class MainActivity extends FragmentActivity {
 	@Override
 	public boolean onCreateOptionsMenu(Menu menu) {
 		// Inflate the menu; this adds items to the action bar if it is present.
-		//getMenuInflater().inflate(R.menu.main, menu);
+		getMenuInflater().inflate(R.menu.main, menu);
 		return true;
 	}
 
@@ -286,15 +295,15 @@ public class MainActivity extends FragmentActivity {
 			String email = null;
 			String pathToPicture = null;
 			Intent intent = getIntent();
-			String s = intent.getStringExtra("newData");
-			System.out.println("New data is : " + s);
+			
+			
 			SessionManager session = new SessionManager(getApplicationContext());
 			HashMap<String, String> pref = session.getUserDetails();
 			username = pref.get(SessionManager.KEY_USERNAME);
 			
 			try {
 				
-				System.out.println("USERNAME IN BACKGROUND: " + username);
+				
 				// Building Parameters
 				List<NameValuePair> params = new ArrayList<NameValuePair>();
 				params.add(new BasicNameValuePair("username", username));
@@ -306,8 +315,10 @@ public class MainActivity extends FragmentActivity {
 				// check your log for json response
 				System.out.println("MAIN ACTIVITY CLASS");
 				Log.d("Retrieving data attempt", json.toString());
-				user_id = json.getInt("user_id")+"";
+				user_id = json.getInt("user_id")+"";							
+				System.out.println("----------------------");
 				System.out.println("pravi user id je: "+user_id);
+				System.out.println("----------------------");
 				session.setUserId(user_id);
 				userName = (String) json.get("user_name");
 				userLastName = (String) json.get("user_last_name");

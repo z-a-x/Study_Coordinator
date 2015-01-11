@@ -1,8 +1,14 @@
 package com.example.study_coordinator;
 
+import java.lang.reflect.Field;
 import java.util.ArrayList;
 import java.util.List;
 
+import com.example.study_coordinator.MainActivity.DataCollector;
+
+import android.app.Fragment;
+import android.app.FragmentManager;
+import android.app.FragmentTransaction;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.v4.app.FragmentActivity;
@@ -103,6 +109,7 @@ public class FragmentActivityWithDrawer extends FragmentActivity {
 			startActivity(intent);
 			this.finish();
 			break;
+			
 		case 1:
 			intent = new Intent(this, FragmentSocial.class);
 			startActivity(intent);
@@ -135,6 +142,24 @@ public class FragmentActivityWithDrawer extends FragmentActivity {
 		}
 	}
 
+	private Fragment instantiateFragment(Class<?> fragmentClass, int position, Bundle args) {
+		Fragment fragment = Fragment.instantiate(this, fragmentClass.getName());
+		String name = getFragmentName(fragmentClass);
+		args.putString(name, dataList.get(position).getItemName());
+		args.putInt(FragmentGroups.IMAGE_RESOURCE_ID, dataList.get(position).getImageId());
+		return fragment;
+	}
+	private String getFragmentName(Class<?> fragmentClass) {
+		String name = "";
+		try {
+			Field f = fragmentClass.getDeclaredField("ITEM_NAME");
+			name = (String) f.get(null);
+		} catch (Exception e) {
+			name = "undefined";
+			e.printStackTrace();
+		}
+		return name;
+	}
 	@Override
 	public void setTitle(CharSequence title) {
 		this.drawerTitle = title;

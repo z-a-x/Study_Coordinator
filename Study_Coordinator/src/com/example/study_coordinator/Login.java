@@ -160,6 +160,14 @@ public class Login extends Activity {
 					
 					// start session
 	                session.createLoginSession(user.getText().toString(),pass.getText().toString(),userId+"");
+	                String name = json.getString("user_name");
+	                String lastName = json.getString("user_last_name");
+	                String email = json.getString("email");
+	                String pathToPicture = json.getString("user_avatar");
+	                session.setMyEmail(email);
+	                session.setMyName(name);
+	                session.setMyLastName(lastName);
+	                session.setMyPicture(pathToPicture);
 					finish();
 					startActivity(i);
 					return json.getString(TAG_MESSAGE);

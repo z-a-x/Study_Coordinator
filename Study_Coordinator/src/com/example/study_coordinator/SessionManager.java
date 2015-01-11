@@ -42,6 +42,11 @@ public class SessionManager {
     public static final String KEY_MY_GROUPS = "my_groups";
     
     public static final String KEY_SEARCH_WORD = "search_word";
+    
+    public static final String KEY_NAME = "name";
+    public static final String KEY_LAST_NAME = "lastName";
+    public static final String KEY_EMAIL = "email";
+    public static final String KEY_PICTURE = "picture";
      
     
     // Constructor
@@ -69,8 +74,47 @@ public class SessionManager {
     	return pref.getString(KEY_GROUPS, null);
     }
     
+    
+    //pridobi osebne podatke glavnega userja appa
     public String getMyUserId(){
     	return pref.getString(KEY_USERID, null);
+    }
+    
+    public String getMyName(){
+    	return pref.getString(KEY_NAME, null);
+    }
+    
+    public String getMyLastName(){
+    	return pref.getString(KEY_LAST_NAME, null);
+    }
+    
+    public String getMyEmail(){
+    	return pref.getString(KEY_EMAIL, null);
+    }
+    
+    public String getMyPicture(){
+    	return pref.getString(KEY_PICTURE, null);
+    }
+  
+    
+    //nastavi osebne podatke glavnega userja appa
+    public void setMyName(String name){
+    	editor.putString(KEY_NAME, name);
+    	editor.commit();
+    }
+    public void setMyLastName(String lastName){
+    	editor.putString(KEY_LAST_NAME, lastName );
+    	editor.commit();
+    }
+    
+    public void setMyPicture(String picture){
+    	editor.putString(KEY_PICTURE, picture);
+    	editor.commit();
+    }
+    
+    public void setMyEmail(String email){
+    	editor.putString(KEY_EMAIL, email);
+    	editor.commit();
     }
     
     public void setUserId(String userId){

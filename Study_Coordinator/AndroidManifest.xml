@@ -75,6 +75,14 @@
             </intent-filter>
         </activity>
         <activity
+            android:name=".FragmentProfil"
+            android:label="@string/title_activity_fragment_profil" >
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN" />
+                <action android:name="android.intent.category.LAUNCHER" />
+            </intent-filter>
+        </activity>
+        <activity
             android:name=".FragmentSearch"
             android:label="@string/title_activity_fragment_search" >
             <intent-filter>

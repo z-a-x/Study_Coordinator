@@ -244,13 +244,16 @@ public class ActivityProfilEdit extends Activity {
 	    	Editable userName = etUserName.getText();
 	    	Editable userLastName = etUserLastName.getText();
 	    	if(!fileName.equals("")){
-	    		System.out.println("POSODABLJAM SLIKO NA: "+fileName);	
+	    		System.out.println("POSODABLJAM SLIKO NA: "+fileName);
+	    		session.setMyPicture(fileName);
 	    		nameValuePairs.add(new BasicNameValuePair("user_avatar",fileName));
 	    	}
 	    	else{
 	    		System.out.println("FILE NAME JE PRAZEN: "+fileName);
 	    	}
-	    	
+	    	session.setMyEmail(email.toString());
+	    	session.setMyName(userName.toString());
+	    	session.setMyLastName(userLastName.toString());
 	    	nameValuePairs.add(new BasicNameValuePair("username",username));
 	    	nameValuePairs.add(new BasicNameValuePair("email",email.toString()));
 	    	nameValuePairs.add(new BasicNameValuePair("userName",userName.toString()));
