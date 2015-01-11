@@ -34,9 +34,9 @@ public class FragmentSocial extends FragmentActivityWithDrawer {
 			HashMap<String, String> pref = s.getUserDetails();
 			System.out.println("--------------------------");
 			System.out.println("CLASS FRAGMENTSOCIAL");
-			System.out.println("user id " + pref.get(s.KEY_USERID));
+			System.out.println("user id " +s.getMyUserId());
 			System.out.println("--------------------------");
-			user_id = pref.get(s.KEY_USERID);
+			user_id = s.getMyUserId();
 		}
 
 		ViewPager vpPager = (ViewPager) findViewById(R.id.pager);
