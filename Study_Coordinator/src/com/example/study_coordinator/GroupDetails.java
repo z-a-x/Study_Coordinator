@@ -102,16 +102,23 @@ public class GroupDetails extends Fragment {
 	private void addJoinButton(View view, Integer groupId) {
 		final LinearLayout layout = (LinearLayout) view.findViewById(R.id.group_details_layout);
 		// create button
-		LayoutParams lparams = new LayoutParams(LayoutParams.MATCH_PARENT, LayoutParams.WRAP_CONTENT);
-		Button button = new Button(getActivity());
-		button.setLayoutParams(lparams);
-		button.setTextColor(Color.WHITE);
-		button.setText("Join group");
-		layout.addView(button);		
+		Button b = new Button(getActivity());
+
+		LayoutParams lparams = new LayoutParams(40, LayoutParams.WRAP_CONTENT);
+		lparams.gravity = 17;
+		lparams.topMargin = 40;
+		lparams.width = 160;
+		lparams.height = LayoutParams.WRAP_CONTENT;
+		b.setLayoutParams(lparams);
+		b.setBackgroundDrawable(getResources().getDrawable(R.drawable.singin));
+
+		b.setTextColor(Color.BLACK);
+		b.setText("Join group");
+		layout.addView(b);		
 		System.out.println("#### added button to group details");
 		// add listener
 		JoinButtonListener buttonListener = new JoinButtonListener(groupId);
-		button.setOnClickListener(buttonListener);
+		b.setOnClickListener(buttonListener);
 	}
 	
 	class JoinButtonListener implements View.OnClickListener {
