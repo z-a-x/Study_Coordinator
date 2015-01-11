@@ -71,8 +71,8 @@ public class FragmentEvent extends FragmentActivity  {
 		adapter = new CustomDrawerAdapter(this, R.layout.custom_drawer_item, dataList);
 		drawerList.setAdapter(adapter);
 		drawerList.setOnItemClickListener(new DrawerItemClickListener());
-		getActionBar().setDisplayHomeAsUpEnabled(true);
-		getActionBar().setHomeButtonEnabled(true);
+		getActionBar().setDisplayHomeAsUpEnabled(false);
+		getActionBar().setHomeButtonEnabled(false);
 		drawerListView = (ListView) findViewById(R.id.left_drawer);
     }
 	

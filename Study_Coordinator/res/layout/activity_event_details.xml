@@ -110,7 +110,8 @@
 
         <RelativeLayout
         android:layout_width="match_parent"
-        android:layout_height="match_parent" >
+        android:layout_height="match_parent"
+        android:id="@+id/rl4" >
 
             <GridView
                 android:id="@+id/gridView1"
@@ -120,6 +121,12 @@
                 android:paddingLeft="30dp"
                 android:paddingTop="20dp" >
             </GridView>
+            <Button
+            android:id="@+id/doButton"
+	        android:layout_width="45dp"
+	        android:layout_height="45dp"
+	        android:background="@drawable/roundedbutton"
+	        android:textColor="@android:color/white"  />
 
         </RelativeLayout>
     </ScrollView>

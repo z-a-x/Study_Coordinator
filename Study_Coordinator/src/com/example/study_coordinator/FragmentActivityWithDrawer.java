@@ -50,8 +50,8 @@ public class FragmentActivityWithDrawer extends FragmentActivity {
 		CustomDrawerAdapter adapter = new CustomDrawerAdapter(this, R.layout.custom_drawer_item, dataList);
 		drawerList.setAdapter(adapter);
 		drawerList.setOnItemClickListener(new DrawerItemClickListener());
-		getActionBar().setDisplayHomeAsUpEnabled(true);
-		getActionBar().setHomeButtonEnabled(true);
+		getActionBar().setDisplayHomeAsUpEnabled(false);
+		getActionBar().setHomeButtonEnabled(false);
 		drawerLinear = (LinearLayout) findViewById(R.id.left_drawer);
 
 		setOnClickListener();

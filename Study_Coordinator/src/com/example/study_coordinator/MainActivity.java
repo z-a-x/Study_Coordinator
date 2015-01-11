@@ -85,8 +85,8 @@ public class MainActivity extends FragmentActivity {
 
 		drawerList.setOnItemClickListener(new DrawerItemClickListener());
 
-		getActionBar().setDisplayHomeAsUpEnabled(true);
-		getActionBar().setHomeButtonEnabled(true);
+		getActionBar().setDisplayHomeAsUpEnabled(false);
+		getActionBar().setHomeButtonEnabled(false);
 		drawerListView = (ListView) findViewById(R.id.left_drawer);
 
 		// AttemptLogin al = (AttemptLogin)
@@ -113,6 +113,7 @@ public class MainActivity extends FragmentActivity {
 		Bundle args = new Bundle();
 		boolean logout = false;
 		boolean social = false;
+		Intent intent;
 		switch (position) {
 		case 0:
 			//fragment = instantiateFragment(FragmentSearch.class, position, args);
@@ -127,9 +128,10 @@ public class MainActivity extends FragmentActivity {
 			break;
 
 		case 1:
-			
-			fragment = instantiateFragment(FragmentUpcomingEvents.class, position, args);
-						
+			logout = true;
+			intent = new Intent(this, FragmentUpcomingEvents.class);
+			startActivity(intent);
+			this.finish();						
 			break;
 
 		case 2:
@@ -174,8 +176,8 @@ public class MainActivity extends FragmentActivity {
 		case 6:
 			logout = true;
 			//fragment = instantiateFragment(FragmentEvent.class, position, args);
-			Intent intent = new Intent(this, FragmentEvent.class);
-			intent.putExtra("selected_event", 5);
+			intent = new Intent(this, FragmentEvent.class);
+			intent.putExtra("selected_event", "5");
 			overridePendingTransition(R.anim.fadeout, R.anim.fadein);
 			startActivity(intent);
             finish();
@@ -236,7 +238,7 @@ public class MainActivity extends FragmentActivity {
 	@Override
 	public boolean onCreateOptionsMenu(Menu menu) {
 		// Inflate the menu; this adds items to the action bar if it is present.
-		getMenuInflater().inflate(R.menu.main, menu);
+		//getMenuInflater().inflate(R.menu.main, menu);
 		return true;
 	}
 

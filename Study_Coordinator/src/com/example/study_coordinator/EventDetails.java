@@ -4,6 +4,7 @@ import java.io.Console;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Calendar;
+import java.util.HashMap;
 import java.util.List;
 
 import org.json.JSONException;
@@ -25,7 +26,12 @@ import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.view.ViewGroup.LayoutParams;
+import android.webkit.WebView.FindListener;
+import android.widget.Button;
 import android.widget.GridView;
+import android.widget.RelativeLayout;
+import android.widget.ScrollView;
 import android.widget.TextView;
 
 public class EventDetails extends Fragment {
@@ -35,9 +41,14 @@ public class EventDetails extends Fragment {
     TextView tvTime;
     TextView tvDesc;
     GridView gridView;
+    Button doButton;
+    RelativeLayout relativeLayout;
     ArrayList<Item> gridArray = new ArrayList<Item>();
     CustomGridViewAdapter customGridAdapter;
-
+    boolean attending = false;
+    SessionManager session;
+    HashMap<String, String> pref;
+    
     // pridobi event glede na id
     private void createEventList() {
 		LookUp eventFetcher = new LookUpEvents(getActivity().getApplicationContext()) {
@@ -69,7 +80,10 @@ public class EventDetails extends Fragment {
 				List<User> attendants = getAttendants(result);
 				for (User user : attendants) {
 					Log.d("test",user.name);
-					gridArray.add(new Item(userIcon,user.name + " " + user.lastName));					
+					gridArray.add(new Item(userIcon,user.name + " " + user.lastName));
+					//if (user.id == Integer.parseInt(pref.get("user_id")) ) {
+						attending = true;						
+					//}
 				}
 				gridView.setAdapter(customGridAdapter);
 			}
@@ -93,13 +107,25 @@ public class EventDetails extends Fragment {
         
        
     }
+    
+    public void setupButton() {
+    	if (attending) {
+    		doButton.setText("-");
+    	}
+    	else {
+    		doButton.setText("+");
+    	}
+    }
 
     // Inflate the view for the fragment based on layout XML
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.activity_event_details, container, false);
 
-
+        // set userID
+        session = new SessionManager(getActivity().getApplicationContext());
+        pref = session.getUserDetails();
+        
         //set grid view item
         Bitmap homeIcon = BitmapFactory.decodeResource(this.getResources(), R.drawable.person);
         Bitmap userIcon = BitmapFactory.decodeResource(this.getResources(), R.drawable.person);
@@ -109,13 +135,15 @@ public class EventDetails extends Fragment {
         tvDate = (TextView)view.findViewById(R.id.tvDate);
         tvTime = (TextView)view.findViewById(R.id.tvTime);
         tvDesc = (TextView)view.findViewById(R.id.tvDesc);
+        doButton = (Button) view.findViewById(R.id.doButton);
+        relativeLayout = (RelativeLayout) view.findViewById(R.id.rl4);
         
         gridView = (GridView) view.findViewById(R.id.gridView1);
         customGridAdapter = new CustomGridViewAdapter(view.getContext(), R.layout.row_grid, gridArray);
 				
 		createAttendantist(userIcon);
         createEventList();        
-        
+        setupButton();
         return view;
     }
 }
