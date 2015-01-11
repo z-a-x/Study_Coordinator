@@ -12,6 +12,7 @@ import org.json.JSONObject;
 
 import com.example.study_coordinator.asynctasks.LookUp;
 import com.example.study_coordinator.asynctasks.LookUpAttendants;
+import com.example.study_coordinator.asynctasks.UpdateAttendant;
 import com.example.study_coordinator.asynctasks.LookUpEvents;
 import com.example.study_coordinator.CustomGridViewAdapter;
 import com.example.study_coordinator.baseclasses.Item;
@@ -33,21 +34,24 @@ import android.widget.GridView;
 import android.widget.RelativeLayout;
 import android.widget.ScrollView;
 import android.widget.TextView;
+import android.widget.Toast;
 
-public class EventDetails extends Fragment {
+public class EventDetails extends Fragment implements View.OnClickListener {
     String eventId;
+    String userId;
     TextView tvName;
     TextView tvDate;
     TextView tvTime;
     TextView tvDesc;
     GridView gridView;
     Button doButton;
+    Bitmap homeIcon;
+    Bitmap userIcon;
+    
     RelativeLayout relativeLayout;
     ArrayList<Item> gridArray = new ArrayList<Item>();
     CustomGridViewAdapter customGridAdapter;
     boolean attending = false;
-    SessionManager session;
-    HashMap<String, String> pref;
     
     // pridobi event glede na id
     private void createEventList() {
@@ -78,27 +82,44 @@ public class EventDetails extends Fragment {
 			@Override
 			public void onSuccessfulFetch(JSONObject result) throws JSONException {
 				List<User> attendants = getAttendants(result);
+				attending = false;
 				for (User user : attendants) {
 					Log.d("test",user.name);
 					gridArray.add(new Item(userIcon,user.name + " " + user.lastName));
-					//if (user.id == Integer.parseInt(pref.get("user_id")) ) {
+					if (user.id == Integer.parseInt(userId) ) {
 						attending = true;						
-					//}
+					}
 				}
 				gridView.setAdapter(customGridAdapter);
 			}
 		};
 		eventFetcher.execute("id", eventId);
+		setupButton();
+	}
+    
+    
+ // pridobi seznam ljudi, ki se bodo udeležili eventa
+    private void addremoveUser() {
+		LookUp eventFetcher = new UpdateAttendant(getActivity().getApplicationContext()) {
+			@Override
+			public void onSuccessfulFetch(JSONObject result) throws JSONException {
+				createAttendantist(userIcon);
+				setupButton();
+			}
+		};
+		customGridAdapter.clear();
+		eventFetcher.execute("action", String.valueOf(attending) + " " + eventId + " " + userId);
 	}
 
     // newInstance constructor for creating fragment with arguments
-    public static EventDetails newInstance(String eventId) {
-        EventDetails fragmentFirst = new EventDetails(eventId);
+    public static EventDetails newInstance(String eventId, String userId) {
+        EventDetails fragmentFirst = new EventDetails(eventId, userId);
         return fragmentFirst;
     }
 
-    public EventDetails(String eventId){
+    public EventDetails(String eventId, String userId){
     	this.eventId = eventId;
+    	this.userId = userId;
     }
     // Store instance variables based on arguments passed
     @Override
@@ -108,8 +129,17 @@ public class EventDetails extends Fragment {
        
     }
     
+    @Override
+    public void onClick(View v) {
+        switch(v.getId()){
+            case R.id.doButton:
+            	addremoveUser();
+            break;
+        }   
+    }
+    
     public void setupButton() {
-    	if (attending) {
+    	if (!attending) {
     		doButton.setText("-");
     	}
     	else {
@@ -121,14 +151,10 @@ public class EventDetails extends Fragment {
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.activity_event_details, container, false);
-
-        // set userID
-        session = new SessionManager(getActivity().getApplicationContext());
-        pref = session.getUserDetails();
         
         //set grid view item
-        Bitmap homeIcon = BitmapFactory.decodeResource(this.getResources(), R.drawable.person);
-        Bitmap userIcon = BitmapFactory.decodeResource(this.getResources(), R.drawable.person);
+        homeIcon = BitmapFactory.decodeResource(this.getResources(), R.drawable.person);
+        userIcon = BitmapFactory.decodeResource(this.getResources(), R.drawable.person);
         
       //setup textViews
         tvName = (TextView)view.findViewById(R.id.tvName);
@@ -136,6 +162,7 @@ public class EventDetails extends Fragment {
         tvTime = (TextView)view.findViewById(R.id.tvTime);
         tvDesc = (TextView)view.findViewById(R.id.tvDesc);
         doButton = (Button) view.findViewById(R.id.doButton);
+        doButton.setOnClickListener(this);
         relativeLayout = (RelativeLayout) view.findViewById(R.id.rl4);
         
         gridView = (GridView) view.findViewById(R.id.gridView1);
@@ -143,7 +170,6 @@ public class EventDetails extends Fragment {
 				
 		createAttendantist(userIcon);
         createEventList();        
-        setupButton();
         return view;
     }
 }
