@@ -7,15 +7,20 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.support.v4.app.FragmentActivity;
 import android.support.v4.widget.DrawerLayout;
+import android.view.KeyEvent;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 import android.view.View.OnClickListener;
+import android.view.View.OnKeyListener;
+import android.view.inputmethod.EditorInfo;
 import android.widget.AdapterView;
 import android.widget.EditText;
 import android.widget.ImageButton;
 import android.widget.LinearLayout;
 import android.widget.ListView;
+import android.widget.TextView;
+import android.widget.TextView.OnEditorActionListener;
 
 public class FragmentActivityWithDrawer extends FragmentActivity {
 
@@ -37,12 +42,10 @@ public class FragmentActivityWithDrawer extends FragmentActivity {
 		drawerList = (ListView) findViewById(R.id.left_drawer_list);
 
 		// DRAWER ITEMS:
-		dataList.add(new DrawerItem("MainActivity", R.drawable.ic_action_search));
-		dataList.add(new DrawerItem("Search", R.drawable.ic_action_search));
-		dataList.add(new DrawerItem("Events", R.drawable.ic_action_events));
 		dataList.add(new DrawerItem("Profil", R.drawable.ic_action_person));
 		dataList.add(new DrawerItem("Social", R.drawable.ic_action_group));
-		dataList.add(new DrawerItem(getResources().getString(R.string.logout), R.drawable.ic_action_search));
+		dataList.add(new DrawerItem("Events", R.drawable.ic_action_calendar));
+		dataList.add(new DrawerItem(getResources().getString(R.string.logout), R.drawable.ic_action_lock));
 
 		CustomDrawerAdapter adapter = new CustomDrawerAdapter(this, R.layout.custom_drawer_item, dataList);
 		drawerList.setAdapter(adapter);
@@ -56,12 +59,17 @@ public class FragmentActivityWithDrawer extends FragmentActivity {
 
 	// SEARCH BOX:
 	private void setOnClickListener() {
-		ImageButton searchButton = (ImageButton) findViewById(R.id.bt_search);
-		searchButton.setOnClickListener(new OnClickListener() {
-			@Override
-			public void onClick(View view) {
-				runSearch();
-			}
+		EditText searchBox = (EditText) findViewById(R.id.txt_search);
+		searchBox.setOnEditorActionListener(new OnEditorActionListener() {
+		    @Override
+		    public boolean onEditorAction(TextView v, int actionId, KeyEvent event) {
+		        boolean handled = false;
+		        if (actionId == EditorInfo.IME_ACTION_SEARCH) {
+		        	runSearch();
+		            handled = true;
+		        }
+		        return handled;
+		    }
 		});
 	}
 
@@ -91,12 +99,12 @@ public class FragmentActivityWithDrawer extends FragmentActivity {
 		Intent intent;
 		switch (position) {
 		case 0:
-			intent = new Intent(this, MainActivity.class);
+			intent = new Intent(this, FragmentProfil.class);
 			startActivity(intent);
 			this.finish();
 			break;
 		case 1:
-			intent = new Intent(this, FragmentSearch.class);
+			intent = new Intent(this, FragmentSocial.class);
 			startActivity(intent);
 			this.finish();
 			break;
@@ -106,16 +114,6 @@ public class FragmentActivityWithDrawer extends FragmentActivity {
 			this.finish();
 			break;
 		case 3:
-			intent = new Intent(this, FragmentProfil.class);
-			startActivity(intent);
-			this.finish();
-			break;
-		case 4:
-			intent = new Intent(this, FragmentSocial.class);
-			startActivity(intent);
-			this.finish();
-			break;
-		case 5:
 			this.finish();
 			break;
 
