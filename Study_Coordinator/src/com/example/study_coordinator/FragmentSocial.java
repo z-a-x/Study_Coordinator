@@ -24,7 +24,7 @@ public class FragmentSocial extends FragmentActivityWithDrawer {
 	@Override
 	public void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
-		setContentView(R.layout.activity_fragment_social);
+		setContentView(R.layout.activity_fragment_search);
 
 		// PRIDOBLJE ID IZ SEARCH -> TAB USERS
 		Intent intent = getIntent();

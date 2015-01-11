@@ -1,7 +1,5 @@
 package com.example.study_coordinator;
 
-
-import java.util.HashMap;
 import java.util.List;
 
 import org.json.JSONException;
@@ -9,12 +7,12 @@ import org.json.JSONObject;
 
 import com.example.study_coordinator.asynctasks.LookUp;
 import com.example.study_coordinator.asynctasks.LookUpUserGroup;
-import com.example.study_coordinator.asynctasks.LookUpUsers;
-import com.example.study_coordinator.baseclasses.Group;
 import com.example.study_coordinator.baseclasses.User;
 
 import android.app.Fragment;
+import android.app.FragmentTransaction;
 import android.app.ProgressDialog;
+import android.content.Intent;
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -34,7 +32,6 @@ public class SocialFriends extends Fragment {
 	// Store instance variables
 	private String title;
 	private int page;
-
 
 	// newInstance constructor for creating fragment with arguments
 	public static SocialFriends newInstance(int page, String title) {
@@ -59,46 +56,32 @@ public class SocialFriends extends Fragment {
 
 			@Override
 			public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-
-				// ListView Clicked item index
-				int itemPosition = position;
-
-				// ListView Clicked item value
-				/*
-				 * String itemValue = (String) listView.getItemAtPosition(position);
-				 * 
-				 * // Show Alert Toast.makeText(getActivity().getApplicationContext(),
-				 * "Position :"+itemPosition+"  ListItem : " +itemValue , Toast.LENGTH_LONG) .show();
-				 */
+				FragmentTransaction transaction = getFragmentManager().beginTransaction();
+				Intent intent = new Intent(getActivity(), FragmentSocial.class);
+				User u = (User) adapter.getItem(position);
+				intent.putExtra("selected_user", u.id + "");
+				startActivity(intent);
+				transaction.addToBackStack(null);
+				transaction.commit();
+				getFragmentManager().executePendingTransactions();
 			}
 
 		});
 
 		LookUp userGroupFetcher = new LookUpUserGroup(getActivity().getApplicationContext()) {
+			
 			@Override
 			public void onSuccessfulFetch(JSONObject result) throws JSONException {
-				/*
-				SocialGroups sg = new SocialGroups();
-				
-				List<Group> l =  sg.getSendGroups();
-				s = "(";
-				for(Group g : l){
-					s+= g.name+" ,";
-				}
-				s+=")";
-				*/
 				List<User> friends = getUserGroup(result);
-				
+
 				adapter = new FriendAdapter(getActivity(), friends);
 				listView.setAdapter(adapter);
-				
 			}
 		};
 		SessionManager session = new SessionManager(getActivity());
 		String query_groups = session.getUserGroups();
-	
-		
-		System.out.println("Zahteva po uporabnikih iz skupin: "+query_groups);
+
+		System.out.println("Zahteva po uporabnikih iz skupin: " + query_groups);
 		userGroupFetcher.execute("selected_groups", query_groups);
 
 		return view;

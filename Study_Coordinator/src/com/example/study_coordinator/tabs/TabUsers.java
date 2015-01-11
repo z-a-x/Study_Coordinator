@@ -50,20 +50,11 @@ public class TabUsers extends Fragment {
 		final ListView listView = (ListView) view.findViewById(R.id.listview);
 
 		// On copy/paste CHANGE THIS !!!
-		
-		//final Fragment callingFragment = new FragmentSocial();
-		
 		listView.setOnItemClickListener(new OnItemClickListener() {
 
 			@Override
 			public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-				HasId baseClass = (HasId) listView.getItemAtPosition(position);
-
 				FragmentTransaction transaction = getFragmentManager().beginTransaction();
-				//Bundle arguments = new Bundle();
-				//arguments.putInt("id", baseClass.getId());
-				
-				
 				Intent intent = new Intent(getActivity(), FragmentSocial.class);
 				User u = (User) adapter.getItem(position);
 		        intent.putExtra("selected_user", u.id+"");
@@ -72,8 +63,6 @@ public class TabUsers extends Fragment {
 				System.out.println("Pošiljam userja: "+u.id+"");
 				System.out.println("----------------");
 		        startActivity(intent);
-				//callingFragment.setArguments(arguments);
-				//transaction.replace(R.id.content_frame, callingFragment);
 				transaction.addToBackStack(null);
 				transaction.commit();
 				getFragmentManager().executePendingTransactions();

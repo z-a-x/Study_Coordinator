@@ -11,9 +11,12 @@ import org.json.JSONObject;
 import com.example.study_coordinator.asynctasks.LookUp;
 import com.example.study_coordinator.asynctasks.LookUpGroups;
 import com.example.study_coordinator.baseclasses.Group;
+import com.example.study_coordinator.baseclasses.User;
 
 import android.app.Fragment;
+import android.app.FragmentTransaction;
 import android.app.ProgressDialog;
+import android.content.Intent;
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -64,17 +67,15 @@ public class SocialGroups extends Fragment {
 
 			@Override
 			public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-
-				// ListView Clicked item index
-				int itemPosition = position;
-
-				// ListView Clicked item value
-				/*
-				 * String itemValue = (String) listView.getItemAtPosition(position);
-				 * 
-				 * // Show Alert Toast.makeText(getActivity().getApplicationContext(),
-				 * "Position :"+itemPosition+"  ListItem : " +itemValue , Toast.LENGTH_LONG) .show();
-				 */
+				
+				FragmentTransaction transaction = getFragmentManager().beginTransaction();
+				Intent intent = new Intent(getActivity(), FragmentGroup.class);
+				Group g = (Group) adapter.getItem(position);
+				intent.putExtra("id", g.id + "");
+				startActivity(intent);
+				transaction.addToBackStack(null);
+				transaction.commit();
+				getFragmentManager().executePendingTransactions();
 			}
 
 		});

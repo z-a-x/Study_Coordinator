@@ -38,21 +38,8 @@ public class FragmentGroupsJure extends Fragment {
 	}
 
 	private void openGroupFragment() {
-//		FragmentTransaction transaction = getFragmentManager().beginTransaction();
-//		FragmentGroup fragment = new FragmentGroup();
-//		Bundle arguments = new Bundle();
-//		arguments.putInt("id", 1);
-//		fragment.setArguments(arguments);
-//		transaction.replace(R.id.content_frame, fragment);
-//		transaction.addToBackStack(null);
-//		transaction.commit();
-//		// NEW (da dela back button)
-//		getFragmentManager().executePendingTransactions();
-		
 		Intent intent = new Intent(getActivity(), FragmentGroup.class);
-		Bundle args = new Bundle();
-		args.putInt("id", 1);
-		intent.putExtras(args);
+		intent.putExtra("id", "1");
 		startActivity(intent);
 	}
 

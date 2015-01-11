@@ -56,17 +56,14 @@ public class TabGroups extends Fragment {
 			public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
 				HasId baseClass = (HasId) listView.getItemAtPosition(position);
 
-//				FragmentTransaction transaction = getFragmentManager().beginTransaction();
-//				Bundle arguments = new Bundle();
-//				arguments.putInt("id", baseClass.getId());
-//				callingFragment.setArguments(arguments);
-//				transaction.replace(R.id.content_frame, callingFragment);
-//				transaction.addToBackStack(null);
-//				transaction.commit();
-//				getFragmentManager().executePendingTransactions();
-				
-				//TODO add id!				
-				startActivity(new Intent(getActivity(), FragmentGroup.class));
+				FragmentTransaction transaction = getFragmentManager().beginTransaction();
+				Intent intent = new Intent(getActivity(), FragmentGroup.class);
+				System.out.println("#### basecclass id "+ baseClass.getId());
+				intent.putExtra("id", baseClass.getId() + "");
+				startActivity(intent);
+				transaction.addToBackStack(null);
+				transaction.commit();
+				getFragmentManager().executePendingTransactions();
 			}
 		});
 

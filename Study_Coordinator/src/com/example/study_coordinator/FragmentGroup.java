@@ -9,17 +9,20 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.support.v13.app.FragmentPagerAdapter;
 import android.support.v4.view.ViewPager;
+import android.view.Menu;
+import android.view.MenuItem;
 
 public class FragmentGroup extends FragmentActivityWithDrawer {
 
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
-		setContentView(R.layout.activity_fragment_group);
+		setContentView(R.layout.activity_fragment_search);
 		
 		Intent intent = getIntent();
 		String idString = intent.getStringExtra("id");
 		int id = Integer.parseInt(idString);
+		
 		ViewPager vpPager = (ViewPager) findViewById(R.id.pager);
 		FragmentPagerAdapter adapterViewPager = new MyPagerAdapter(getFragmentManager(), id);
 		vpPager.setAdapter(adapterViewPager);
@@ -66,4 +69,6 @@ public class FragmentGroup extends FragmentActivityWithDrawer {
 			return titles[position];
 		}
 	}
+	
+
 }

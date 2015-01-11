@@ -3,39 +3,38 @@ package com.example.study_coordinator;
 import java.util.ArrayList;
 import java.util.List;
 
-import android.app.Fragment;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.v4.app.FragmentActivity;
 import android.support.v4.widget.DrawerLayout;
-import android.support.v7.app.ActionBarDrawerToggle;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
+import android.view.View.OnClickListener;
 import android.widget.AdapterView;
+import android.widget.EditText;
+import android.widget.ImageButton;
+import android.widget.LinearLayout;
 import android.widget.ListView;
 
 public class FragmentActivityWithDrawer extends FragmentActivity {
-	
-	protected String[] drawerListViewItems;
-	protected ListView drawerListView;
+
+	protected LinearLayout drawerLinear;
+	protected ListView drawerList;
+	List<DrawerItem> dataList;
 	protected CharSequence drawerTitle;
 	protected DrawerLayout drawerLayout;
-	protected ListView drawerList;
-	protected ActionBarDrawerToggle drawerToggle;
-	CustomDrawerAdapter adapter;
-	List<DrawerItem> dataList;
-	
+
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
 	}
-	
+
 	protected void setDrawer() {
-        drawerTitle = getTitle();
+		drawerTitle = getTitle();
 		dataList = new ArrayList<DrawerItem>();
 		drawerLayout = (DrawerLayout) findViewById(R.id.drawer_layout);
-		drawerList = (ListView) findViewById(R.id.left_drawer);
+		drawerList = (ListView) findViewById(R.id.left_drawer_list);
 
 		// DRAWER ITEMS:
 		dataList.add(new DrawerItem("MainActivity", R.drawable.ic_action_search));
@@ -44,19 +43,42 @@ public class FragmentActivityWithDrawer extends FragmentActivity {
 		dataList.add(new DrawerItem("Profil", R.drawable.ic_action_person));
 		dataList.add(new DrawerItem("Social", R.drawable.ic_action_group));
 		dataList.add(new DrawerItem(getResources().getString(R.string.logout), R.drawable.ic_action_search));
-		
-		adapter = new CustomDrawerAdapter(this, R.layout.custom_drawer_item, dataList);
-		drawerList.setAdapter(adapter); 
+
+		CustomDrawerAdapter adapter = new CustomDrawerAdapter(this, R.layout.custom_drawer_item, dataList);
+		drawerList.setAdapter(adapter);
 		drawerList.setOnItemClickListener(new DrawerItemClickListener());
 		getActionBar().setDisplayHomeAsUpEnabled(true);
 		getActionBar().setHomeButtonEnabled(true);
-		drawerListView = (ListView) findViewById(R.id.left_drawer);
+		drawerLinear = (LinearLayout) findViewById(R.id.left_drawer);
+
+		setOnClickListener();
+	}
+
+	// SEARCH BOX:
+	private void setOnClickListener() {
+		ImageButton searchButton = (ImageButton) findViewById(R.id.bt_search);
+		searchButton.setOnClickListener(new OnClickListener() {
+			@Override
+			public void onClick(View view) {
+				runSearch();
+			}
+		});
+	}
+
+	public void runSearch() {
+		System.out.println("#### Running search");
+		EditText editText = (EditText) findViewById(R.id.txt_search);
+		String query = editText.getText().toString();
+
+		Intent intent = new Intent(this, FragmentSearch.class);
+		intent.putExtra("query", query + "");
+		startActivity(intent);
 	}
 
 	public void onDrawerClosed(View view) {
 		getActionBar().setTitle(drawerTitle);
 		invalidateOptionsMenu(); // creates call to
-		finish();							// onPrepareOptionsMenu()
+		finish(); // onPrepareOptionsMenu()
 	}
 
 	public void onDrawerOpened(View drawerView) {
@@ -64,53 +86,54 @@ public class FragmentActivityWithDrawer extends FragmentActivity {
 		invalidateOptionsMenu(); // creates call to
 									// onPrepareOptionsMenu()
 	}
-	
+
 	public void selectItem(int position) {
-		Fragment fragment = null;
-		Bundle args = new Bundle();
 		Intent intent;
-		boolean logout = false;
 		switch (position) {
 		case 0:
 			intent = new Intent(this, MainActivity.class);
 			startActivity(intent);
-            this.finish();
-            break;
+			this.finish();
+			break;
 		case 1:
 			intent = new Intent(this, FragmentSearch.class);
 			startActivity(intent);
+			this.finish();
 			break;
 		case 2:
 			intent = new Intent(this, FragmentEvents.class);
 			startActivity(intent);
+			this.finish();
 			break;
 		case 3:
 			intent = new Intent(this, FragmentProfil.class);
 			startActivity(intent);
+			this.finish();
 			break;
 		case 4:
 			intent = new Intent(this, FragmentSocial.class);
 			startActivity(intent);
+			this.finish();
 			break;
 		case 5:
-			logout = true;
-            this.finish();
+			this.finish();
 			break;
 
 		default:
 			break;
 		}
-		
+
 		drawerList.setItemChecked(position, true);
 		setTitle(dataList.get(position).getItemName());
-		drawerLayout.closeDrawer(drawerList);
+		// drawerLayout.closeDrawer(drawerList);
+		drawerLayout.closeDrawer(drawerLinear);
 	}
-	
+
 	protected class DrawerItemClickListener implements ListView.OnItemClickListener {
 		@Override
 		public void onItemClick(AdapterView parent, View view, int position, long id) {
 			selectItem(position);
-			drawerLayout.closeDrawer(drawerListView);
+			drawerLayout.closeDrawer(drawerLinear);
 		}
 	}
 
@@ -126,7 +149,7 @@ public class FragmentActivityWithDrawer extends FragmentActivity {
 		getMenuInflater().inflate(R.menu.main, menu);
 		return true;
 	}
-	
+
 	@Override
 	public boolean onOptionsItemSelected(MenuItem item) {
 		// Handle action bar item clicks here. The action bar will
@@ -138,8 +161,6 @@ public class FragmentActivityWithDrawer extends FragmentActivity {
 			return true;
 
 		}
-
 		return super.onOptionsItemSelected(item);
 	}
-	
 }

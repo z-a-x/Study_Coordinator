@@ -5,6 +5,7 @@ import com.example.study_coordinator.tabs.TabUsers;
 
 import android.app.Fragment;
 import android.app.FragmentManager;
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.v13.app.FragmentPagerAdapter;
 import android.support.v4.view.ViewPager;
@@ -18,26 +19,18 @@ public class FragmentSearch extends FragmentActivityWithDrawer {
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.activity_fragment_search);
+		
+		Intent intent = getIntent();
+		String query = "";
+		if (intent.hasExtra("query")) {
+			query = intent.getStringExtra("query");
+		}
+		
         ViewPager vpPager = (ViewPager) findViewById(R.id.pager);
-        SearchPagerAdapter adapterViewPager = new SearchPagerAdapter(getFragmentManager(), "z");
+        SearchPagerAdapter adapterViewPager = new SearchPagerAdapter(getFragmentManager(), query);
         vpPager.setAdapter(adapterViewPager);
 
         setDrawer();
-        setOnClickListener();
-	}
-
-	private void setOnClickListener() {
-		ImageButton searchButton = (ImageButton) findViewById(R.id.bt_search);
-		searchButton.setOnClickListener(new OnClickListener() {
-			@Override
-			public void onClick(View view) {
-				runSearch();
-			}
-		});
-	}
-	
-	public void runSearch() {
-		System.out.println("#### Running search");
 	}
 
 	public static class SearchPagerAdapter extends FragmentPagerAdapter {
