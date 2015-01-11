@@ -1,6 +1,5 @@
 package com.example.study_coordinator.asynctasks;
 
-import java.text.ParseException;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -11,7 +10,6 @@ import org.json.JSONObject;
 import com.example.study_coordinator.baseclasses.User;
 
 import android.content.Context;
-import android.util.Log;
 
 public abstract class LookUpAttendants extends LookUp {
 

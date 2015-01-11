@@ -19,7 +19,6 @@ import org.json.JSONObject;
 
 import com.example.study_coordinator.DatabaseConnect;
 import android.content.Context;
-import android.net.Uri;
 import android.os.AsyncTask;
 import android.os.Handler;
 import android.widget.Toast;

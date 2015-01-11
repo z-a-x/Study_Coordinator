@@ -7,8 +7,6 @@ import java.net.HttpURLConnection;
 import java.net.MalformedURLException;
 import java.net.URL;
 
-import javax.sql.ConnectionPoolDataSource;
-
 import android.app.Activity;
 import android.app.ProgressDialog;
 import android.content.Context;

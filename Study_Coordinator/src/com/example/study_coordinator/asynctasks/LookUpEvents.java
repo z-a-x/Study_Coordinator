@@ -9,9 +9,6 @@ import org.json.JSONException;
 import org.json.JSONObject;
 
 import com.example.study_coordinator.baseclasses.Event;
-import com.example.study_coordinator.baseclasses.Group;
-import com.example.study_coordinator.baseclasses.User;
-
 import android.content.Context;
 
 /*
