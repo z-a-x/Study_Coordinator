@@ -113,6 +113,7 @@ public class MainActivity extends FragmentActivity {
 		Bundle args = new Bundle();
 		boolean logout = false;
 		boolean social = false;
+		boolean event = false;
 		switch (position) {
 		case 0:
 			//fragment = instantiateFragment(FragmentSearch.class, position, args);
@@ -127,8 +128,11 @@ public class MainActivity extends FragmentActivity {
 			break;
 
 		case 1:
-			
-			fragment = instantiateFragment(FragmentUpcomingEvents.class, position, args);
+			event = true;
+			Intent intentEvents = new Intent(this, FragmentUpcomingEvents.class);
+			overridePendingTransition(R.anim.fadeout, R.anim.fadein);
+			startActivity(intentEvents);
+			finish();
 						
 			break;
 
@@ -185,7 +189,7 @@ public class MainActivity extends FragmentActivity {
 		default:
 			break;
 		}
-		if (!logout && !social) {
+		if (!logout && !social && !event) {
 			
 			fragment.setArguments(args);
 			FragmentManager fm = getFragmentManager();
@@ -284,15 +288,15 @@ public class MainActivity extends FragmentActivity {
 			String email = null;
 			String pathToPicture = null;
 			Intent intent = getIntent();
-			String s = intent.getStringExtra("newData");
-			System.out.println("New data is : " + s);
+			
+			
 			SessionManager session = new SessionManager(getApplicationContext());
 			HashMap<String, String> pref = session.getUserDetails();
 			username = pref.get(SessionManager.KEY_USERNAME);
 			
 			try {
 				
-				System.out.println("USERNAME IN BACKGROUND: " + username);
+				
 				// Building Parameters
 				List<NameValuePair> params = new ArrayList<NameValuePair>();
 				params.add(new BasicNameValuePair("username", username));
@@ -304,8 +308,10 @@ public class MainActivity extends FragmentActivity {
 				// check your log for json response
 				System.out.println("MAIN ACTIVITY CLASS");
 				Log.d("Retrieving data attempt", json.toString());
-				user_id = json.getInt("user_id")+"";
+				user_id = json.getInt("user_id")+"";							
+				System.out.println("----------------------");
 				System.out.println("pravi user id je: "+user_id);
+				System.out.println("----------------------");
 				session.setUserId(user_id);
 				userName = (String) json.get("user_name");
 				userLastName = (String) json.get("user_last_name");
