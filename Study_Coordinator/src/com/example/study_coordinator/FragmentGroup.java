@@ -20,6 +20,7 @@ public class FragmentGroup extends FragmentActivityWithDrawer {
 		Intent intent = getIntent();
 		String idString = intent.getStringExtra("id");
 		int id = Integer.parseInt(idString);
+		System.out.println("#### groups id is " + id);
 		
 		ViewPager vpPager = (ViewPager) findViewById(R.id.pager);
 		FragmentPagerAdapter adapterViewPager = new MyPagerAdapter(getFragmentManager(), id);

@@ -107,7 +107,7 @@ public abstract class LookUp extends AsyncTask<String, Void, JSONObject> {
 			return "";
 		}
 		List<NameValuePair> paramsList = new ArrayList<NameValuePair>();
-		for (int i = 0; i < params.length/2; i++) {
+		for (int i = 0; i < params.length/2+1; i=i+2) {
 			paramsList.add(new BasicNameValuePair(params[i], params[i+1]));
 		}
 	    return "?" + URLEncodedUtils.format(paramsList, "utf-8");
