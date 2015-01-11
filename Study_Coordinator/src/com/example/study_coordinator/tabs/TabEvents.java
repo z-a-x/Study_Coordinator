@@ -7,6 +7,7 @@ import org.json.JSONObject;
 
 import android.app.Fragment;
 import android.app.FragmentTransaction;
+import android.content.Intent;
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -50,20 +51,16 @@ public class TabEvents extends Fragment {
 		super.onCreate(savedInstanceState);
 		final ListView listView = (ListView) view.findViewById(R.id.listview);
 
-		// On copy/paste CHANGE THIS !!!
-		final Fragment callingFragment = new FragmentEventJure();
-		
 		listView.setOnItemClickListener(new OnItemClickListener() {
 
 			@Override
 			public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
 				HasId baseClass = (HasId) listView.getItemAtPosition(position);
-
+				int eventId = baseClass.getId();
 				FragmentTransaction transaction = getFragmentManager().beginTransaction();
-				Bundle arguments = new Bundle();
-				arguments.putInt("id", baseClass.getId());
-				callingFragment.setArguments(arguments);
-				transaction.replace(R.id.content_frame, callingFragment);
+				Intent intent = new Intent(getActivity(), FragmentEvent.class);
+		        intent.putExtra("selected_event", eventId+"");
+		        startActivity(intent);
 				transaction.addToBackStack(null);
 				transaction.commit();
 				getFragmentManager().executePendingTransactions();
