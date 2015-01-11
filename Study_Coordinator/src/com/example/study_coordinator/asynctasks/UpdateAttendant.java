@@ -26,9 +26,9 @@ public abstract class UpdateAttendant extends LookUp {
 		JSONObject json = result.getJSONObject("result");
 		int success = json.getInt("success");
 		if (success == 1) {
-			return json.getString("success");
-		} else {
 			return json.getString("message");
+		} else {
+			return "Error!";
 
 		}
 		

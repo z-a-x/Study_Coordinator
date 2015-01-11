@@ -163,7 +163,8 @@ public class EventDetails extends Fragment implements View.OnClickListener {
         customGridAdapter = new CustomGridViewAdapter(view.getContext(), R.layout.row_grid, gridArray);
 				
 		createAttendantist(userIcon);
-        createEventList();        
+        createEventList(); 
+        setupButton();
         return view;
     }
 }
