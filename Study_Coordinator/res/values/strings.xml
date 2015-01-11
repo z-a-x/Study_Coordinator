@@ -36,6 +36,7 @@
     <string name="logout">Logout</string>
     <string name="title_activity_fragment_event">FragmentEvent</string>
     <string name="title_activity_fragment_group">FragmentGroup</string>
+    <string name="title_activity_fragment_search">FragmentSearch</string>
     <string name="title_activity_event_details">EventDetails</string>
     <string name="title_activity_event_comments">EventComments</string>
     <string name="social">Social</string>

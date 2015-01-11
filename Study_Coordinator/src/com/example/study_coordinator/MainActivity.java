@@ -115,7 +115,15 @@ public class MainActivity extends FragmentActivity {
 		boolean social = false;
 		switch (position) {
 		case 0:
-			fragment = instantiateFragment(FragmentSearch.class, position, args);
+			//fragment = instantiateFragment(FragmentSearch.class, position, args);
+			//break;
+			logout = true;
+			//fragment = instantiateFragment(FragmentEvent.class, position, args);
+			Intent intentSearch = new Intent(this, FragmentSearch.class);
+			overridePendingTransition(R.anim.fadeout, R.anim.fadein);
+			startActivity(intentSearch);
+            finish();
+            
 			break;
 
 		case 1:

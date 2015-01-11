@@ -1,42 +1,46 @@
-<?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<android.support.v4.widget.DrawerLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:id="@+id/drawer_layout"
     android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    android:orientation="vertical">
-    <RelativeLayout 
-        android:layout_width="fill_parent"
-        android:layout_height="wrap_content"        
-        >
-        <EditText           
-	        android:id="@+id/txt_search"
-	        android:inputType="text"	        
-	        android:layout_width="wrap_content"
-	        android:layout_height="wrap_content"
-	        android:width="150dp"
+    android:layout_height="match_parent" >
 
-    	/>
-        <ImageButton 
+    <RelativeLayout
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content" >
+
+        <EditText
+            android:id="@+id/txt_search"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:inputType="text"
+            android:width="150dp" />
+
+        <ImageButton
             android:id="@+id/bt_search"
             android:layout_width="wrap_content"
-            android:layout_height="wrap_content"           
+            android:layout_height="wrap_content"
             android:layout_toRightOf="@id/txt_search"
-            android:src="@drawable/ic_action_search"
-            
-            />
-    	</RelativeLayout>
-	
-   <android.support.v4.view.ViewPager
-   android:id="@+id/vpPager_search"
-   android:layout_width="match_parent"
-   android:layout_height="wrap_content">
+            android:src="@drawable/ic_action_search" />
+    </RelativeLayout>
 
-   <android.support.v4.view.PagerTabStrip
-        android:id="@+id/pager_header_search"
+    <android.support.v4.view.ViewPager
+        android:id="@+id/pager"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_gravity="top"
-        android:paddingBottom="4dp"
-        android:paddingTop="4dp" />
+        android:layout_height="0dp" >
 
-</android.support.v4.view.ViewPager>
-</LinearLayout>
+        <android.support.v4.view.PagerTabStrip
+            android:id="@+id/tabstrip"
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content" />
+    </android.support.v4.view.ViewPager>
+
+    <ListView
+        android:id="@+id/left_drawer"
+        android:layout_width="240dp"
+        android:layout_height="match_parent"
+        android:layout_gravity="start"
+        android:background="#069"
+        android:choiceMode="singleChoice"
+        android:divider="@android:color/transparent"
+        android:dividerHeight="0dp" />
+
+</android.support.v4.widget.DrawerLayout>

@@ -36,9 +36,15 @@ public class FragmentActivityWithDrawer extends FragmentActivity {
 		dataList = new ArrayList<DrawerItem>();
 		drawerLayout = (DrawerLayout) findViewById(R.id.drawer_layout);
 		drawerList = (ListView) findViewById(R.id.left_drawer);
-	
+
+		// DRAWER ITEMS:
 		dataList.add(new DrawerItem("MainActivity", R.drawable.ic_action_search));
+		dataList.add(new DrawerItem("Search", R.drawable.ic_action_search));
+		dataList.add(new DrawerItem("Events", R.drawable.ic_action_events));
+		dataList.add(new DrawerItem("Profil", R.drawable.ic_action_person));
+		dataList.add(new DrawerItem("Social", R.drawable.ic_action_group));
 		dataList.add(new DrawerItem(getResources().getString(R.string.logout), R.drawable.ic_action_search));
+		
 		adapter = new CustomDrawerAdapter(this, R.layout.custom_drawer_item, dataList);
 		drawerList.setAdapter(adapter); 
 		drawerList.setOnItemClickListener(new DrawerItemClickListener());
@@ -69,9 +75,25 @@ public class FragmentActivityWithDrawer extends FragmentActivity {
 			intent = new Intent(this, MainActivity.class);
 			startActivity(intent);
             this.finish();
+            break;
 		case 1:
+			intent = new Intent(this, FragmentSearch.class);
+			startActivity(intent);
+			break;
+		case 2:
+			intent = new Intent(this, FragmentEvents.class);
+			startActivity(intent);
+			break;
+		case 3:
+			intent = new Intent(this, FragmentProfil.class);
+			startActivity(intent);
+			break;
+		case 4:
+			intent = new Intent(this, FragmentSocial.class);
+			startActivity(intent);
+			break;
+		case 5:
 			logout = true;
-			//fragment = instantiateFragment(FragmentEvent.class, position, args);
             this.finish();
 			break;
 

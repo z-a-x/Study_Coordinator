@@ -5,29 +5,29 @@ import com.example.study_coordinator.tabs.TabUsers;
 
 import android.app.Fragment;
 import android.app.FragmentManager;
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.v13.app.FragmentPagerAdapter;
 import android.support.v4.view.ViewPager;
 
 public class FragmentGroup extends FragmentActivityWithDrawer {
 
-	FragmentPagerAdapter adapterViewPager;
-
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
-		//int id = savedInstanceState.getInt("id");
-		// TODO: change:
-		int id = 1;
 		setContentView(R.layout.activity_fragment_group);
-        ViewPager vpPager = (ViewPager) findViewById(R.id.pager);
-        adapterViewPager = new MyPagerAdapter(getFragmentManager(), id);
-        vpPager.setAdapter(adapterViewPager);
-        
-        // DRAWER:
-        setDrawer();
+		
+		Intent intent = getIntent();
+		String idString = intent.getStringExtra("id");
+		int id = Integer.parseInt(idString);
+		ViewPager vpPager = (ViewPager) findViewById(R.id.pager);
+		FragmentPagerAdapter adapterViewPager = new MyPagerAdapter(getFragmentManager(), id);
+		vpPager.setAdapter(adapterViewPager);
+
+		// DRAWER:
+		setDrawer();
 	}
-	
+
 	public static class MyPagerAdapter extends FragmentPagerAdapter {
 		private static int NUM_ITEMS = 3;
 		private String[] titles = new String[] { "Details", "Events", "Members" };
