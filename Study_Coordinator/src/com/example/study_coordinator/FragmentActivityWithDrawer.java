@@ -114,6 +114,8 @@ public class FragmentActivityWithDrawer extends FragmentActivity {
 			this.finish();
 			break;
 		case 3:
+			SessionManager session = new SessionManager(this);
+			session.logoutUser();
 			this.finish();
 			break;
 
