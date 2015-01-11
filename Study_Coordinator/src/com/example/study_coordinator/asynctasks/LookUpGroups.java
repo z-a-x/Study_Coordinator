@@ -10,7 +10,6 @@ import org.json.JSONObject;
 import android.content.Context;
 
 import com.example.study_coordinator.baseclasses.Group;
-import com.example.study_coordinator.baseclasses.User;
 
 /*
  * Example of received JSON: {"groups":[{"group_id":"11","group_name":"prva grupa","groups_owner":"tle bi mogu bit int"}]}

@@ -15,19 +15,12 @@ import android.support.v4.widget.DrawerLayout;
 import android.support.v7.app.ActionBarDrawerToggle;
 import android.view.Menu;
 import android.view.MenuItem;
-import android.view.View;
-import android.view.View.OnClickListener;
-import android.widget.ImageButton;
 import android.widget.ListView;
 
 public class FragmentSearch extends FragmentActivityWithDrawer {
 	SearchPagerAdapter adapterViewPager;
-	private String[] drawerListViewItems;
-	private ListView drawerListView;
-	private CharSequence drawerTitle;
 	private DrawerLayout drawerLayout;
 	private ListView drawerList;
-	private ActionBarDrawerToggle drawerToggle;
 	CustomDrawerAdapter adapter;
 	List<DrawerItem> dataList;
 	
@@ -71,6 +64,7 @@ public class FragmentSearch extends FragmentActivityWithDrawer {
 
 		return super.onOptionsItemSelected(item);
 	}
+	
 	public static class SearchPagerAdapter extends FragmentPagerAdapter {
 		private static int NUM_ITEMS = 2;
 		private String[] titles = new String[] { "Users", "Groups" };

@@ -10,7 +10,6 @@ import android.widget.ArrayAdapter;
 import android.widget.TextView;
 
 import com.example.study_coordinator.baseclasses.Event;
-import com.example.study_coordinator.baseclasses.User;
 
 public class EventAdapter extends ArrayAdapter<Event> {
     public EventAdapter(Context context, List<Event> events) {

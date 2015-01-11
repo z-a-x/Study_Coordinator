@@ -19,16 +19,11 @@ import android.widget.AdapterView.OnItemClickListener;
 
 import com.example.study_coordinator.EventAdapter;
 import com.example.study_coordinator.FragmentEvent;
-import com.example.study_coordinator.FragmentEventJure;
-import com.example.study_coordinator.FragmentSocial;
-import com.example.study_coordinator.FriendAdapter;
 import com.example.study_coordinator.R;
 import com.example.study_coordinator.asynctasks.LookUp;
 import com.example.study_coordinator.asynctasks.LookUpEvents;
-import com.example.study_coordinator.asynctasks.LookUpUsers;
 import com.example.study_coordinator.baseclasses.Event;
 import com.example.study_coordinator.baseclasses.HasId;
-import com.example.study_coordinator.baseclasses.User;
 
 public class TabEvents extends Fragment {
 

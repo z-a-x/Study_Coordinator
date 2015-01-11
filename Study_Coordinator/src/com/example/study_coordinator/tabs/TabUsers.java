@@ -17,14 +17,11 @@ import android.widget.ListAdapter;
 import android.widget.ListView;
 import android.widget.AdapterView.OnItemClickListener;
 
-import com.example.study_coordinator.FragmentEvent;
-import com.example.study_coordinator.FragmentGroup;
 import com.example.study_coordinator.FragmentSocial;
 import com.example.study_coordinator.FriendAdapter;
 import com.example.study_coordinator.R;
 import com.example.study_coordinator.asynctasks.LookUp;
 import com.example.study_coordinator.asynctasks.LookUpUsers;
-import com.example.study_coordinator.baseclasses.HasId;
 import com.example.study_coordinator.baseclasses.User;
 
 public class TabUsers extends Fragment {

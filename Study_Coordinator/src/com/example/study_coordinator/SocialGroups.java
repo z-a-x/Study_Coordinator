@@ -1,8 +1,6 @@
 
 package com.example.study_coordinator;
 
-import java.util.ArrayList;
-import java.util.HashMap;
 import java.util.List;
 
 import org.json.JSONException;
@@ -11,8 +9,6 @@ import org.json.JSONObject;
 import com.example.study_coordinator.asynctasks.LookUp;
 import com.example.study_coordinator.asynctasks.LookUpGroups;
 import com.example.study_coordinator.baseclasses.Group;
-import com.example.study_coordinator.baseclasses.User;
-
 import android.app.Fragment;
 import android.app.FragmentTransaction;
 import android.app.ProgressDialog;
