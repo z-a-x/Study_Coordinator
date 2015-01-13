@@ -2,11 +2,9 @@ package com.example.study_coordinator;
 
 import java.util.HashMap;
 
-import android.app.ActionBar;
 import android.app.Fragment;
 import android.app.FragmentManager;
 import android.content.Intent;
-import android.os.Build;
 import android.os.Bundle;
 import android.support.v13.app.FragmentPagerAdapter;
 import android.support.v4.view.ViewPager;
@@ -73,7 +71,7 @@ public class FragmentEvent extends FragmentActivityWithDrawer  {
             case 0: // Fragment # 0 - This will show FirstFragment
                 return EventDetails.newInstance(this.eventId, this.userId);
             case 1: // Fragment # 1 - This will show SecondFragment
-                return EventComments.newInstance(this.eventId);
+                return EventComments.newInstance(this.eventId, this.userId);
             default:
                 return null;
             }

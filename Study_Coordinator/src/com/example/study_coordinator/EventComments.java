@@ -17,6 +17,7 @@ import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
+import android.app.DialogFragment;
 import android.app.Fragment;
 import android.os.AsyncTask;
 import android.os.Bundle;
@@ -24,27 +25,30 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.AdapterView;
+import android.widget.Button;
 import android.widget.AdapterView.OnItemClickListener;
 import android.widget.ListView;
+import android.view.View.OnClickListener;
 
-public class EventComments extends Fragment{
-    //final ListView listView ;
-    private static JSONParser jsonParser = new JSONParser();
+public class EventComments extends Fragment implements OnClickListener{
     ListView listView;
     String result;
     CommentAdapter adapter;
     ArrayList<Comment> comments;
     String eventId;
+    String userId;
+    Button doButton;
     
     
  // newInstance constructor for creating fragment with arguments
-    public static EventComments newInstance(String eventId) {
-        EventComments fragmentFirst = new EventComments(eventId);
+    public static EventComments newInstance(String eventId, String userId) {
+        EventComments fragmentFirst = new EventComments(eventId, userId);
         return fragmentFirst;
     }
     
-    public EventComments(String eventId){
+    public EventComments(String eventId, String userId){
     	this.eventId = eventId;
+    	this.userId = userId;
     }
     
     @Override
@@ -52,7 +56,8 @@ public class EventComments extends Fragment{
     	View view = inflater.inflate(R.layout.activity_event_comments, container, false);
         super.onCreate(savedInstanceState);       
         listView= (ListView) view.findViewById(R.id.lvComments);
-        
+        doButton = (Button) view.findViewById(R.id.doButton);
+        doButton.setOnClickListener(this);
                 
         // ListView Item Click Listener
         listView.setOnItemClickListener(new OnItemClickListener() {
@@ -60,9 +65,6 @@ public class EventComments extends Fragment{
               @Override
               public void onItemClick(AdapterView<?> parent, View view,
                  int position, long id) {
-                
-               // ListView Clicked item index
-               int itemPosition     = position;
                
                // ListView Clicked item value
                /*
@@ -75,17 +77,22 @@ public class EventComments extends Fragment{
              
               */
               }
-              
-
          }); 
-        
         new DataCollector().execute();
 	    //System.out.println("konèna velikost adapterja: "+adapter.getCount());
-        
-        
         return view;
-    }
+    }    
     
+    
+    @Override
+    public void onClick(View v) {
+    switch (v.getId()) {
+        case R.id.doButton:
+        	DialogFragment newFragment = new CommentDialogFragment(eventId, userId);
+            newFragment.show(getFragmentManager(), "Comments");
+            break;
+        }   
+    }
     
 	
 	class DataCollector extends AsyncTask<String, String, String> {
@@ -126,7 +133,6 @@ public class EventComments extends Fragment{
               st =  EntityUtils.toString(response.getEntity());     
             } 
             catch (IOException e) {
-                   // TODO Auto-generated catch block
                    e.printStackTrace();
                 }           
 	            return st;	            
@@ -174,5 +180,7 @@ public class EventComments extends Fragment{
 		    listView.setAdapter(adapter);
 		}
 	}
-	
+
+
 }
+	
