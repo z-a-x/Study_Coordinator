@@ -106,12 +106,13 @@ public class GroupDetails extends Fragment {
 
 		LayoutParams lparams = new LayoutParams(40, LayoutParams.WRAP_CONTENT);
 		lparams.gravity = 17;
-		lparams.topMargin = 40;
-		lparams.width = 160;
-		lparams.height = LayoutParams.WRAP_CONTENT;
+		lparams.topMargin = 160;
+		lparams.width = 500;
+		lparams.height = 160;
 		b.setLayoutParams(lparams);
 		b.setBackgroundDrawable(getResources().getDrawable(R.drawable.singin));
-
+		b.setMinWidth(500);
+		b.setMinHeight(160);
 		b.setTextColor(Color.BLACK);
 		b.setText("Join group");
 		layout.addView(b);		
