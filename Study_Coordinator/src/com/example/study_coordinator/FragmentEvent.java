@@ -2,9 +2,11 @@ package com.example.study_coordinator;
 
 import java.util.HashMap;
 
+import android.app.ActionBar;
 import android.app.Fragment;
 import android.app.FragmentManager;
 import android.content.Intent;
+import android.os.Build;
 import android.os.Bundle;
 import android.support.v13.app.FragmentPagerAdapter;
 import android.support.v4.view.ViewPager;
@@ -36,10 +38,16 @@ public class FragmentEvent extends FragmentActivityWithDrawer  {
         ViewPager vpPager = (ViewPager) findViewById(R.id.pager);
         adapterViewPager = new MyPagerAdapter(getFragmentManager(), eventId, userId);
         vpPager.setAdapter(adapterViewPager);
-
+        setTitle("Event");
         setDrawer();
     }
 	
+	
+	@Override
+	public void setTitle(CharSequence title) {
+		this.drawerTitle = title;
+		getActionBar().setTitle(title);
+	};
 
     public static class MyPagerAdapter extends FragmentPagerAdapter {
         private static int NUM_ITEMS = 2;

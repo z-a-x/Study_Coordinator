@@ -11,6 +11,7 @@ import java.net.MalformedURLException;
 import java.net.URL;
 import java.util.ArrayList;
 import java.util.HashMap;
+
 import org.apache.http.HttpEntity;
 import org.apache.http.HttpResponse;
 import org.apache.http.NameValuePair;
@@ -21,6 +22,7 @@ import org.apache.http.impl.client.DefaultHttpClient;
 import org.apache.http.message.BasicNameValuePair;
 import org.json.JSONObject;
 
+import android.app.ActionBar;
 import android.app.Activity;
 import android.app.ProgressDialog;
 import android.content.Context;
@@ -28,6 +30,7 @@ import android.content.Intent;
 import android.database.Cursor;
 import android.net.Uri;
 import android.os.AsyncTask;
+import android.os.Build;
 import android.os.Bundle;
 import android.os.Looper;
 import android.provider.MediaStore;
@@ -84,6 +87,7 @@ public class ActivityProfilEdit extends Activity {
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.activity_profil_edit);
 		
+		actionBarSetup();
 		profilePicture = (ImageView)findViewById(R.id.frag_profil_edit_image);
 		selectButton = (Button)findViewById(R.id.edit_Profil_selectButton);  
         uploadButton = (Button)findViewById(R.id.edit_profil_uploadButton);
@@ -189,6 +193,13 @@ public class ActivityProfilEdit extends Activity {
 			}
 	  }
 	}
+	private void actionBarSetup() {
+		  if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.HONEYCOMB) {
+		    ActionBar ab = getActionBar();
+		    ab.setTitle("Edit Profil");
+		     
+		  }
+		}
 	
 	//po konèani background operaciji vrne sliko in nastavi pot
     protected void onActivityResult(int requestCode, int resultCode, Intent imageReturnedIntent) { 

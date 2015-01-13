@@ -25,10 +25,15 @@ public class FragmentGroup extends FragmentActivityWithDrawer {
 		ViewPager vpPager = (ViewPager) findViewById(R.id.pager);
 		FragmentPagerAdapter adapterViewPager = new MyPagerAdapter(getFragmentManager(), id);
 		vpPager.setAdapter(adapterViewPager);
-
+		setTitle("Group");
 		// DRAWER:
 		setDrawer();
 	}
+	@Override
+	public void setTitle(CharSequence title) {
+		this.drawerTitle = title;
+		getActionBar().setTitle(title);
+	};
 
 	public static class MyPagerAdapter extends FragmentPagerAdapter {
 		private static int NUM_ITEMS = 3;

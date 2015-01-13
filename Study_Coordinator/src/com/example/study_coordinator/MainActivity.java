@@ -56,6 +56,8 @@ public class MainActivity extends FragmentActivityWithDrawer {
 		getActionBar().setDisplayHomeAsUpEnabled(true);
 		getActionBar().setHomeButtonEnabled(true);
 
+		setTitle("StudyCoordinator");
+		
 		// Session manager class
 		session = new SessionManager(getApplicationContext());
 		setDrawer();
