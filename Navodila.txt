@@ -1,4 +1,5 @@
 Navodila za zagon:
+
 - datoteko razširite na korenski direktorij lokalnega strežnika (testirali smo na WAMP-u)
 - projekt uvozite v eclipse
 - v anroid_connect direktoriju poiščite .sql datoteko i jo uvozite v phpmyadmin 
